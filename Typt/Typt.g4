@@ -1,0 +1,5 @@
+grammar Typt;
+
+program
+    : EOF
+    ;
