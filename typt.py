@@ -19,7 +19,7 @@ class Typt(TyptListener):
 
 
 def log_error(filename: str = None, line: int = None, msg: str = None) -> None:
-    """Log error to terminal."""
+    """Log an error to terminal."""
     prefix = 'Typt: '
 
     if filename:
