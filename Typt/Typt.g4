@@ -4,6 +4,21 @@ grammar Typt;
 
 tokens { INDENT, DEDENT }
 
+@lexer::header{
+    from antlr4.Token import CommonToken
+    import re
+    import importlib
+
+    # Allow languages to extend the lexer and parser, by loading the parser
+    # dynamically
+    module_path = __name__[:-5]
+    language_name = __name__.split('.')[-1]
+    language_name = language_name[:-5]  # Remove Lexer from name
+    LanguageParser = getattr(
+        importlib.import_module('{}Parser'.format(module_path)),
+        '{}Parser'.format(language_name)
+    )
+}
 
 /* Parser rules */
 program
@@ -15,8 +30,8 @@ stmt
     | compound_stmt
     ;
 
-simple_stmt : ;
-compound_stmt : ;
+simple_stmt : '(' DEF ')';
+compound_stmt : '[' RETURN ']';
 
 /* Lexer rules */
 DEF : 'def';
