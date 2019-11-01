@@ -1,13 +1,13 @@
 """test.py - unittests for Typt.py file."""
 
-import unittest
+from unittest import TestCase, main
 
 
-class TestFileHandling(unittest.TestCase):
+class TestFileHandling(TestCase):
     """Class for file handling test cases."""
 
     pass
 
 
 if __name__ == '__main__':
-    unittest.main()
+    main()
