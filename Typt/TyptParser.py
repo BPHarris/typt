@@ -14,16 +14,16 @@ def serializedATN():
         buf.write("\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\"\n\3\3\4\3\4\3\4\7\4\'")
         buf.write("\n\4\f\4\16\4*\13\4\3\4\5\4-\n\4\3\4\3\4\3\5\3\5\3\6\3")
         buf.write("\6\3\7\3\7\3\7\3\7\6\79\n\7\r\7\16\7:\3\7\3\7\5\7?\n\7")
-        buf.write("\3\b\3\b\3\b\2\2\t\2\4\6\b\n\f\16\2\3\3\2\n\16\2B\2\24")
+        buf.write("\3\b\3\b\3\b\2\2\t\2\4\6\b\n\f\16\2\3\3\2\t\r\2B\2\24")
         buf.write("\3\2\2\2\4!\3\2\2\2\6#\3\2\2\2\b\60\3\2\2\2\n\62\3\2\2")
         buf.write("\2\f>\3\2\2\2\16@\3\2\2\2\20\23\7\21\2\2\21\23\5\4\3\2")
         buf.write("\22\20\3\2\2\2\22\21\3\2\2\2\23\26\3\2\2\2\24\22\3\2\2")
         buf.write("\2\24\25\3\2\2\2\25\27\3\2\2\2\26\24\3\2\2\2\27\30\7\2")
-        buf.write("\2\3\30\3\3\2\2\2\31\32\7\3\2\2\32\33\7\4\2\2\33\34\7")
-        buf.write("\5\2\2\34\"\7\21\2\2\35\36\7\6\2\2\36\37\7\7\2\2\37 \7")
-        buf.write("\b\2\2 \"\5\f\7\2!\31\3\2\2\2!\35\3\2\2\2\"\5\3\2\2\2")
-        buf.write("#(\5\b\5\2$%\7\t\2\2%\'\5\b\5\2&$\3\2\2\2\'*\3\2\2\2(")
-        buf.write("&\3\2\2\2()\3\2\2\2),\3\2\2\2*(\3\2\2\2+-\7\t\2\2,+\3")
+        buf.write("\2\3\30\3\3\2\2\2\31\32\7\3\2\2\32\33\7\16\2\2\33\34\7")
+        buf.write("\4\2\2\34\"\7\21\2\2\35\36\7\5\2\2\36\37\7\6\2\2\37 \7")
+        buf.write("\7\2\2 \"\5\f\7\2!\31\3\2\2\2!\35\3\2\2\2\"\5\3\2\2\2")
+        buf.write("#(\5\b\5\2$%\7\b\2\2%\'\5\b\5\2&$\3\2\2\2\'*\3\2\2\2(")
+        buf.write("&\3\2\2\2()\3\2\2\2),\3\2\2\2*(\3\2\2\2+-\7\b\2\2,+\3")
         buf.write("\2\2\2,-\3\2\2\2-.\3\2\2\2./\7\21\2\2/\7\3\2\2\2\60\61")
         buf.write("\5\n\6\2\61\t\3\2\2\2\62\63\3\2\2\2\63\13\3\2\2\2\64?")
         buf.write("\5\6\4\2\65\66\7\21\2\2\668\7\27\2\2\679\5\4\3\28\67\3")
@@ -43,14 +43,14 @@ class TyptParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'('", "'def'", "')'", "'if'", "'test'", 
-                     "':'", "';'", "'Bool'", "'Int'", "'Float'", "'String'", 
-                     "'Dynamic'" ]
+    literalNames = [ "<INVALID>", "'('", "')'", "'if'", "'test'", "':'", 
+                     "';'", "'Bool'", "'Int'", "'Float'", "'String'", "'Dynamic'", 
+                     "'def'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "NUMBER", "INTEGER", "NEWLINE", "DECIMAL_INTEGER", 
+                      "DEF", "NUMBER", "INTEGER", "NEWLINE", "DECIMAL_INTEGER", 
                       "OCT_INTEGER", "HEX_INTEGER", "BIN_INTEGER", "SKIP_", 
                       "INDENT", "DEDENT" ]
 
@@ -77,7 +77,7 @@ class TyptParser ( Parser ):
     T__8=9
     T__9=10
     T__10=11
-    T__11=12
+    DEF=12
     NUMBER=13
     INTEGER=14
     NEWLINE=15
@@ -144,7 +144,7 @@ class TyptParser ( Parser ):
             self.state = 18
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__0) | (1 << TyptParser.T__3) | (1 << TyptParser.NEWLINE))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__0) | (1 << TyptParser.T__2) | (1 << TyptParser.NEWLINE))) != 0):
                 self.state = 16
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
@@ -152,7 +152,7 @@ class TyptParser ( Parser ):
                     self.state = 14
                     self.match(TyptParser.NEWLINE)
                     pass
-                elif token in [TyptParser.T__0, TyptParser.T__3]:
+                elif token in [TyptParser.T__0, TyptParser.T__2]:
                     self.state = 15
                     self.stmt()
                     pass
@@ -179,6 +179,9 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+
+        def DEF(self):
+            return self.getToken(TyptParser.DEF, 0)
 
         def NEWLINE(self):
             return self.getToken(TyptParser.NEWLINE, 0)
@@ -214,20 +217,20 @@ class TyptParser ( Parser ):
                 self.state = 23
                 self.match(TyptParser.T__0)
                 self.state = 24
-                self.match(TyptParser.T__1)
+                self.match(TyptParser.DEF)
                 self.state = 25
-                self.match(TyptParser.T__2)
+                self.match(TyptParser.T__1)
                 self.state = 26
                 self.match(TyptParser.NEWLINE)
                 pass
-            elif token in [TyptParser.T__3]:
+            elif token in [TyptParser.T__2]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 27
-                self.match(TyptParser.T__3)
+                self.match(TyptParser.T__2)
                 self.state = 28
-                self.match(TyptParser.T__4)
+                self.match(TyptParser.T__3)
                 self.state = 29
-                self.match(TyptParser.T__5)
+                self.match(TyptParser.T__4)
                 self.state = 30
                 self.suite()
                 pass
@@ -288,7 +291,7 @@ class TyptParser ( Parser ):
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     self.state = 34
-                    self.match(TyptParser.T__6)
+                    self.match(TyptParser.T__5)
                     self.state = 35
                     self.small_stmt() 
                 self.state = 40
@@ -298,9 +301,9 @@ class TyptParser ( Parser ):
             self.state = 42
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==TyptParser.T__6:
+            if _la==TyptParser.T__5:
                 self.state = 41
-                self.match(TyptParser.T__6)
+                self.match(TyptParser.T__5)
 
 
             self.state = 44
@@ -462,7 +465,7 @@ class TyptParser ( Parser ):
                     self.state = 56 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not (_la==TyptParser.T__0 or _la==TyptParser.T__3):
+                    if not (_la==TyptParser.T__0 or _la==TyptParser.T__2):
                         break
 
                 self.state = 58
@@ -509,7 +512,7 @@ class TyptParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 62
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__7) | (1 << TyptParser.T__8) | (1 << TyptParser.T__9) | (1 << TyptParser.T__10) | (1 << TyptParser.T__11))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__6) | (1 << TyptParser.T__7) | (1 << TyptParser.T__8) | (1 << TyptParser.T__9) | (1 << TyptParser.T__10))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)

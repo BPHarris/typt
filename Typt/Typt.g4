@@ -131,6 +131,19 @@ def at_start_of_line(self):
 /* Parser Rules */
 program: (NEWLINE | stmt)* EOF;
 
+// Parameters
+parameters : '(' (parameter_list)? ')' ;
+
+parameter_list
+    : named_parameter       (',' named_parameter)*      (',' default_parameter)*
+    | default_parameter     (',' default_parameter)*
+    ;
+
+named_parameter     : 'name : Type' ;
+default_parameter   : 'name : Type = value' ;
+
+
+// Statements
 stmt: '(' 'def' ')' NEWLINE | 'if' 'test' ':' suite ;
 
 simple_stmt
@@ -192,7 +205,7 @@ base_types
 //     ;
 
 /* Lexer Rules */
-// DEF : 'def';
+DEF : 'def';
 
 NUMBER  : INTEGER;
 
@@ -258,6 +271,11 @@ fragment DIGIT          : [0-9] ;           // DIGIT            ::= '0' ... '9'
 fragment OCT_DIGIT      : [0-7] ;           // OCT_DIGIT        ::= '1' ... '7'
 fragment HEX_DIGIT      : [0-9a-fA-F] ;     // HEX_DIGIT        ::= digit | 'a' ... 'f' | 'A' ... 'F'
 fragment BIN_DIGIT      : [01] ;            // BIN_DIGIT        ::= '0' | '1'
+
+// Floating point fragments
+fragment INT_PART   : DIGIT+ ;              // INT_PART ::= digit+
+fragment FRACTION   : DIGIT+ ;              // FRACTION ::= digit+
+fragment EXPONENT   : [eE] [+-]? DIGIT+ ;   // EXPONENT ::= ("e" | "E") ["+" | "-"]? digit+
 
 // Spaces/comments
 fragment SPACES         : [ \t]+ ;          // SPACES           ::= (' ' | '\t')+
