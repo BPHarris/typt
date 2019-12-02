@@ -205,8 +205,6 @@ base_types
 //     ;
 
 /* Lexer Rules */
-DEF : 'def';
-
 NUMBER  : INTEGER;
 
 INTEGER
@@ -216,6 +214,30 @@ INTEGER
     | BIN_INTEGER
     ;
 
+// Keywords
+DEF         : 'def';
+RETURN      : 'return';
+IMPORT      : 'import';
+IF          : 'if';
+ELIF        : 'elif';
+ELSE        : 'else';
+WHILE       : 'while';
+FOR         : 'for';
+IN          : 'in';
+OR          : 'or';
+AND         : 'and';
+NOT         : 'not';
+IS          : 'is';
+CLASS       : 'class';
+DEL         : 'del';
+PASS        : 'pass';
+CONTINUE    : 'continue';
+BREAK       : 'break';
+NONE        : 'None';
+TRUE        : 'True';
+FALSE       : 'False';
+
+// Newlines
 NEWLINE
     : ( {self.at_start_of_line()}?   SPACES
     | ( '\r'? '\n' | '\r' | '\f' ) SPACES?
@@ -252,13 +274,80 @@ else:
     }
     ;
 
+// Identifiers/names
+NAME            :   NAME_START NAME_CONTINUE*;
 
-// Python rules
+// Integers
 DECIMAL_INTEGER : NON_ZERO_DIGIT DIGIT*
                 | '0'+ ;
 OCT_INTEGER     : '0' [oO] OCT_DIGIT+ ;
 HEX_INTEGER     : '0' [xX] HEX_DIGIT+ ;
 BIN_INTEGER     : '0' [bB] BIN_DIGIT+ ;
+
+// Floats
+FLOAT_NUMBER
+    : INT_PART '.' FRACTION             // FLOAT_NUMBER ::= INT_PART '.' FRACTION
+    | (INT_PART) EXPONENT               //              |   INT_PART              EXPONENT
+    | (INT_PART '.' FRACTION) EXPONENT  //              |   INT_PART '.' FRACTION EXPONENT
+    ;
+
+
+// Operators
+DOT         : '.';
+ELLIPSIS    : '...';
+STAR        : '*';
+COMMA       : ',';
+COLON       : ':';
+SEMI_COLON  : ';';
+
+// Arithmetic operators
+AND_OP      : '&';
+OR_OP       : '|';
+XOR_OP      : '^';
+NOT_OP      : '~';
+POWER       : '**';
+LEFT_SHIFT  : '<<';
+RIGHT_SHIFT : '>>';
+ADD         : '+';
+MINUS       : '-';
+DIV         : '/';
+MOD         : '%';
+IDIV        : '//';
+
+// Parentheses, brackets, and braces
+OPEN_PARENTHESIS    : '('   {self.opened += 1} ;
+CLOSE_PARENTHESIS   : ')'   {self.opened -= 1} ;
+OPEN_BRACKET        : '['   {self.opened += 1} ;
+CLOSE_BRACKET       : ']'   {self.opened -= 1} ;
+OPEN_BRACE          : '{'   {self.opened += 1} ;
+CLOSE_BRACE         : '}'   {self.opened -= 1} ;
+
+// Comparision operators
+LESS_THAN       : '<';
+GREATER_THAN    : '>';
+EQUALS          : '==';
+GT_EQ           : '>=';
+LT_EQ           : '<=';
+NOT_EQ_1        : '<>';
+NOT_EQ_2        : '!=';
+AT              : '@';
+ARROW           : '->';
+
+// Assignment operators
+ASSIGN              : '=';
+ADD_ASSIGN          : '+=';
+SUB_ASSIGN          : '-=';
+MULT_ASSIGN         : '*=';
+AT_ASSIGN           : '@=';
+DIV_ASSIGN          : '/=';
+MOD_ASSIGN          : '%=';
+AND_ASSIGN          : '&=';
+OR_ASSIGN           : '|=';
+XOR_ASSIGN          : '^=';
+LEFT_SHIFT_ASSIGN   : '<<=';
+RIGHT_SHIFT_ASSIGN  : '>>=';
+POWER_ASSIGN        : '**=';
+IDIV_ASSIGN         : '//=';
 
 // Skipable characters
 SKIP_           : ( SPACES | COMMENT | LINE_JOINING ) -> skip ;
@@ -267,17 +356,21 @@ SKIP_           : ( SPACES | COMMENT | LINE_JOINING ) -> skip ;
 UNKNOWN_CHAR    : . ;
 
 /* Fragments */
+// Identifer/name fragment
+fragment NAME_START     : [a-zA-Z]   | '_' ;    // NAME_START       ::= 'a' ... 'f' | 'A' ... 'F' | '_'
+fragment NAME_CONTINUE  : NAME_START | DIGIT ;  // NAME_CONTINUE    ::= 'a' ... 'f' | 'A' ... 'F' | '_' | DIGIT
+
 // Numeric fragments
 fragment NON_ZERO_DIGIT : [1-9] ;           // NON_ZERO_DIGIT   ::= '1' ... '9'
 fragment DIGIT          : [0-9] ;           // DIGIT            ::= '0' ... '9'
 fragment OCT_DIGIT      : [0-7] ;           // OCT_DIGIT        ::= '1' ... '7'
-fragment HEX_DIGIT      : [0-9a-fA-F] ;     // HEX_DIGIT        ::= digit | 'a' ... 'f' | 'A' ... 'F'
+fragment HEX_DIGIT      : [0-9a-fA-F] ;     // HEX_DIGIT        ::= DIGIT | 'a' ... 'f' | 'A' ... 'F'
 fragment BIN_DIGIT      : [01] ;            // BIN_DIGIT        ::= '0' | '1'
 
 // Floating point fragments
-fragment INT_PART   : DIGIT+ ;              // INT_PART ::= digit+
-fragment FRACTION   : DIGIT+ ;              // FRACTION ::= digit+
-fragment EXPONENT   : [eE] [+-]? DIGIT+ ;   // EXPONENT ::= ("e" | "E") ["+" | "-"]? digit+
+fragment INT_PART   : DIGIT+ ;              // INT_PART ::= DIGIT+
+fragment FRACTION   : DIGIT+ ;              // FRACTION ::= DIGIT+
+fragment EXPONENT   : [eE] [+-]? DIGIT+ ;   // EXPONENT ::= ("e" | "E") ["+" | "-"]? DIGIT+
 
 // String fragments
 // SHORT_STRING         ::= ' SHORT_STRING_ITEM* '
