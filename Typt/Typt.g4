@@ -263,6 +263,8 @@ BIN_INTEGER     : '0' [bB] BIN_DIGIT+ ;
 // Skipable characters
 SKIP_           : ( SPACES | COMMENT | LINE_JOINING ) -> skip ;
 
+// Unknown character
+UNKNOWN_CHAR    : . ;
 
 /* Fragments */
 // Numeric fragments
@@ -276,6 +278,28 @@ fragment BIN_DIGIT      : [01] ;            // BIN_DIGIT        ::= '0' | '1'
 fragment INT_PART   : DIGIT+ ;              // INT_PART ::= digit+
 fragment FRACTION   : DIGIT+ ;              // FRACTION ::= digit+
 fragment EXPONENT   : [eE] [+-]? DIGIT+ ;   // EXPONENT ::= ("e" | "E") ["+" | "-"]? digit+
+
+// String fragments
+// SHORT_STRING         ::= ' SHORT_STRING_ITEM* '
+//                      |   " SHORT_STRING_ITEM* "
+// SHORT_STRING_ITEM    ::= SHORT_STRING_CHAR
+//                      |   STRING_ESCAPE_SEQ
+// SHORT_STRING_CHAR    ::= <any char except '\', '\n', '\''>
+fragment SHORT_STRING
+ : '\'' ( STRING_ESCAPE_SEQ | ~[\\\r\n\f'] )* '\''
+ | '"' ( STRING_ESCAPE_SEQ | ~[\\\r\n\f"] )* '"'
+ ;
+fragment LONG_STRING
+    : '\'\'\'' (LONG_STRING_ITEM)* '\'\'\'' // LONG_STRING          ::=  ''' LONG_STRING_ITEM* '''
+    | '"""'    (LONG_STRING_ITEM)* '"""'    //                      |    """ LONG_STRING_ITEM* """
+    ;
+fragment LONG_STRING_ITEM
+    : LONG_STRING_CHAR                      // LONG_STRING_ITEM     ::= LONG_STRING_CHAR
+    | STRING_ESCAPE_SEQ                     //                      |   STRING_ESCAPE_SEQ
+    ;
+fragment LONG_STRING_CHAR   : ~'\\' ;       // LONG_STRING_CHAR     ::=  <any character except '\'>
+fragment STRING_ESCAPE_SEQ  : '\\' .        // STRING_ESCAPE_SEQ    ::= '\' <any character>
+                            | '\\' NEWLINE ;
 
 // Spaces/comments
 fragment SPACES         : [ \t]+ ;          // SPACES           ::= (' ' | '\t')+
