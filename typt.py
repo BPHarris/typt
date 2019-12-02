@@ -20,7 +20,7 @@ class Typt(TyptListener):
 
 def log_error(filename: str = None, line: int = None, msg: str = None) -> None:
     """Log an error to terminal."""
-    prefix = 'Typt: '
+    prefix = 'typt: '
 
     if filename:
         prefix += filename
@@ -36,11 +36,11 @@ def log_error(filename: str = None, line: int = None, msg: str = None) -> None:
 def main(filename: str = None) -> None:
     """Provide entry point."""
     if not filename:
-        log_error(msg='No file provided.')
+        log_error(msg='no file provided')
         quit()
 
     if not isfile(filename):
-        log_error(msg='Provided file does not exist.')
+        log_error(msg='provided file does not exist')
         quit()
 
     print('Processing file {}:\n'.format(filename))
