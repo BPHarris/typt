@@ -1,4 +1,4 @@
-# Generated from .\Typt.g4 by ANTLR 4.7.2
+# Generated from .\Typt\Typt.g4 by ANTLR 4.7.2
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .TyptParser import TyptParser
@@ -35,12 +35,39 @@ class TyptListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyptParser#compound_stmt.
-    def enterCompound_stmt(self, ctx:TyptParser.Compound_stmtContext):
+    # Enter a parse tree produced by TyptParser#small_stmt.
+    def enterSmall_stmt(self, ctx:TyptParser.Small_stmtContext):
         pass
 
-    # Exit a parse tree produced by TyptParser#compound_stmt.
-    def exitCompound_stmt(self, ctx:TyptParser.Compound_stmtContext):
+    # Exit a parse tree produced by TyptParser#small_stmt.
+    def exitSmall_stmt(self, ctx:TyptParser.Small_stmtContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#expr_stmt.
+    def enterExpr_stmt(self, ctx:TyptParser.Expr_stmtContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#expr_stmt.
+    def exitExpr_stmt(self, ctx:TyptParser.Expr_stmtContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#suite.
+    def enterSuite(self, ctx:TyptParser.SuiteContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#suite.
+    def exitSuite(self, ctx:TyptParser.SuiteContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#base_types.
+    def enterBase_types(self, ctx:TyptParser.Base_typesContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#base_types.
+    def exitBase_types(self, ctx:TyptParser.Base_typesContext):
         pass
 
 
