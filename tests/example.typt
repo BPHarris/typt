@@ -1,0 +1,33 @@
+"""example.typt - example file"""
+
+# maths imports
+using:
+    cos(x: Float) -> Float
+    sin(x: Float) -> Float
+from math as math
+
+# system imports
+using:
+    print_str(str: String) -> None
+from system
+
+class BaseClass:
+    """A base class"""
+    pass
+
+class Subclass(BaseClass):
+    """A subclass"""
+    def func() -> Int:
+        return 4
+
+def main(argc: Int, argv: List[String]) -> None:
+    Float x = 90
+
+    # Get cos/sin of x
+    Float sin_x = math.sin(x)
+    Float cos_x = math.cos(x)
+
+    # Print result
+    print_str('Results: \n'
+    print_str('  sin(x) = '); print_float(sin_x)
+    print_str('  cos(x) = '); print_float(cos_x)
