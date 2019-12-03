@@ -129,83 +129,222 @@ def at_start_of_line(self):
 }
 
 /* Parser Rules */
-program: (NEWLINE | stmt)* EOF;
+// TODO: Var declaration with type annotation
+// TODO: Separate parameters/arguments
+program: (NEWLINE | using)* (NEWLINE | stmt)* EOF;
+
+// Using
+// Using is for specifing imports from Python
+using
+    : 'using' ':'
+            NEWLINE INDENT funcdec+ DEDENT
+      'from' NAME ('as' NAME)?
+    ;
 
 // Parameters
 parameters : '(' (parameter_list)? ')' ;
-
 parameter_list
-    : named_parameter       (',' named_parameter)*      (',' default_parameter)*
-    | default_parameter     (',' default_parameter)*
+    : parameter (',' parameter)*
+    ;
+parameter           : required_parameter | default_parameter ;
+required_parameter  : NAME ':' type ;
+default_parameter   : NAME ':' type '=' VALUE ;
+
+// Arguments
+arguments       : '(' (argument_list)? ')' ;
+argument_list   : argument (',' argument)* ;
+argument
+    : NAME
+    // | expression
+    // | assignment for default arg
     ;
 
-named_parameter     : 'name : Type' ;
-default_parameter   : 'name : Type = value' ;
-
-
 // Statements
-stmt: '(' 'def' ')' NEWLINE | 'if' 'test' ':' suite ;
+// expr_stmt: testlist_star_expr (annassign | augassign (yield_expr|testlist) |
+//                      ('=' (yield_expr|testlist_star_expr))*);
+// annassign: ':' test ('=' test)?;
+// testlist_star_expr: (test|star_expr) (',' (test|star_expr))* (',')?;
+// augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' |
+//             '<<=' | '>>=' | '**=' | '//=');
+stmt
+    : simple_stmt
+    | compound_stmt 
+    ;
 
+// Simple statements
 simple_stmt
     : small_stmt (';' small_stmt)* (';')? NEWLINE
     ;
 
 small_stmt
     : expr_stmt
-    // | del_stmt
-    // | pass_stmt
-    // // | flow_stmt
-    // // | import_stmt
-    // // | global_stmt
-    // // | nonlocal_stmt
-    // // | assert_stmt
+    | del_stmt
+    | pass_stmt
+    | flow_stmt
+    | import_stmt
     ;
 
-expr_stmt : ;
+expr_stmt   : test;   // TODO: This is far from enough
+del_stmt    : 'del' exprlist;
+pass_stmt   : 'pass';
 
-// compound_stmt
-//     : if_stmt
-//     | while_stmt
-//     | for_stmt
-//     // | try_stmt
-//     // | with_stmt
-//     | funcdef
-//     | classdef
-//     // | decorated
-//     // | async_stmt
-//     ;
+flow_stmt
+    : break_stmt 
+    | continue_stmt
+    | return_stmt
+    ;
+break_stmt      : 'break';
+continue_stmt   : 'continue';
+return_stmt     : 'return' (testlist)?;
+
+import_stmt
+    : 'from' import_from 'import' import_name
+    ;
+import_from
+    : NAME
+    | ('../')+ NAME ('/' NAME)*
+    ;
+import_name
+    : NAME
+    | NAME 'as' NAME
+    ;
+
+// Compound statements
+compound_stmt
+    : if_stmt
+    | while_stmt
+    | for_stmt
+    | funcdef
+    | classdef
+    ;
+
+if_stmt
+    : 'if'    test ':' suite
+      ('elif' test ':' suite)*
+      ('else'      ':' suite)? 
+    ;
+while_stmt
+    : 'while' test ':' suite
+      ('else'      ':' suite)?
+    ;
+for_stmt
+    : 'for' exprlist 'in' testlist ':' suite
+      ('else' ':' suite)?
+    ;
+
+funcdef
+    : funcdec ':' suite
+    ;
+funcdec
+    : 'def' NAME parameters '->' type
+    ;
+
+classdef
+    : classdec ':' suite
+    ;
+classdec
+    : 'class' NAME ('(' NAME? ')')?
+    ;
 
 suite
     : simple_stmt
     | NEWLINE INDENT stmt+ DEDENT
     ;
 
+/*****************************************************************************/
+// TODO: Further adaptation into final typt grammar
+// Expressions
+test: or_test ('if' or_test 'else' test)? ;
+or_test: and_test ('or' and_test)*;
+and_test: not_test ('and' not_test)*;
+not_test: 'not' not_test | comparison;
+comparison: expr (comp_op expr)*;
+comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not';
+star_expr: '*' expr;
+expr: xor_expr ('|' xor_expr)*;
+xor_expr: and_expr ('^' and_expr)*;
+and_expr: shift_expr ('&' shift_expr)*;
+shift_expr: arith_expr (('<<'|'>>') arith_expr)*;
+arith_expr: term (('+'|'-') term)*;
+term: factor (('*'|'@'|'/'|'%'|'//') factor)*;
+factor: ('+'|'-'|'~') factor | power;
+power: atom_expr ('**' factor)?;
+atom_expr: atom trailer*;
+atom
+    : '[' (testlist_comp)? ']'
+    | NAME
+    | NUMBER
+    // | STRING+
+    | '...'
+    | 'None'
+    | 'True'
+    | 'False'
+    ;
+testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* (',')? );
+trailer: '(' (argument_list)? ')' | '[' subscriptlist ']' | '.' NAME;
+subscriptlist: subscript (',' subscript)* (',')?;
+subscript: test | (test)? ':' (test)? (sliceop)?;
+sliceop: ':' (test)?;
+exprlist: (expr|star_expr) (',' (expr|star_expr))* (',')?;
+testlist: test (',' test)* (',')?;
+
+test_nocond: or_test | lambdef_nocond;
+lambdef_nocond: 'lambda' (parameter_list)? ':' test_nocond;
+
+comp_iter: comp_for | comp_if;
+comp_for: 'for' exprlist 'in' or_test (comp_iter)?;
+comp_if: 'if' test_nocond (comp_iter)?;
+
+/*****************************************************************************/
+
 /* Type system parser rules */
+// TODO: Switch from reticulated to static Typt
+type
+    : base_types
+    | NAME
+    | 'List[' type ']' | 'Tuple(' type ')' | 'Set(' type ')' | 'Dict{' type '}'
+    // | 'Object(' NAME '){' NAME ':' type '}'
+    // | 'Class(' NAME '){' NAME ':' type '}'
+    // | 'Function(' parameter_type ',' type ')'
+    ;
+
 base_types
     : 'Bool'
     | 'Int'
     | 'Float'
     | 'String'
-    | 'Dynamic'
+    // | 'Dynamic'
     ;
-
-// type
-//     : base_types
-//     | CLASS_NAME
-//     | 'List(' type ')' | 'Tuple(' type ')' | 'Set(' type ')' | 'Dict(' type ')'
-//     | 'Object(' CLASS_NAME '){' LABEL ':' type '}'
-//     | 'Class(' CLASS_NAME '){' LABEL ':' type '}'
-//     | 'Function(' parameter_type ',' type ')'
-//     ;
 
 // parameter_type
 //     : 'Arb'
 //     | 'Pos(' type ')'
-//     | 'Named(' LABEL ':' type ')'
+//     | 'Named(' NAME ':' type ')'
 //     ;
 
 /* Lexer Rules */
-NUMBER  : INTEGER;
+VALUE
+    : NAME
+    | NUMBER
+    | STRING
+    | BOOLEAN
+    ;
+
+NUMBER
+    : INTEGER
+    | FLOAT_NUMBER
+    ;
+
+// TODO: does this work??
+STRING
+    : SHORT_STRING
+    | LONG_STRING
+    ;
+
+BOOLEAN
+    : TRUE
+    | FALSE
+    ;
 
 INTEGER
     : DECIMAL_INTEGER
@@ -215,6 +354,7 @@ INTEGER
     ;
 
 // Keywords
+USING       : 'using' ;
 DEF         : 'def';
 RETURN      : 'return';
 IMPORT      : 'import';
