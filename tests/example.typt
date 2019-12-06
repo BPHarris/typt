@@ -1,5 +1,3 @@
-"""example.typt - example file"""
-
 # maths imports
 using:
     cos(x: Float) -> Float

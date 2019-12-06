@@ -1,12 +1,8 @@
-(def)
-(def)
-
 if test:
-    if test:
-        (def)
-    (def)
+    Int x = 4
+    
+    if x == True:
+        print(x)
 
-(def)
-
-if test:
-    (def)
+if test_again:
+    pass

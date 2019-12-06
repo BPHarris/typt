@@ -129,9 +129,10 @@ def at_start_of_line(self):
 }
 
 /* Parser Rules */
-// TODO: Var declaration with type annotation
-// TODO: Separate parameters/arguments
-program: (NEWLINE | using)* (NEWLINE | stmt)* EOF;
+// TODO: fix
+// TODO: VALUE to atom
+// program: (NEWLINE | using)* (NEWLINE | stmt)* EOF;
+program: (NEWLINE | stmt)* EOF;
 
 // Using
 // Using is for specifing imports from Python
@@ -147,21 +148,25 @@ parameter_list
     : parameter (',' parameter)*
     ;
 parameter           : required_parameter | default_parameter ;
-required_parameter  : NAME ':' type ;
-default_parameter   : NAME ':' type '=' VALUE ;
+required_parameter  : NAME ':' typt_type ;
+default_parameter   : NAME ':' typt_type '=' VALUE ;
 
 // Arguments
 arguments       : '(' (argument_list)? ')' ;
 argument_list   : argument (',' argument)* ;
 argument
     : NAME
-    // | expression
-    // | assignment for default arg
+    | test
+    | NAME '=' test
     ;
 
 // Statements
-// expr_stmt: testlist_star_expr (annassign | augassign (yield_expr|testlist) |
-//                      ('=' (yield_expr|testlist_star_expr))*);
+// expr_stmt: testlist_star_expr
+//              (annassign
+//              | augassign (yield_expr|testlist)
+//              | ('=' (yield_expr|testlist_star_expr))*
+//              )
+//          ;
 // annassign: ':' test ('=' test)?;
 // testlist_star_expr: (test|star_expr) (',' (test|star_expr))* (',')?;
 // augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' |
@@ -172,19 +177,49 @@ stmt
     ;
 
 // Simple statements
+// simple_stmt
+//     : small_stmt (';' small_stmt)* (';')? NEWLINE
+//     ;
 simple_stmt
-    : small_stmt (';' small_stmt)* (';')? NEWLINE
+    : small_stmt NEWLINE
     ;
 
 small_stmt
     : expr_stmt
+    | var_dec_stmt
     | del_stmt
     | pass_stmt
     | flow_stmt
     | import_stmt
     ;
 
-expr_stmt   : test;   // TODO: This is far from enough
+expr_stmt
+    : test (',' test)* (',')? (anassign | augassign) test
+    ;
+anassign
+    : '='
+    ;
+augassign
+    : '+='
+    | '-='
+    | '*='
+    | '@='
+    | '/='
+    | '%='
+    | '&='
+    | '|='
+    | '^='
+    | '<<='
+    | '>>='
+    | '**='
+    | '//='
+    ;
+
+var_dec_stmt
+    : typt_type NAME
+    | typt_type NAME '=' test
+    ;
+
 del_stmt    : 'del' exprlist;
 pass_stmt   : 'pass';
 
@@ -227,7 +262,7 @@ while_stmt
     : 'while' test ':' suite
       ('else'      ':' suite)?
     ;
-for_stmt
+for_stmt    // TODO: Hmm
     : 'for' exprlist 'in' testlist ':' suite
       ('else' ':' suite)?
     ;
@@ -236,7 +271,7 @@ funcdef
     : funcdec ':' suite
     ;
 funcdec
-    : 'def' NAME parameters '->' type
+    : 'def' NAME parameters '->' typt_type
     ;
 
 classdef
@@ -252,60 +287,65 @@ suite
     ;
 
 /*****************************************************************************/
-// TODO: Further adaptation into final typt grammar
 // Expressions
-test: or_test ('if' or_test 'else' test)? ;
-or_test: and_test ('or' and_test)*;
-and_test: not_test ('and' not_test)*;
-not_test: 'not' not_test | comparison;
-comparison: expr (comp_op expr)*;
-comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not';
-star_expr: '*' expr;
-expr: xor_expr ('|' xor_expr)*;
-xor_expr: and_expr ('^' and_expr)*;
-and_expr: shift_expr ('&' shift_expr)*;
-shift_expr: arith_expr (('<<'|'>>') arith_expr)*;
-arith_expr: term (('+'|'-') term)*;
-term: factor (('*'|'@'|'/'|'%'|'//') factor)*;
-factor: ('+'|'-'|'~') factor | power;
-power: atom_expr ('**' factor)?;
-atom_expr: atom trailer*;
+// test: or_test ('if' or_test 'else' test)? ;  // For ternary operators
+test        : or_test ;
+or_test     : and_test ('or' and_test)* ;
+and_test    : not_test ('and' not_test)* ;
+not_test    : 'not' not_test | comparison ;
+comparison  : expr (comp_op expr)* ;
+comp_op     : '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not' ;
+// star_expr   : '*' expr;
+expr        : xor_expr ('|' xor_expr)* ;
+xor_expr    : and_expr ('^' and_expr)* ;
+and_expr    : shift_expr ('&' shift_expr)* ;
+shift_expr  : arith_expr (('<<'|'>>') arith_expr)* ;
+arith_expr  : term (('+'|'-') term)* ;
+term        : factor (('*'|'@'|'/'|'%'|'//') factor)* ;
+factor      : ('+'|'-'|'~') factor | power ;
+power       : atom_expr ('**' factor)? ;
+atom_expr   : atom trailer* ;
 atom
-    : '[' (testlist_comp)? ']'
-    | NAME
+    : NAME
     | NUMBER
-    // | STRING+
+    | STRING+
     | '...'
     | 'None'
     | 'True'
     | 'False'
+    // | '[' (testlist_comp)? ']'
     ;
-testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* (',')? );
 trailer: '(' (argument_list)? ')' | '[' subscriptlist ']' | '.' NAME;
+
+// testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* (',')? );
+
 subscriptlist: subscript (',' subscript)* (',')?;
 subscript: test | (test)? ':' (test)? (sliceop)?;
 sliceop: ':' (test)?;
-exprlist: (expr|star_expr) (',' (expr|star_expr))* (',')?;
-testlist: test (',' test)* (',')?;
 
-test_nocond: or_test | lambdef_nocond;
-lambdef_nocond: 'lambda' (parameter_list)? ':' test_nocond;
+// exprlist: (expr|star_expr) (',' (expr|star_expr))* (',')?;
+// testlist: test (',' test)* (',')?;
+exprlist : expr (',' expr)* (',')? ;
+testlist : test (',' test)* (',')? ;
 
-comp_iter: comp_for | comp_if;
-comp_for: 'for' exprlist 'in' or_test (comp_iter)?;
-comp_if: 'if' test_nocond (comp_iter)?;
+// test_nocond: or_test | lambdef_nocond;
+// lambdef_nocond: 'lambda' (parameter_list)? ':' test_nocond;
+
+// comp_iter: comp_for | comp_if;
+// comp_for: 'for' exprlist 'in' or_test (comp_iter)?;
+// comp_if: 'if' test_nocond (comp_iter)?;
 
 /*****************************************************************************/
 
 /* Type system parser rules */
-// TODO: Switch from reticulated to static Typt
-type
+typt_type
     : base_types
-    | NAME
-    | 'List[' type ']' | 'Tuple(' type ')' | 'Set(' type ')' | 'Dict{' type '}'
-    // | 'Object(' NAME '){' NAME ':' type '}'
-    // | 'Class(' NAME '){' NAME ':' type '}'
-    // | 'Function(' parameter_type ',' type ')'
+    | 'List[' typt_type ']'
+    | 'Tuple(' typt_type ')'
+    | 'Set(' typt_type ')'
+    | 'Dict{' typt_type '}'
+    | NAME                                      // Class/typedef
+    | 'Function' typed_parameters_noassign      // Function
     ;
 
 base_types
@@ -313,13 +353,19 @@ base_types
     | 'Int'
     | 'Float'
     | 'String'
-    // | 'Dynamic'
+    ;
+
+typed_parameters_noassign
+    : '(' (typed_parameter_list_noassign)? ')'
+    ;
+typed_parameter_list_noassign
+    : typt_type (',' typt_type)*
     ;
 
 // parameter_type
 //     : 'Arb'
-//     | 'Pos(' type ')'
-//     | 'Named(' NAME ':' type ')'
+//     | 'Pos(' typt_type ')'
+//     | 'Named(' NAME ':' typt_type ')'
 //     ;
 
 /* Lexer Rules */
@@ -328,6 +374,7 @@ VALUE
     | NUMBER
     | STRING
     | BOOLEAN
+    | NONE
     ;
 
 NUMBER
@@ -335,7 +382,6 @@ NUMBER
     | FLOAT_NUMBER
     ;
 
-// TODO: does this work??
 STRING
     : SHORT_STRING
     | LONG_STRING
@@ -354,7 +400,7 @@ INTEGER
     ;
 
 // Keywords
-USING       : 'using' ;
+USING       : 'using';
 DEF         : 'def';
 RETURN      : 'return';
 IMPORT      : 'import';

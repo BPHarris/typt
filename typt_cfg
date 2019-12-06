@@ -1,0 +1,136 @@
+program -> using_list stmt_list
+
+using_list -> epsilon | using using_list
+using -> "using" ":" NEWLINE INDENT
+            funcdec funcdec_list
+         DEDENT "from" NAME as_name
+as_name -> epsilon | "as" NAME
+funcdec_list -> epsilon | funcdec funcdec_list
+
+/*****************************************************************************/
+
+stmt_list -> epsilon | stmt stmt_list
+stmt  -> simple_stmt | compound_stmt
+
+simple_stmt -> small_stmt NEWLINE
+small_stmt  -> expr_stmt
+            |  var_dec_stmt
+            |  del_stmt
+            |  pass_stmt
+            |  flow_stmt
+            |  import_stmt
+
+expr_stmt -> test (assign | aug_assign) test
+assign -> '='
+aug_assign -> '+=' | '-=' | '*=' | '@='  | '/='  | '%='
+            | '&=' | '|=' | '^=' | '<<=' | '>>=' | '**=' | '//='
+
+var_dec_stmt -> typt_type NAME
+             |  typt_type NAME '=' test
+
+del_stmt  -> 'del' expr_list
+pass_stmt -> 'pass'
+
+flow_stmt       -> break_stmt  | continue_stmt | return_stmt
+break_stmt      -> 'break'
+continue_stmt   -> 'continue'
+return_stmt     -> 'return' | 'retrun' test_list
+
+import_stmt -> 'from' import_from 'import' import_name
+import_from -> import_from_parent_dirs NAME import_from_sub_dirs
+import_from_parent_dirs -> epsilon | '../' import_from_parent_dirs
+import_from_sub_dirs    -> epsilon | '/'   import_from_sub_dirs
+import_name -> NAME | NAME 'as' NAME
+
+
+compound_stmt -> if_stmt
+              |  while_stmt
+              |  for_stmt
+              |  funcdef
+              |  classdef
+
+if_stmt         -> 'if' test ':' suite elif_stmt_list else_stmt
+elif_stmt_list  -> epsilon | 'elif' test ':' suite elif_stmt_list
+else_stmt       -> epsilon | 'else'      ':' suite
+
+while_stmt  -> 'while' test ':' suite else_stmt
+for_stmt    -> 'for' expr_list 'in' test_list ':' suite else_stmt
+
+funcdef -> funcdec ':' suite
+funcdec -> 'def' NAME parameters '->' typt_type
+
+classdef -> classdec ':' suite
+classdec -> 'class' NAME
+         |  'class' NAME '(' ')'
+         |  'class' NAME '(' NAME ')'
+
+suite -> simple_stmt
+      |  NEWLINE INDENT stmt stmt_list DEDENT
+
+/*****************************************************************************/
+
+test        -> or_test
+or_test     -> and_test | and_test 'or' or_test
+and_test    -> not_test | not_test 'and' and_test
+not_test    -> 'not' not_test | comparison
+comparison  -> expr | expr comp_op comparison
+comp_op     -> '<' | '>' | '==' | '>=' | '<=' | '<>' | '!='
+            | 'in' | 'not' 'in' | 'is' | 'is' 'not'
+
+expr        -> or_expr
+or_expr     -> xor_expr   | xor_expr   '|' or_expr
+xor_expr    -> and_expr   | and_expr   '^' xor_expr
+and_expr    -> shift_expr | shift_expr '&' and_expr
+shift_expr  -> arith_expr | arith_expr ('<<'|'>>') shift_expr
+arith_expr  -> term       | term        ('+'|'-')  arith_expr
+
+term        -> factor     | factor ('*'|'@'|'/'|'%'|'//') term
+factor      -> ('+'|'-'|'~') factor | power
+power       -> atom_expr  | atom_expr '**' factor
+
+atom_expr   -> atom | atom trailer
+atom        -> NAME | NUMBER | STRING | 'None' | 'True' | 'False'
+
+trailer     -> arguments
+            |  '[' subscriptlist ']'
+            |  '.' NAME
+
+subscriptlist -> subscript | subscript ',' subscriptlist
+subscript     -> test
+              |  optional_test ':' optional_test
+              |  optional_test ':' optional_test sliceop
+optional_test -> epsilon | test
+sliceop       -> ':' optional_test
+
+expr_list -> expr | expr ',' expr_list
+test_list -> test | test ',' test_list
+
+/*****************************************************************************/
+
+parameters     -> '(' ')' | '(' parameter_list ')'
+parameter_list -> parameter | parameter ',' parameter_list
+
+parameter           -> required_parameter | default_parameter
+required_parameter  -> NAME ':' typt_type
+default_parameter   -> NAME ':' typt_type '=' VALUE
+
+arguments       -> '(' ')'  | '(' argument_list ')'
+argument_list   -> argument | argument ',' argument_list
+argument        -> NAME | test | NAME '=' test
+
+/*****************************************************************************/
+
+/* Type system parser rules */
+typt_type   -> base_types
+            | 'List[' typt_type ']'
+            | 'Tuple(' typt_type ')'
+            | 'Set(' typt_type ')'
+            | 'Dict{' typt_type '}'
+            | NAME                              // Class/typedef
+            | 'Function' parameter_type_list    // Function
+
+base_types -> 'Bool' | 'Int' | 'Float' | 'String'
+
+parameter_type_list -> '(' ')' | '(' parameter_type_noassign ')'
+
+parameter_type_noassign -> typt_type | typt_type ',' parameter_type_noassign
