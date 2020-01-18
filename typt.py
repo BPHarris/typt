@@ -57,4 +57,3 @@ def main(filename: str = None) -> None:
 if __name__ == '__main__':
     argv.append('')
     main(argv[1])
-
