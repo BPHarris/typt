@@ -1,0 +1,34 @@
+using:
+    is_even_i(n: Int)       -> Bool
+    is_even_f(n: Float,)    -> Bool
+from library_name as short
+
+# a comment !
+pass
+continue
+
+# ooh lad
+if func('str'):
+    x = 5 + 2 * y
+    t : Bool = False
+    s : Int
+    pass
+
+def test_func(arg: Bool) -> None:
+    return None
+
+class AClass:
+    x : String = 'test'
+
+    def __init__(self):
+        pass
+
+class BClass(AClass):
+    x : Int = 6
+
+    def repr(self) -> String:
+        return 'B' + str(self.x)
+    
+    @staticmethod
+    def static() -> Int:
+        return 4 + 2 * math.pi
