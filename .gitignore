@@ -5,6 +5,9 @@
 Typt/__pycache__/
 Typt/.antlr
 
+# Add vscode settings
+.vscode/
+
 # --------------------------------------------------------------------------- #
 
 # Byte-compiled / optimized / DLL files
