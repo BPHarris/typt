@@ -1,4 +1,4 @@
-"""Typt.py - Compiler for Typt language."""
+"""Typt.py - Compiler for the Typt language."""
 
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 
