@@ -594,6 +594,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitProgram" ):
                 listener.exitProgram(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitProgram" ):
+                return visitor.visitProgram(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -703,6 +709,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitUsing" ):
                 listener.exitUsing(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitUsing" ):
+                return visitor.visitUsing(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -785,6 +797,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitStmt" ):
                 listener.exitStmt(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStmt" ):
+                return visitor.visitStmt(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -841,6 +859,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitParameter_list" ):
                 listener.exitParameter_list(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParameter_list" ):
+                return visitor.visitParameter_list(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -900,6 +924,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitParameter" ):
                 listener.exitParameter(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParameter" ):
+                return visitor.visitParameter(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -947,6 +977,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitArgument_list" ):
                 listener.exitArgument_list(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitArgument_list" ):
+                return visitor.visitArgument_list(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1002,6 +1038,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitArgument" ):
                 listener.exitArgument(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitArgument" ):
+                return visitor.visitArgument(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1045,6 +1087,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitSimple_stmt" ):
                 listener.exitSimple_stmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSimple_stmt" ):
+                return visitor.visitSimple_stmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1104,6 +1152,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitSmall_stmt" ):
                 listener.exitSmall_stmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSmall_stmt" ):
+                return visitor.visitSmall_stmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1188,6 +1242,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitExpr_stmt" ):
                 listener.exitExpr_stmt(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr_stmt" ):
+                return visitor.visitExpr_stmt(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1249,6 +1309,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitAnassign" ):
                 listener.exitAnassign(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAnassign" ):
+                return visitor.visitAnassign(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1286,6 +1352,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitAugassign" ):
                 listener.exitAugassign(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAugassign" ):
+                return visitor.visitAugassign(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1341,6 +1413,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitVar_dec_stmt" ):
                 listener.exitVar_dec_stmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVar_dec_stmt" ):
+                return visitor.visitVar_dec_stmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1408,6 +1486,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitDel_stmt" ):
                 listener.exitDel_stmt(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitDel_stmt" ):
+                return visitor.visitDel_stmt(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1447,6 +1531,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitPass_stmt" ):
                 listener.exitPass_stmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPass_stmt" ):
+                return visitor.visitPass_stmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1496,6 +1586,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFlow_stmt" ):
                 listener.exitFlow_stmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFlow_stmt" ):
+                return visitor.visitFlow_stmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1553,6 +1649,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitBreak_stmt" ):
                 listener.exitBreak_stmt(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBreak_stmt" ):
+                return visitor.visitBreak_stmt(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1590,6 +1692,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitContinue_stmt" ):
                 listener.exitContinue_stmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitContinue_stmt" ):
+                return visitor.visitContinue_stmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1631,6 +1739,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitReturn_stmt" ):
                 listener.exitReturn_stmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitReturn_stmt" ):
+                return visitor.visitReturn_stmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1697,6 +1811,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCompound_stmt" ):
                 listener.exitCompound_stmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCompound_stmt" ):
+                return visitor.visitCompound_stmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1776,6 +1896,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitIf_stmt" ):
                 listener.exitIf_stmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIf_stmt" ):
+                return visitor.visitIf_stmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1860,6 +1986,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitWhile_stmt" ):
                 listener.exitWhile_stmt(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWhile_stmt" ):
+                return visitor.visitWhile_stmt(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1930,6 +2062,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFor_stmt" ):
                 listener.exitFor_stmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFor_stmt" ):
+                return visitor.visitFor_stmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2011,6 +2149,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitSuite" ):
                 listener.exitSuite(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSuite" ):
+                return visitor.visitSuite(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2086,6 +2230,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitFunc_def" ):
                 listener.exitFunc_def(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunc_def" ):
+                return visitor.visitFunc_def(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2140,6 +2290,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFunc_signature" ):
                 listener.exitFunc_signature(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunc_signature" ):
+                return visitor.visitFunc_signature(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2208,6 +2364,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFunc_parameter_list" ):
                 listener.exitFunc_parameter_list(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunc_parameter_list" ):
+                return visitor.visitFunc_parameter_list(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2338,6 +2500,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitClass_def" ):
                 listener.exitClass_def(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClass_def" ):
+                return visitor.visitClass_def(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2495,6 +2663,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitClass_dec" ):
                 listener.exitClass_dec(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClass_dec" ):
+                return visitor.visitClass_dec(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2562,6 +2736,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitClass_method" ):
                 listener.exitClass_method(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClass_method" ):
+                return visitor.visitClass_method(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2646,6 +2826,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitClass_static_method" ):
                 listener.exitClass_static_method(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClass_static_method" ):
+                return visitor.visitClass_static_method(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2717,6 +2903,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitTest" ):
                 listener.exitTest(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTest" ):
+                return visitor.visitTest(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2760,6 +2952,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitOr_test" ):
                 listener.exitOr_test(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitOr_test" ):
+                return visitor.visitOr_test(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2818,6 +3016,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitAnd_test" ):
                 listener.exitAnd_test(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAnd_test" ):
+                return visitor.visitAnd_test(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2875,6 +3079,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitNot_test" ):
                 listener.exitNot_test(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNot_test" ):
+                return visitor.visitNot_test(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2942,6 +3152,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitComparison" ):
                 listener.exitComparison(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitComparison" ):
+                return visitor.visitComparison(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2992,6 +3208,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitComp_op" ):
                 listener.exitComp_op(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitComp_op" ):
+                return visitor.visitComp_op(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3102,6 +3324,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitExpr" ):
                 listener.exitExpr(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr" ):
+                return visitor.visitExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3158,6 +3386,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitXor_expr" ):
                 listener.exitXor_expr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitXor_expr" ):
+                return visitor.visitXor_expr(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3216,6 +3450,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitAnd_expr" ):
                 listener.exitAnd_expr(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAnd_expr" ):
+                return visitor.visitAnd_expr(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3272,6 +3512,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitShift_expr" ):
                 listener.exitShift_expr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitShift_expr" ):
+                return visitor.visitShift_expr(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3335,6 +3581,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitArith_expr" ):
                 listener.exitArith_expr(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitArith_expr" ):
+                return visitor.visitArith_expr(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3396,6 +3648,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitTerm" ):
                 listener.exitTerm(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTerm" ):
+                return visitor.visitTerm(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3459,6 +3717,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFactor" ):
                 listener.exitFactor(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFactor" ):
+                return visitor.visitFactor(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3526,6 +3790,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitPower" ):
                 listener.exitPower(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPower" ):
+                return visitor.visitPower(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3585,6 +3855,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitAtom_expr" ):
                 listener.exitAtom_expr(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAtom_expr" ):
+                return visitor.visitAtom_expr(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3642,6 +3918,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitAtom" ):
                 listener.exitAtom(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAtom" ):
+                return visitor.visitAtom(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3730,6 +4012,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitTrailer" ):
                 listener.exitTrailer(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTrailer" ):
+                return visitor.visitTrailer(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3809,6 +4097,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitSubscriptlist" ):
                 listener.exitSubscriptlist(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSubscriptlist" ):
+                return visitor.visitSubscriptlist(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3878,6 +4172,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitSubscript" ):
                 listener.exitSubscript(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSubscript" ):
+                return visitor.visitSubscript(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3958,6 +4258,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitSliceop" ):
                 listener.exitSliceop(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSliceop" ):
+                return visitor.visitSliceop(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -4010,6 +4316,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitExprlist" ):
                 listener.exitExprlist(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExprlist" ):
+                return visitor.visitExprlist(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -4077,6 +4389,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitTestlist" ):
                 listener.exitTestlist(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTestlist" ):
+                return visitor.visitTestlist(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -4139,6 +4457,12 @@ class TyptParser ( Parser ):
             if hasattr( listener, "exitName" ):
                 listener.exitName(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitName" ):
+                return visitor.visitName(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -4181,6 +4505,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitValue" ):
                 listener.exitValue(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitValue" ):
+                return visitor.visitValue(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -4238,6 +4568,12 @@ class TyptParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitTypt_type" ):
                 listener.exitTypt_type(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTypt_type" ):
+                return visitor.visitTypt_type(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
