@@ -5,3 +5,6 @@ def pass_one(func : <Int, Int> -> Bool, s : String) -> None:
 # Another pass
 def pass_two(v : None -> Int, p : String -> None) -> None:
     pass
+
+def return_a_function(n : Int) -> <Float, Float> -> String:
+    pass
