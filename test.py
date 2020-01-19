@@ -8,8 +8,9 @@ from antlr.TyptLexer import TyptLexer
 from antlr.TyptParser import TyptParser
 from antlr.TyptListener import TyptListener
 
+from error import TyptErrorListener
+
 from io import StringIO
-from contextlib import redirect_stdout
 
 # Todo list:
 #   TODO: TestCase for long_examples/
@@ -31,25 +32,31 @@ class TestEmpty(TestCase):
 
     def setUp(self):
         """Set up method (run before any tests)."""
+        self.output = StringIO()
         self.input_stream = FileStream('tests/empty/empty.typt')
+        self.error_listener = TyptErrorListener(self.output)
 
     def test_empty(self):
         """Test lexer on empty file."""
         lexer = TyptLexer(self.input_stream)
         stream = CommonTokenStream(lexer)
-        parser = TyptParser(stream)
+        parser = TyptParser(stream, self.error_listener)
+
+        # Set error listener
 
         ast = parser.program()
 
         # FIXME: stdout/err not redirected to buf correctly
-        with StringIO() as buf, redirect_stdout(buf):
-            ParseTreeWalker().walk(TyptListener(), ast)
+        # See Section 19: https://tomassetti.me/antlr-mega-tutorial/
+        ParseTreeWalker().walk(TyptListener(), ast)
 
         # self.assertEqual(buf.getvalue(), '')
 
     def tearDown(self):
         """Tear down method (run after all tests)."""
+        del self.output
         del self.input_stream
+        del self.error_listener
 
 
 class TestRegression(TestCase):
