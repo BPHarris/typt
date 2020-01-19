@@ -24,7 +24,7 @@ class Typt(TyptVisitor):
 
         Get the child using-declarations and statements.
 
-        program => using* stmt* EOF
+        program ::= using* stmt* EOF
 
         """
 
@@ -40,7 +40,10 @@ class Typt(TyptVisitor):
             stmt = self.visitStmt(stmt_ctx)
 
         return self.program
-    
+
+    def visitUsing(self, ctx: TyptParser.UsingContext):
+        return super().visitUsing(ctx)
+
     def visitStmt(self, ctx: TyptParser.StmtContext):
         """Visit `stmt' rule."""
         return self.visitChildren(ctx)
