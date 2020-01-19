@@ -6,6 +6,8 @@ from library_name as short
 # a comment !
 pass
 continue
+print()
+print()
 
 # ooh lad
 if func('str'):
@@ -32,3 +34,9 @@ class BClass(AClass):
     @staticmethod
     def static() -> Int:
         return 4 + 2 * math.pi
+
+def pass_one() -> None:
+    pass
+
+def pass_two(arg : Int) -> None:
+    pass

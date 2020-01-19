@@ -1,0 +1,34 @@
+# maths imports
+using:
+    cos(x: Float) -> Float
+    sin(x: Float) -> Float
+from math as math
+
+# system imports
+using:
+    print_str(str: String) -> None
+from system
+
+class BaseClass:
+    # A base class
+    pass
+
+class Subclass(BaseClass):
+    # A subclass
+    @staticmethod
+    def func() -> Int:
+        return 4
+
+def main(argv: List[String]) -> None:
+    x : Float = 90.0    # Right-angle
+
+    # Get cos/sin of x
+    sin_x : Float = math.sin(x)
+    cos_x : Float = math.cos(x)
+
+    # Print result
+    print_str('Results: \n')
+    print_str('  sin(x) = ')
+    print_float(sin_x)
+    print_str('  cos(x) = ')
+    print_float(cos_x)
