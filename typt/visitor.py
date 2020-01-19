@@ -109,21 +109,14 @@ class Typt(TyptVisitor):
         """
         return self.visitChildren(ctx)
 
-    def visitSimple_stmt(self, ctx: TyptParser.Simple_stmtContext):
+    def visitSimple_stmt(self, ctx: TyptParser.Simple_stmtContext) -> StmtNode:
         """Visit `simple_stmt' rule."""
 
         # Visit the child small_stmt
         return self.visitSmall_stmt(ctx.small_stmt())
 
     def visitSmall_stmt(self, ctx: TyptParser.Small_stmtContext):
-        """Visit `small_stmt' rule.
-
-        Args:
-            ctx (Small_stmtContext) : ...
-
-        small_stmt ::= ...
-
-        """
+        """Visit `small_stmt' rule."""
         return self.visitChildren(ctx)
 
     def visitExpr_stmt(self, ctx: TyptParser.Expr_stmtContext):
