@@ -2,9 +2,9 @@
 
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 
-from Typt.TyptLexer import TyptLexer
-from Typt.TyptParser import TyptParser
-from Typt.TyptListener import TyptListener
+from antlr.TyptLexer import TyptLexer
+from antlr.TyptParser import TyptParser
+from antlr.TyptListener import TyptListener
 
 from sys import argv
 from os.path import isfile

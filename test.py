@@ -4,9 +4,9 @@ from unittest import TestCase, main
 
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 
-from Typt.TyptLexer import TyptLexer
-from Typt.TyptParser import TyptParser
-from Typt.TyptListener import TyptListener
+from antlr.TyptLexer import TyptLexer
+from antlr.TyptParser import TyptParser
+from antlr.TyptListener import TyptListener
 
 from io import StringIO
 from contextlib import redirect_stdout, redirect_stderr
