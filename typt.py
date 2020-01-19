@@ -9,6 +9,9 @@ from antlr.TyptListener import TyptListener
 from sys import argv
 from os.path import isfile
 
+# See: https://tomassetti.me/antlr-mega-tutorial/
+#   Sections:   19. Testing with Python (unittest stuffs)
+
 
 class Typt(TyptListener):
     """Provide custom Typt listener."""
