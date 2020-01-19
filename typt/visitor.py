@@ -16,6 +16,7 @@ from typt.func_signature_node import FuncSignature
 #   program
 #   using
 #   func_signature
+#   func_parameter_list
 
 
 class Typt(TyptVisitor):
@@ -329,13 +330,21 @@ class Typt(TyptVisitor):
         )
 
         if ctx.func_parameter_list():
-            func_signature.parameter_list += \
-                [self.visitFunc_parameter_list(ctx.func_parameter_list())]
+            func_signature.parameter_list = \
+                self.visitFunc_parameter_list(ctx.func_parameter_list())
 
         return func_signature
     
-    def visitFunc_parameter_list(self, ctx: TyptParser.Func_parameter_listContext):
-        return self.visitChildren(ctx)
+    def visitFunc_parameter_list(self, ctx: TyptParser.Func_parameter_listContext) -> list:
+        """Visit `func_parameter_list' rule."""
+
+        # Return the parameter list as a list of tuples of form (id, type)
+        parameter_list = list()
+
+        names = [name.getText() for name in ctx.name()]
+        types = [type.getText() for type in ctx.typt_type()]
+
+        return list(zip(names, types))
     
     def visitClass_def(self, ctx: TyptParser.Class_defContext):
         return self.visitChildren(ctx)
