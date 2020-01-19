@@ -115,9 +115,22 @@ class Typt(TyptVisitor):
         # Visit the child small_stmt
         return self.visitSmall_stmt(ctx.small_stmt())
 
-    def visitSmall_stmt(self, ctx: TyptParser.Small_stmtContext):
+    def visitSmall_stmt(self, ctx: TyptParser.Small_stmtContext) -> StmtNode:
         """Visit `small_stmt' rule."""
-        return self.visitChildren(ctx)
+
+        # Return the child statement
+        if ctx.expr_stmt():
+            return self.visitExpr_stmt(ctx.expr_stmt())
+        if ctx.var_dec_stmt():
+            return self.visitVar_dec_stmt(ctx.var_dec_stmt())
+        if ctx.del_stmt():
+            return self.visitDel_stmt(ctx.del_stmt())
+        if ctx.pass_stmt():
+            return self.visitPass_stmt(ctx.pass_stmt())
+        if ctx.flow_stmt():
+            return self.visitFlow_stmt(ctx.flow_stmt())
+
+        raise NotImplementedError('Small statment type not implemented yet.')
 
     def visitExpr_stmt(self, ctx: TyptParser.Expr_stmtContext):
         """Visit `expr_stmt' rule.
