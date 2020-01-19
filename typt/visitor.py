@@ -317,8 +317,28 @@ class Typt(TyptVisitor):
     def visitFunc_def(self, ctx: TyptParser.Func_defContext):
         return self.visitChildren(ctx)
     
-    def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext):
-        return self.visitChildren(ctx)
+    def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> tuple:
+        """Visit `func_signature' rule.
+
+        Args:
+            ctx (Func_signatureContext) : ...
+
+        func_signature ::= ...
+
+        Return:
+            tuple (name: str, parameters: FuncParameterList, return_type: str)
+
+        """
+
+        name = ctx.name().getText()
+
+        parameters = None
+        if ctx.func_parameter_list():
+            parameters = self.visitFunc_parameter_list(ctx.func_parameter_list())
+
+        return_type = ctx.typt_type().getText()
+
+        return (name, parameters, return_type)
     
     def visitFunc_parameter_list(self, ctx: TyptParser.Func_parameter_listContext):
         return self.visitChildren(ctx)
