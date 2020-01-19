@@ -18,6 +18,7 @@ if func('str'):
     x = 5 + 2 * y
     t : Bool = False
     s : Int
+    different(2.3, 4.3)
     pass
 
 def test_func(arg: Bool) -> None:
