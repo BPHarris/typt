@@ -362,7 +362,9 @@ typt_type
     | 'String'
     | 'Object'  // TODO: Should this be exposed?
     // TODO: Object type => [l_i : B_i] for i in 1..n
-    // TODO: Function type => A -> B (type -> type)
+    // TODO: Consider syntax for function typt_type
+    | typt_type '->' typt_type                          // 1-argument function
+    | '<' typt_type (',' typt_type)* '>' '->' typt_type // n-argument function (n in 0..inf)
     | 'List'    '[' typt_type ']'
     | 'Tuple'   '(' (typt_type (',' typt_type)*)? ')'
     | 'Set'     '(' typt_type ')'
