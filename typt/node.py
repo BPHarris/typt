@@ -1,8 +1,20 @@
 """node.py - holds the AST node base class and related data structures."""
 
+from typt.typt_types import Type
+
 
 class Token:
-    """A token class, representing info on the source code."""
+    """A token class, representing info on the source code.
+
+    Args:
+        line    (int)   : The line number of the token being initialised.
+        column  (int)   : The column number of the token being initialised.
+
+    Attributes:
+        line    (int)   : The line number of the token.
+        column  (int)   : The column (char) number of the token.
+
+    """
 
     def __init__(self, line: None, column: None):
         """Set token position."""
@@ -18,7 +30,15 @@ class Token:
 
 
 class Node:
-    """AST node base class."""
+    """AST node base class.
+
+    Args:
+        token   (Token) : The token of the node being initialised.
+
+    Attributes:
+        token   (Token) : The token of the AST node -- stores metadata.
+
+    """
 
     def __init__(self, token=Token()):
         """Define all intrinsic member variables."""
