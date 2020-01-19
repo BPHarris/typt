@@ -34,17 +34,15 @@ class Typt(TyptVisitor):
 
         # Add using-declarations to program
         for using_ctx in ctx.using():
-            using = self.visitUsing(using_ctx)
-            self.program.using_list += [using]
+            self.program.using_list += [self.visitUsing(using_ctx)]
 
         # Add stmts to program
         for stmt_ctx in ctx.stmt():
-            stmt = self.visitStmt(stmt_ctx)
-            self.program.stmt_list += [stmt]
+            self.program.stmt_list += [self.visitStmt(stmt_ctx)]
 
         return self.program
 
-    def visitUsing(self, ctx: TyptParser.UsingContext):
+    def visitUsing(self, ctx: TyptParser.UsingContext) -> UsingNode:
         """Visit `using' rule.
 
         Args:
@@ -56,15 +54,16 @@ class Typt(TyptVisitor):
 
         library_name = ctx.library_name.getText()
 
-        library_alias = library_name    # If no alias, alias is same as name
+        # If no alias => alias is same as name, otherwise get alias
+        library_alias = library_name
         if ctx.library_alias:
             library_alias = ctx.library_alias.getText()
 
         using = UsingNode(library_name, library_alias)
 
-        for func_signature_ctx in ctx.func_signature():
-            func_signature = self.visitFunc_signature(func_signature_ctx)
-            using.function_signature_list += [func_signature]
+        # Add function signatures to using-declaration
+        for fs_ctx in ctx.func_signature():
+            using.function_signature_list += [self.visitFunc_signature(fs_ctx)]
 
         return using
 
