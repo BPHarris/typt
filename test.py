@@ -33,7 +33,7 @@ class TestEmpty(TestCase):
 
         ast = parser.program()
 
-        # TODO: Fix this. stdout/err not redirected to buf correctly
+        # FIXME: stdout/err not redirected to buf correctly
         # buf = StringIO()
         with StringIO() as buf, redirect_stdout(buf):
             ParseTreeWalker().walk(TyptListener(), ast)
