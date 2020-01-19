@@ -8,7 +8,7 @@ from typt.typt_types import Type
 from typt.node import Node
 from typt.program_node import ProgramNode
 from typt.using_node import UsingNode
-from typt.func_signature_node import FuncSignature
+from typt.func_signature_node import FuncSignatureNode
 
 # TODO: Switch from representing types as strings to Type objects
 
@@ -322,10 +322,10 @@ class Typt(TyptVisitor):
     def visitFunc_def(self, ctx: TyptParser.Func_defContext):
         return self.visitChildren(ctx)
     
-    def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> FuncSignature:
+    def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> FuncSignatureNode:
         """Visit `func_signature' rule."""
 
-        func_signature = FuncSignature(
+        func_signature = FuncSignatureNode(
             ctx.name().getText(), ctx.typt_type().getText()
         )
 

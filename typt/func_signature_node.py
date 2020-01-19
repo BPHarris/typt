@@ -3,8 +3,8 @@
 from typt.node import Node
 
 
-class FuncSignature(Node):
-    """FuncSignature AST node.
+class FuncSignatureNode(Node):
+    """FuncSignatureNode AST node.
 
     Attributes:
         name            (str)                : The function name
