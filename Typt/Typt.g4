@@ -131,9 +131,10 @@ def at_start_of_line(self):
 /*****************************************************************************/
 
 /* Global TODO */
-// TODO: Print bug seen in regression_tests/example.typt (w/ print())
 // TODO: Multi-line comments
-// TODO: Sequences (i.e. 'print(); print()')
+// TODO: Sequences (i.e. 'print(); print()'), worth it?
+// TODO: Omit return type (i.e. no '-> type') as short-hand for '-> None'
+// TODO: Required/default parameters (i.e. 'arg : type' and 'arg : type = VALUE')
 
 /*****************************************************************************/
 
@@ -155,7 +156,6 @@ stmt
     ;
 
 
-// TODO: Required/default parameters (i.e. 'arg : type' and 'arg : type = VALUE')
 parameter_list
     : parameter (',' parameter)*
     ;
@@ -261,7 +261,6 @@ suite
 
 /* Parser Rules: Functions and Classes */
 
-// TODO: Omit return type (i.e. no '-> type') as short-hand for '-> None'
 func_def
     : 'def' func_signature ':' suite
     ;
@@ -327,7 +326,7 @@ atom_expr   : atom trailer* ;
 atom
     : name
     | NUMBER
-    | STRING    // TODO: STRING or STRING+?
+    | STRING
     | 'None'
     | 'True'
     | 'False'
@@ -348,7 +347,7 @@ testlist : test (',' test)* (',')? ;
 /* Special Rules */
 // NOTE: needed as NAME does not work directly in parser rules, idk why
 name: NAME;
-value: NUMBER | STRING | 'None' | 'True' | 'False' ;   // TODO: STRING or STRING+?
+value: NUMBER | STRING | 'None' | 'True' | 'False' ;
 
 
 /*****************************************************************************/
@@ -361,7 +360,7 @@ typt_type
     | 'Int'
     | 'Float'
     | 'String'
-    | 'Object'  // TODO: Should be exposed?
+    | 'Object'  // TODO: Should this be exposed?
     // TODO: Object type => [l_i : B_i] for i in 1..n
     // TODO: Function type => A -> B (type -> type)
     | 'List'    '[' typt_type ']'
