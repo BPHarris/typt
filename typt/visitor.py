@@ -12,7 +12,7 @@ class Typt(TyptVisitor):
 
     def __init__(self):
         """Initialise custom visitor."""
-        self.program = None
+        self.program = ProgramNode()
 
         super().__init__()
 
@@ -27,8 +27,6 @@ class Typt(TyptVisitor):
         program ::= using* stmt* EOF
 
         """
-
-        self.program = ProgramNode()
 
         # Add using-declarations to program
         for using_ctx in ctx.using():
