@@ -56,4 +56,4 @@ class Node:
 
     def __repr__(self) -> str:
         """Return the string representation of node."""
-        return 'Node'
+        return self.__class__.__name__
