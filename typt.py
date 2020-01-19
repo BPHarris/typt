@@ -1,10 +1,11 @@
-"""Typt.py - Compiler for the Typt language."""
+"""typt.py - compiler for the Typt language."""
 
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 
 from antlr.TyptLexer import TyptLexer
 from antlr.TyptParser import TyptParser
-from antlr.TyptListener import TyptListener
+
+from listener import Typt
 
 from sys import argv
 from os.path import isfile
@@ -12,13 +13,7 @@ from os.path import isfile
 # See: https://tomassetti.me/antlr-mega-tutorial/
 #   Sections:   19. Testing with Python (unittest stuffs)
 
-
-class Typt(TyptListener):
-    """Provide custom Typt listener."""
-
-    def enterProgram(self, ctx: TyptParser.ProgramContext) -> None:
-        """Entry function for program rule."""
-        pass
+# TODO: Add error listener, move log_error
 
 
 def log_error(filename: str = None, line: int = None, msg: str = None) -> None:
