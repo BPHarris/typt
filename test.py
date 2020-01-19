@@ -9,7 +9,15 @@ from antlr.TyptParser import TyptParser
 from antlr.TyptListener import TyptListener
 
 from io import StringIO
-from contextlib import redirect_stdout, redirect_stderr
+from contextlib import redirect_stdout
+
+# Todo list:
+#   TODO: TestCase for long_examples/
+#   TODO: (finish) TestCase for regression_tests/
+#   TODO: TestCase for lexer/
+#   TODO: TestCase for parser/
+#
+#   TODO: Add preamble to *.typt test files
 
 
 class TestFileHandling(TestCase):
@@ -34,7 +42,6 @@ class TestEmpty(TestCase):
         ast = parser.program()
 
         # FIXME: stdout/err not redirected to buf correctly
-        # buf = StringIO()
         with StringIO() as buf, redirect_stdout(buf):
             ParseTreeWalker().walk(TyptListener(), ast)
 
