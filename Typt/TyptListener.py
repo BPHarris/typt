@@ -26,12 +26,12 @@ class TyptListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyptParser#parameters.
-    def enterParameters(self, ctx:TyptParser.ParametersContext):
+    # Enter a parse tree produced by TyptParser#stmt.
+    def enterStmt(self, ctx:TyptParser.StmtContext):
         pass
 
-    # Exit a parse tree produced by TyptParser#parameters.
-    def exitParameters(self, ctx:TyptParser.ParametersContext):
+    # Exit a parse tree produced by TyptParser#stmt.
+    def exitStmt(self, ctx:TyptParser.StmtContext):
         pass
 
 
@@ -53,33 +53,6 @@ class TyptListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyptParser#required_parameter.
-    def enterRequired_parameter(self, ctx:TyptParser.Required_parameterContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#required_parameter.
-    def exitRequired_parameter(self, ctx:TyptParser.Required_parameterContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#default_parameter.
-    def enterDefault_parameter(self, ctx:TyptParser.Default_parameterContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#default_parameter.
-    def exitDefault_parameter(self, ctx:TyptParser.Default_parameterContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#arguments.
-    def enterArguments(self, ctx:TyptParser.ArgumentsContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#arguments.
-    def exitArguments(self, ctx:TyptParser.ArgumentsContext):
-        pass
-
-
     # Enter a parse tree produced by TyptParser#argument_list.
     def enterArgument_list(self, ctx:TyptParser.Argument_listContext):
         pass
@@ -95,15 +68,6 @@ class TyptListener(ParseTreeListener):
 
     # Exit a parse tree produced by TyptParser#argument.
     def exitArgument(self, ctx:TyptParser.ArgumentContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#stmt.
-    def enterStmt(self, ctx:TyptParser.StmtContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#stmt.
-    def exitStmt(self, ctx:TyptParser.StmtContext):
         pass
 
 
@@ -215,33 +179,6 @@ class TyptListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyptParser#import_stmt.
-    def enterImport_stmt(self, ctx:TyptParser.Import_stmtContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#import_stmt.
-    def exitImport_stmt(self, ctx:TyptParser.Import_stmtContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#import_from.
-    def enterImport_from(self, ctx:TyptParser.Import_fromContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#import_from.
-    def exitImport_from(self, ctx:TyptParser.Import_fromContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#import_name.
-    def enterImport_name(self, ctx:TyptParser.Import_nameContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#import_name.
-    def exitImport_name(self, ctx:TyptParser.Import_nameContext):
-        pass
-
-
     # Enter a parse tree produced by TyptParser#compound_stmt.
     def enterCompound_stmt(self, ctx:TyptParser.Compound_stmtContext):
         pass
@@ -278,48 +215,75 @@ class TyptListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyptParser#funcdef.
-    def enterFuncdef(self, ctx:TyptParser.FuncdefContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#funcdef.
-    def exitFuncdef(self, ctx:TyptParser.FuncdefContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#funcdec.
-    def enterFuncdec(self, ctx:TyptParser.FuncdecContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#funcdec.
-    def exitFuncdec(self, ctx:TyptParser.FuncdecContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#classdef.
-    def enterClassdef(self, ctx:TyptParser.ClassdefContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#classdef.
-    def exitClassdef(self, ctx:TyptParser.ClassdefContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#classdec.
-    def enterClassdec(self, ctx:TyptParser.ClassdecContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#classdec.
-    def exitClassdec(self, ctx:TyptParser.ClassdecContext):
-        pass
-
-
     # Enter a parse tree produced by TyptParser#suite.
     def enterSuite(self, ctx:TyptParser.SuiteContext):
         pass
 
     # Exit a parse tree produced by TyptParser#suite.
     def exitSuite(self, ctx:TyptParser.SuiteContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#func_def.
+    def enterFunc_def(self, ctx:TyptParser.Func_defContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#func_def.
+    def exitFunc_def(self, ctx:TyptParser.Func_defContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#func_signature.
+    def enterFunc_signature(self, ctx:TyptParser.Func_signatureContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#func_signature.
+    def exitFunc_signature(self, ctx:TyptParser.Func_signatureContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#func_parameter_list.
+    def enterFunc_parameter_list(self, ctx:TyptParser.Func_parameter_listContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#func_parameter_list.
+    def exitFunc_parameter_list(self, ctx:TyptParser.Func_parameter_listContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#class_def.
+    def enterClass_def(self, ctx:TyptParser.Class_defContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#class_def.
+    def exitClass_def(self, ctx:TyptParser.Class_defContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#class_dec.
+    def enterClass_dec(self, ctx:TyptParser.Class_decContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#class_dec.
+    def exitClass_dec(self, ctx:TyptParser.Class_decContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#class_method.
+    def enterClass_method(self, ctx:TyptParser.Class_methodContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#class_method.
+    def exitClass_method(self, ctx:TyptParser.Class_methodContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#class_static_method.
+    def enterClass_static_method(self, ctx:TyptParser.Class_static_methodContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#class_static_method.
+    def exitClass_static_method(self, ctx:TyptParser.Class_static_methodContext):
         pass
 
 
@@ -521,39 +485,30 @@ class TyptListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by TyptParser#name.
+    def enterName(self, ctx:TyptParser.NameContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#name.
+    def exitName(self, ctx:TyptParser.NameContext):
+        pass
+
+
+    # Enter a parse tree produced by TyptParser#value.
+    def enterValue(self, ctx:TyptParser.ValueContext):
+        pass
+
+    # Exit a parse tree produced by TyptParser#value.
+    def exitValue(self, ctx:TyptParser.ValueContext):
+        pass
+
+
     # Enter a parse tree produced by TyptParser#typt_type.
     def enterTypt_type(self, ctx:TyptParser.Typt_typeContext):
         pass
 
     # Exit a parse tree produced by TyptParser#typt_type.
     def exitTypt_type(self, ctx:TyptParser.Typt_typeContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#base_types.
-    def enterBase_types(self, ctx:TyptParser.Base_typesContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#base_types.
-    def exitBase_types(self, ctx:TyptParser.Base_typesContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#typed_parameters_noassign.
-    def enterTyped_parameters_noassign(self, ctx:TyptParser.Typed_parameters_noassignContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#typed_parameters_noassign.
-    def exitTyped_parameters_noassign(self, ctx:TyptParser.Typed_parameters_noassignContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#typed_parameter_list_noassign.
-    def enterTyped_parameter_list_noassign(self, ctx:TyptParser.Typed_parameter_list_noassignContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#typed_parameter_list_noassign.
-    def exitTyped_parameter_list_noassign(self, ctx:TyptParser.Typed_parameter_list_noassignContext):
         pass
 
 

@@ -128,48 +128,58 @@ def at_start_of_line(self):
 
 }
 
-/*****************************************************************************/
-
-/* Global TODO */
-// TODO: Print bug seen in regression_tests/example.typt (w/ print())
-// TODO: Multi-line comments
-// TODO: Sequences (i.e. 'print(); print()')
-
-/*****************************************************************************/
-
-
 /* Parser Rules */
-program: (NEWLINE | using)* (NEWLINE | stmt)* EOF;
+// TODO: fix
+// TODO: VALUE to atom
+// program: (NEWLINE | using)* (NEWLINE | stmt)* EOF;
+program: (NEWLINE | stmt)* EOF;
 
-
+// Using
+// Using is for specifing imports from Python
 using
     : 'using' ':'
-        NEWLINE INDENT (func_signature NEWLINE)+ DEDENT
-      'from' name ('as' name)?
+            NEWLINE INDENT (funcdec NEWLINE)+ DEDENT
+      'from' NAME ('as' NAME)?
     ;
 
+// Parameters
+parameters : '(' (parameter_list)? ')' ;
+parameter_list
+    : parameter (',' parameter)*
+    ;
+parameter           : required_parameter | default_parameter ;
+required_parameter  : NAME ':' typt_type ;
+default_parameter   : NAME ':' typt_type '=' VALUE ;
 
+// Arguments
+arguments       : '(' (argument_list)? ')' ;
+argument_list   : argument (',' argument)* ;
+argument
+    : NAME
+    | test
+    | NAME '=' test
+    ;
+
+// Statements
+// expr_stmt: testlist_star_expr
+//              (annassign
+//              | augassign (yield_expr|testlist)
+//              | ('=' (yield_expr|testlist_star_expr))*
+//              )
+//          ;
+// annassign: ':' test ('=' test)?;
+// testlist_star_expr: (test|star_expr) (',' (test|star_expr))* (',')?;
+// augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' |
+//             '<<=' | '>>=' | '**=' | '//=');
 stmt
     : simple_stmt
     | compound_stmt 
     ;
 
-
-// TODO: Required/default parameters (i.e. 'arg : type' and 'arg : type = VALUE')
-parameter_list
-    : parameter (',' parameter)*
-    ;
-parameter           : name ':' typt_type ;
-// parameter_optional  : name ':' typt_type '=' value;
-
-argument_list       : argument (',' argument)* ;
-argument            : test ;
-// argument_optional   : name '=' test ;
-
-/*****************************************************************************/
-
-
-/* Parser Rules: Simple Statements (simple_stmt) */
+// Simple statements
+// simple_stmt
+//     : small_stmt (';' small_stmt)* (';')? NEWLINE
+//     ;
 simple_stmt
     : small_stmt NEWLINE
     ;
@@ -180,12 +190,11 @@ small_stmt
     | del_stmt
     | pass_stmt
     | flow_stmt
-    // | import_stmt // TODO: How to handle imports? (import is from *.typt, using is from *.py)
+    | import_stmt
     ;
 
 expr_stmt
-    : test ((anassign | augassign) test)?
-    // test (',' test)* (',')? (anassign | augassign) test
+    : test (',' test)* (',')? (anassign | augassign) test
     ;
 anassign
     : '='
@@ -207,8 +216,8 @@ augassign
     ;
 
 var_dec_stmt
-    : name ':' typt_type
-    | name ':' typt_type '=' test
+    : typt_type NAME
+    | typt_type NAME '=' test
     ;
 
 del_stmt    : 'del' exprlist;
@@ -223,17 +232,25 @@ break_stmt      : 'break';
 continue_stmt   : 'continue';
 return_stmt     : 'return' (testlist)?;
 
+import_stmt
+    : 'from' import_from 'import' import_name
+    ;
+import_from
+    : NAME
+    | ('../')+ NAME ('/' NAME)*
+    ;
+import_name
+    : NAME
+    | NAME 'as' NAME
+    ;
 
-/*****************************************************************************/
-
-
-/* Parser Rules: Compound Statements (compound_stmt) */
+// Compound statements
 compound_stmt
     : if_stmt
     | while_stmt
     | for_stmt
-    | func_def
-    | class_def
+    | funcdef
+    | classdef
     ;
 
 if_stmt
@@ -245,9 +262,23 @@ while_stmt
     : 'while' test ':' suite
       ('else'      ':' suite)?
     ;
-for_stmt
+for_stmt    // TODO: Hmm
     : 'for' exprlist 'in' testlist ':' suite
       ('else' ':' suite)?
+    ;
+
+funcdef
+    : funcdec ':' suite
+    ;
+funcdec
+    : 'def' NAME parameters '->' typt_type
+    ;
+
+classdef
+    : classdec ':' suite
+    ;
+classdec
+    : 'class' NAME ('(' NAME? ')')?
     ;
 
 suite
@@ -255,66 +286,15 @@ suite
     | NEWLINE INDENT stmt+ DEDENT
     ;
 
-
 /*****************************************************************************/
-
-
-/* Parser Rules: Functions and Classes */
-
-// TODO: Omit return type (i.e. no '-> type') as short-hand for '-> None'
-func_def
-    : 'def' func_signature ':' suite
-    ;
-func_signature
-    : name '(' func_parameter_list? ')' '->' typt_type
-    ;
-func_parameter_list
-    : name ':' typt_type (',' name ':' typt_type)* ','?
-    ;
-
-// Pythonic:
-//      class_def
-//          : class_dec ':' suite
-//          ;
-class_def
-    : class_dec ':' NEWLINE INDENT
-            // class var decls
-            (name ':' typt_type ('=' atom)? NEWLINE)*
-        
-            // constructor
-            ('def' '__init__' '(' 'self' (',' func_parameter_list)? ')' ':' suite)?
-
-            // methods/static methods
-            // TODO: Are static methods viable with type system?
-            (class_method | class_static_method)*
-      DEDENT
-    // The empty class
-    | class_dec ':' NEWLINE INDENT
-            pass_stmt NEWLINE
-      DEDENT
-    ;
-class_dec
-    : 'class' name ('(' name ')')?
-    ;
-class_method
-    : ('def' name '(' 'self' (',' func_parameter_list)? ')' '->' typt_type ':' suite)
-    ;
-class_static_method
-    : '@' 'staticmethod' NEWLINE
-      ('def' name '(' func_parameter_list? ')' '->' typt_type ':' suite)
-    ;
-
-
-/*****************************************************************************/
-
-
-/* Parser Rules: Tests and Expressions */
+// Expressions
+// test: or_test ('if' or_test 'else' test)? ;  // For ternary operators
 test        : or_test ;
 or_test     : and_test ('or' and_test)* ;
 and_test    : not_test ('and' not_test)* ;
 not_test    : 'not' not_test | comparison ;
 comparison  : expr (comp_op expr)* ;
-comp_op     : '<'|'>'|'=='|'>='|'<='|'!='|'in'|'not' 'in'|'is'|'is' 'not' ;
+comp_op     : '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not' ;
 expr        : xor_expr ('|' xor_expr)* ;
 xor_expr    : and_expr ('^' and_expr)* ;
 and_expr    : shift_expr ('&' shift_expr)* ;
@@ -325,56 +305,76 @@ factor      : ('+'|'-'|'~') factor | power ;
 power       : atom_expr ('**' factor)? ;
 atom_expr   : atom trailer* ;
 atom
-    : name
+    : NAME
     | NUMBER
-    | STRING    // TODO: STRING or STRING+?
+    | STRING+
+    | '...'
     | 'None'
     | 'True'
     | 'False'
-    | 'self'    // TODO: Find a better way of allowing for self.x in a function call in a method
     ;
-trailer: '(' (argument_list)? ')' | '[' subscriptlist ']' | '.' name;
+trailer: '(' (argument_list)? ')' | '[' subscriptlist ']' | '.' NAME;
+
+// testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* (',')? );
 
 subscriptlist: subscript (',' subscript)* (',')?;
 subscript: test | (test)? ':' (test)? (sliceop)?;
 sliceop: ':' (test)?;
 
+// exprlist: (expr|star_expr) (',' (expr|star_expr))* (',')?;
+// testlist: test (',' test)* (',')?;
 exprlist : expr (',' expr)* (',')? ;
 testlist : test (',' test)* (',')? ;
 
+// test_nocond: or_test | lambdef_nocond;
+// lambdef_nocond: 'lambda' (parameter_list)? ':' test_nocond;
+
+// comp_iter: comp_for | comp_if;
+// comp_for: 'for' exprlist 'in' or_test (comp_iter)?;
+// comp_if: 'if' test_nocond (comp_iter)?;
 
 /*****************************************************************************/
 
-/* Special Rules */
-// NOTE: needed as NAME does not work directly in parser rules, idk why
-name: NAME;
-value: NUMBER | STRING | 'None' | 'True' | 'False' ;   // TODO: STRING or STRING+?
-
-
-/*****************************************************************************/
-
-
-/* Types System Parser Rules */
+/* Type system parser rules */
 typt_type
-    : 'None'
-    | 'Bool'
+    : base_types
+    | 'List[' typt_type ']'
+    | 'Tuple(' typt_type ')'
+    | 'Set(' typt_type ')'
+    | 'Dict{' typt_type '}'
+    | NAME                                      // Class/typedef
+    | 'Function' typed_parameters_noassign      // Function
+    ;
+
+base_types
+    : 'Bool'
     | 'Int'
     | 'Float'
     | 'String'
-    | 'Object'  // TODO: Should be exposed?
-    // TODO: Object type => [l_i : B_i] for i in 1..n
-    // TODO: Function type => A -> B (type -> type)
-    | 'List'    '[' typt_type ']'
-    | 'Tuple'   '(' (typt_type (',' typt_type)*)? ')'
-    | 'Set'     '(' typt_type ')'
-    | 'Dict'    '{' typt_type ',' typt_type '}'
     ;
 
+typed_parameters_noassign
+    : '(' (typed_parameter_list_noassign)? ')'
+    ;
+typed_parameter_list_noassign
+    : typt_type (',' typt_type)*
+    ;
 
-/*****************************************************************************/
-
+// parameter_type
+//     : 'Arb'
+//     | 'Pos(' typt_type ')'
+//     | 'Named(' NAME ':' typt_type ')'
+//     ;
 
 /* Lexer Rules */
+VALUE
+    : NAME
+    | NUMBER
+    | STRING
+    | BOOLEAN
+    | NONE
+    ;
+
 NUMBER
     : INTEGER
     | FLOAT_NUMBER
@@ -386,8 +386,8 @@ STRING
     ;
 
 BOOLEAN
-    : 'True'
-    | 'False'
+    : TRUE
+    | FALSE
     ;
 
 INTEGER
@@ -396,6 +396,30 @@ INTEGER
     | HEX_INTEGER
     | BIN_INTEGER
     ;
+
+// Keywords
+USING       : 'using';
+DEF         : 'def';
+RETURN      : 'return';
+IMPORT      : 'import';
+IF          : 'if';
+ELIF        : 'elif';
+ELSE        : 'else';
+WHILE       : 'while';
+FOR         : 'for';
+IN          : 'in';
+OR          : 'or';
+AND         : 'and';
+NOT         : 'not';
+IS          : 'is';
+CLASS       : 'class';
+DEL         : 'del';
+PASS        : 'pass';
+CONTINUE    : 'continue';
+BREAK       : 'break';
+NONE        : 'None';
+TRUE        : 'True';
+FALSE       : 'False';
 
 // Newlines
 NEWLINE
@@ -450,6 +474,64 @@ FLOAT_NUMBER
     | (INT_PART) EXPONENT               //              |   INT_PART              EXPONENT
     | (INT_PART '.' FRACTION) EXPONENT  //              |   INT_PART '.' FRACTION EXPONENT
     ;
+
+
+// Operators
+DOT         : '.';
+ELLIPSIS    : '...';
+STAR        : '*';
+COMMA       : ',';
+COLON       : ':';
+SEMI_COLON  : ';';
+
+// Arithmetic operators
+AND_OP      : '&';
+OR_OP       : '|';
+XOR_OP      : '^';
+NOT_OP      : '~';
+POWER       : '**';
+LEFT_SHIFT  : '<<';
+RIGHT_SHIFT : '>>';
+ADD         : '+';
+MINUS       : '-';
+DIV         : '/';
+MOD         : '%';
+IDIV        : '//';
+
+// Parentheses, brackets, and braces
+OPEN_PARENTHESIS    : '('   {self.opened += 1} ;
+CLOSE_PARENTHESIS   : ')'   {self.opened -= 1} ;
+OPEN_BRACKET        : '['   {self.opened += 1} ;
+CLOSE_BRACKET       : ']'   {self.opened -= 1} ;
+OPEN_BRACE          : '{'   {self.opened += 1} ;
+CLOSE_BRACE         : '}'   {self.opened -= 1} ;
+
+// Comparision operators
+LESS_THAN       : '<';
+GREATER_THAN    : '>';
+EQUALS          : '==';
+GT_EQ           : '>=';
+LT_EQ           : '<=';
+NOT_EQ_1        : '<>';
+NOT_EQ_2        : '!=';
+AT              : '@';
+ARROW           : '->';
+
+// Assignment operators
+ASSIGN              : '=';
+ADD_ASSIGN          : '+=';
+SUB_ASSIGN          : '-=';
+MULT_ASSIGN         : '*=';
+AT_ASSIGN           : '@=';
+DIV_ASSIGN          : '/=';
+MOD_ASSIGN          : '%=';
+AND_ASSIGN          : '&=';
+OR_ASSIGN           : '|=';
+XOR_ASSIGN          : '^=';
+LEFT_SHIFT_ASSIGN   : '<<=';
+RIGHT_SHIFT_ASSIGN  : '>>=';
+POWER_ASSIGN        : '**=';
+IDIV_ASSIGN         : '//=';
 
 // Skipable characters
 SKIP_           : ( SPACES | COMMENT | LINE_JOINING ) -> skip ;
