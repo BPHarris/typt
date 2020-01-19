@@ -156,10 +156,6 @@ stmt
     ;
 
 
-parameter_list      : parameter (',' parameter)* ;
-parameter           : name ':' typt_type ;
-// parameter_optional  : name ':' typt_type '=' value;
-
 argument_list       : argument (',' argument)* ;
 argument            : test ;
 // argument_optional   : name '=' test ;

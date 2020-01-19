@@ -35,24 +35,6 @@ class TyptListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyptParser#parameter_list.
-    def enterParameter_list(self, ctx:TyptParser.Parameter_listContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#parameter_list.
-    def exitParameter_list(self, ctx:TyptParser.Parameter_listContext):
-        pass
-
-
-    # Enter a parse tree produced by TyptParser#parameter.
-    def enterParameter(self, ctx:TyptParser.ParameterContext):
-        pass
-
-    # Exit a parse tree produced by TyptParser#parameter.
-    def exitParameter(self, ctx:TyptParser.ParameterContext):
-        pass
-
-
     # Enter a parse tree produced by TyptParser#argument_list.
     def enterArgument_list(self, ctx:TyptParser.Argument_listContext):
         pass

@@ -24,16 +24,6 @@ class TyptVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by TyptParser#parameter_list.
-    def visitParameter_list(self, ctx:TyptParser.Parameter_listContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by TyptParser#parameter.
-    def visitParameter(self, ctx:TyptParser.ParameterContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by TyptParser#argument_list.
     def visitArgument_list(self, ctx:TyptParser.Argument_listContext):
         return self.visitChildren(ctx)

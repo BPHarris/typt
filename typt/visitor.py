@@ -87,28 +87,6 @@ class Typt(TyptVisitor):
         # Otherwise (is compound stmt), visit child
         return self.visitCompound_stmt(ctx.compound_stmt())
 
-    def visitParameter_list(self, ctx: TyptParser.Parameter_listContext):
-        """Visit `parameter_list' rule.
-
-        Args:
-            ctx (Parameter_listContext) : ...
-
-        parameter_list ::= ...
-
-        """
-        return self.visitChildren(ctx)
-
-    def visitParameter(self, ctx: TyptParser.ParameterContext):
-        """Visit `parameter' rule.
-
-        Args:
-            ctx (ParameterContext) : ...
-
-        parameter ::= ...
-
-        """
-        return self.visitChildren(ctx)
-
     def visitArgument_list(self, ctx: TyptParser.Argument_listContext):
         """Visit `argument_list' rule.
 
