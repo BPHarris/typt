@@ -15,6 +15,7 @@ from os.path import isfile
 #   Sections:   19. Testing with Python (unittest stuffs)
 
 # TODO: Add error listener, move log_error
+# TODO: Add ANY rule to grammar? Section 33
 
 
 def log_error(filename: str = None, line: int = None, msg: str = None) -> None:
@@ -50,12 +51,11 @@ def main(filename: str = None) -> None:
     stream = CommonTokenStream(lexer)
     parser = TyptParser(stream)
 
-    # Create visitor
-    tree = parser.program()
-    visitor = Typt()
-
     # Parse the program
-    visitor.visit(tree)
+    tree = Typt().visit(parser.program())
+
+    # Print parse tree
+    print(tree)
 
     # Type checking
     # TODO: type checking
