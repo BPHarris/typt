@@ -55,8 +55,8 @@ def serializedATN():
         buf.write("\3?\3?\3@\3@\3@\3@\3@\3A\3A\3A\3A\3A\3B\3B\3B\3B\3B\3")
         buf.write("B\3C\3C\3D\3D\3E\3E\3F\3F\3F\3F\3F\3G\3G\3G\3G\3H\3H\3")
         buf.write("H\3H\3H\3H\3I\3I\3I\3I\3I\3I\3I\3J\3J\3J\3J\3J\3J\3J\3")
-        buf.write("K\3K\3K\3K\3K\3L\3L\3L\3L\3L\3L\3M\3M\3M\3M\3N\3N\3N\3")
-        buf.write("N\3N\3O\3O\3P\3P\3Q\3Q\5Q\u020f\nQ\3R\3R\5R\u0213\nR\3")
+        buf.write("K\3K\3L\3L\3M\3M\3M\3M\3M\3N\3N\3N\3N\3N\3N\3O\3O\3O\3")
+        buf.write("O\3P\3P\3P\3P\3P\3Q\3Q\5Q\u020f\nQ\3R\3R\5R\u0213\nR\3")
         buf.write("S\3S\3S\3S\3S\3S\3S\3S\3S\5S\u021e\nS\3T\3T\3T\3T\5T\u0224")
         buf.write("\nT\3U\3U\3U\5U\u0229\nU\3U\3U\5U\u022d\nU\3U\5U\u0230")
         buf.write("\nU\5U\u0232\nU\3U\3U\3V\3V\7V\u0238\nV\fV\16V\u023b\13")
@@ -133,8 +133,8 @@ def serializedATN():
         buf.write("\u0087\u01d3\3\2\2\2\u0089\u01d5\3\2\2\2\u008b\u01d7\3")
         buf.write("\2\2\2\u008d\u01dc\3\2\2\2\u008f\u01e0\3\2\2\2\u0091\u01e6")
         buf.write("\3\2\2\2\u0093\u01ed\3\2\2\2\u0095\u01f4\3\2\2\2\u0097")
-        buf.write("\u01f9\3\2\2\2\u0099\u01ff\3\2\2\2\u009b\u0203\3\2\2\2")
-        buf.write("\u009d\u0208\3\2\2\2\u009f\u020a\3\2\2\2\u00a1\u020e\3")
+        buf.write("\u01f6\3\2\2\2\u0099\u01f8\3\2\2\2\u009b\u01fd\3\2\2\2")
+        buf.write("\u009d\u0203\3\2\2\2\u009f\u0207\3\2\2\2\u00a1\u020e\3")
         buf.write("\2\2\2\u00a3\u0212\3\2\2\2\u00a5\u021d\3\2\2\2\u00a7\u0223")
         buf.write("\3\2\2\2\u00a9\u0231\3\2\2\2\u00ab\u0235\3\2\2\2\u00ad")
         buf.write("\u0248\3\2\2\2\u00af\u024a\3\2\2\2\u00b1\u0251\3\2\2\2")
@@ -238,15 +238,15 @@ def serializedATN():
         buf.write("\7k\2\2\u01ea\u01eb\7p\2\2\u01eb\u01ec\7i\2\2\u01ec\u0092")
         buf.write("\3\2\2\2\u01ed\u01ee\7Q\2\2\u01ee\u01ef\7d\2\2\u01ef\u01f0")
         buf.write("\7l\2\2\u01f0\u01f1\7g\2\2\u01f1\u01f2\7e\2\2\u01f2\u01f3")
-        buf.write("\7v\2\2\u01f3\u0094\3\2\2\2\u01f4\u01f5\7N\2\2\u01f5\u01f6")
-        buf.write("\7k\2\2\u01f6\u01f7\7u\2\2\u01f7\u01f8\7v\2\2\u01f8\u0096")
-        buf.write("\3\2\2\2\u01f9\u01fa\7V\2\2\u01fa\u01fb\7w\2\2\u01fb\u01fc")
-        buf.write("\7r\2\2\u01fc\u01fd\7n\2\2\u01fd\u01fe\7g\2\2\u01fe\u0098")
-        buf.write("\3\2\2\2\u01ff\u0200\7U\2\2\u0200\u0201\7g\2\2\u0201\u0202")
-        buf.write("\7v\2\2\u0202\u009a\3\2\2\2\u0203\u0204\7F\2\2\u0204\u0205")
-        buf.write("\7k\2\2\u0205\u0206\7e\2\2\u0206\u0207\7v\2\2\u0207\u009c")
-        buf.write("\3\2\2\2\u0208\u0209\7}\2\2\u0209\u009e\3\2\2\2\u020a")
-        buf.write("\u020b\7\177\2\2\u020b\u00a0\3\2\2\2\u020c\u020f\5\u00a7")
+        buf.write("\7v\2\2\u01f3\u0094\3\2\2\2\u01f4\u01f5\7}\2\2\u01f5\u0096")
+        buf.write("\3\2\2\2\u01f6\u01f7\7\177\2\2\u01f7\u0098\3\2\2\2\u01f8")
+        buf.write("\u01f9\7N\2\2\u01f9\u01fa\7k\2\2\u01fa\u01fb\7u\2\2\u01fb")
+        buf.write("\u01fc\7v\2\2\u01fc\u009a\3\2\2\2\u01fd\u01fe\7V\2\2\u01fe")
+        buf.write("\u01ff\7w\2\2\u01ff\u0200\7r\2\2\u0200\u0201\7n\2\2\u0201")
+        buf.write("\u0202\7g\2\2\u0202\u009c\3\2\2\2\u0203\u0204\7U\2\2\u0204")
+        buf.write("\u0205\7g\2\2\u0205\u0206\7v\2\2\u0206\u009e\3\2\2\2\u0207")
+        buf.write("\u0208\7F\2\2\u0208\u0209\7k\2\2\u0209\u020a\7e\2\2\u020a")
+        buf.write("\u020b\7v\2\2\u020b\u00a0\3\2\2\2\u020c\u020f\5\u00a7")
         buf.write("T\2\u020d\u020f\5\u00b5[\2\u020e\u020c\3\2\2\2\u020e\u020d")
         buf.write("\3\2\2\2\u020f\u00a2\3\2\2\2\u0210\u0213\5\u00cfh\2\u0211")
         buf.write("\u0213\5\u00d1i\2\u0212\u0210\3\2\2\2\u0212\u0211\3\2")
@@ -468,7 +468,7 @@ class TyptLexer(Lexer):
             "'^'", "'&'", "'<<'", "'>>'", "'+'", "'-'", "'*'", "'/'", "'%'", 
             "'//'", "'~'", "'**'", "'None'", "'True'", "'False'", "'['", 
             "']'", "'.'", "'Bool'", "'Int'", "'Float'", "'String'", "'Object'", 
-            "'List'", "'Tuple'", "'Set'", "'Dict'", "'{'", "'}'" ]
+            "'{'", "'}'", "'List'", "'Tuple'", "'Set'", "'Dict'" ]
 
     symbolicNames = [ "<INVALID>",
             "NUMBER", "STRING", "BOOLEAN", "INTEGER", "NEWLINE", "NAME", 
