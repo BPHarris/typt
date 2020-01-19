@@ -1,0 +1,7 @@
+# Test function arguments that are functions
+def pass_one(func : <Int, Int> -> Bool, s : String) -> None:
+    pass
+
+# Another pass
+def pass_two(v : None -> Int, p : String -> None) -> None:
+    pass
