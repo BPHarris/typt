@@ -3,6 +3,10 @@ using:
     is_even_f(n: Float,)    -> Bool
 from library_name as short
 
+using:
+    different(x: Float, y: Float) -> None
+from different_name as shorter
+
 # a comment !
 pass
 continue
