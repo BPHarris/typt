@@ -40,9 +40,10 @@ class Node:
 
     """
 
-    def __init__(self, meta=NodeMetadata()):
+    def __init__(self, meta=NodeMetadata(), depth: int = 0):
         """Define all intrinsic member variables."""
         self.meta = meta
+        self.depth = depth
 
     # TODO: Should return str representing the output Python 3 code for the node
     def codegen(self) -> str:

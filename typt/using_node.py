@@ -13,7 +13,7 @@ class UsingNode(Node):
 
     """
 
-    def __init__(self, library_name: str = '', library_alias: str = ''):
+    def __init__(self, library_name: str = '', library_alias: str = '', depth: int = 0):
         """Initialise using_list and stmt_list."""
         self.function_signature_list = list()
         self.library_name = library_name

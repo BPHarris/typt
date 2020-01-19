@@ -12,9 +12,20 @@ class ProgramNode(Node):
 
     """
 
-    def __init__(self):
+    def __init__(self, depth: int = 0):
         """Initialise using_list and stmt_list."""
         self.using_list = list()
         self.stmt_list = list()
 
         super().__init__()
+
+    def __repr__(self) -> str:
+        """Return string representation of program."""
+        s = ''
+
+        s += 'Program\n'
+        s += '\t' + str(self.using_list) + '\n'
+        s += '\t' + str(self.stmt_list) + '\n'
+        s += 'End'
+
+        return s
