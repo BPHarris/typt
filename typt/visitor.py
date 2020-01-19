@@ -9,6 +9,7 @@ from typt.node import Node
 from typt.program_node import ProgramNode
 from typt.using_node import UsingNode
 from typt.func_signature_node import FuncSignatureNode
+from typt.stmt_node import StmtNode
 
 # TODO: Switch from representing types as strings to Type objects
 
@@ -17,6 +18,7 @@ from typt.func_signature_node import FuncSignatureNode
 #   using
 #   func_signature
 #   func_parameter_list
+#   stmt
 
 
 class Typt(TyptVisitor):
@@ -75,16 +77,15 @@ class Typt(TyptVisitor):
 
         return using
 
-    def visitStmt(self, ctx: TyptParser.StmtContext):
-        """Visit `stmt' rule.
+    def visitStmt(self, ctx: TyptParser.StmtContext) -> StmtNode:
+        """Visit `stmt' rule."""
 
-        Args:
-            ctx (StmtContext) : ...
+        # If simple statment, visit child
+        if ctx.simple_stmt():
+            return self.visitSimple_stmt(ctx.simple_stmt())
 
-        stmt ::= ...
-
-        """
-        return self.visitChildren(ctx)
+        # Otherwise (is compound stmt), visit child
+        return self.visitCompound_stmt(ctx.compound_stmt())
 
     def visitParameter_list(self, ctx: TyptParser.Parameter_listContext):
         """Visit `parameter_list' rule.
