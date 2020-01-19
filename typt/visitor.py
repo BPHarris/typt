@@ -5,6 +5,7 @@ from antlr.TyptVisitor import TyptVisitor
 
 from typt.node import Node
 from typt.program_node import ProgramNode
+from typt.using_node import UsingNode
 
 # Done:
 #   program
@@ -39,6 +40,7 @@ class Typt(TyptVisitor):
         # Add stmts to program
         for stmt_ctx in ctx.stmt():
             stmt = self.visitStmt(stmt_ctx)
+            self.program.stmt_list += [stmt]
 
         return self.program
 
@@ -52,7 +54,19 @@ class Typt(TyptVisitor):
 
         """
 
-        return self.visitChildren(ctx)
+        library_name = ctx.library_name.getText()
+
+        library_alias = library_name    # If no alias, alias is same as name
+        if ctx.library_alias:
+            library_alias = ctx.library_alias.getText()
+
+        using = UsingNode(library_name, library_alias)
+
+        for func_signature_ctx in ctx.func_signature():
+            func_signature = self.visitFunc_signature(func_signature_ctx)
+            using.function_signature_list += [func_signature]
+
+        return using
 
     def visitStmt(self, ctx: TyptParser.StmtContext):
         """Visit `stmt' rule.
