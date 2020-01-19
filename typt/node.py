@@ -49,7 +49,6 @@ class Node:
         """Perform codegen for the given node."""
         raise NotImplementedError('Can not generate code for base AST node.')
 
-    # TODO: Should return the type of the expression represented by the node.
     def check_type() -> Type:
         """Peform type checking for given node."""
         raise NotImplementedError('Can not check type for base AST node.')
