@@ -44,8 +44,8 @@ class Node:
         """Define all intrinsic member variables."""
         self.meta = meta
 
-    # TODO: Should return ???
-    def codegen(self) -> None:
+    # TODO: Should return str representing the output Python 3 code for the node
+    def codegen(self) -> str:
         """Perform codegen for the given node."""
         raise NotImplementedError('Can not generate code for base AST node.')
 
