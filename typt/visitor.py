@@ -8,10 +8,14 @@ from typt.typt_types import Type
 from typt.node import Node
 from typt.program_node import ProgramNode
 from typt.using_node import UsingNode
+from typt.func_signature_node import FuncSignature
+
+# TODO: Switch from representing types as strings to Type objects
 
 # Done:
 #   program
 #   using
+#   func_signature
 
 
 class Typt(TyptVisitor):
@@ -317,28 +321,18 @@ class Typt(TyptVisitor):
     def visitFunc_def(self, ctx: TyptParser.Func_defContext):
         return self.visitChildren(ctx)
     
-    def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> tuple:
-        """Visit `func_signature' rule.
+    def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> FuncSignature:
+        """Visit `func_signature' rule."""
 
-        Args:
-            ctx (Func_signatureContext) : ...
+        func_signature = FuncSignature(
+            ctx.name().getText(), ctx.typt_type().getText()
+        )
 
-        func_signature ::= ...
-
-        Return:
-            tuple (name: str, parameters: FuncParameterList, return_type: str)
-
-        """
-
-        name = ctx.name().getText()
-
-        parameters = None
         if ctx.func_parameter_list():
-            parameters = self.visitFunc_parameter_list(ctx.func_parameter_list())
+            func_signature.parameter_list += \
+                [self.visitFunc_parameter_list(ctx.func_parameter_list())]
 
-        return_type = ctx.typt_type().getText()
-
-        return (name, parameters, return_type)
+        return func_signature
     
     def visitFunc_parameter_list(self, ctx: TyptParser.Func_parameter_listContext):
         return self.visitChildren(ctx)
