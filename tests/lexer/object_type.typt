@@ -1,0 +1,10 @@
+# Test function arguments that are dictionaries
+def pass_one(func : Dict{Int, String}, s : String) -> None:
+    pass
+
+# Another pass
+def pass_two(v : Dict{String, List[Int]}, p : String -> None) -> None:
+    pass
+
+def return_a_dict(n : Int) -> Dict{String, Bool}:
+    pass
