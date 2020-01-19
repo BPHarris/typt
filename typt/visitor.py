@@ -16,7 +16,7 @@ class Typt(TyptVisitor):
 
         super().__init__()
 
-    def visitProgram(self, ctx: TyptParser.ProgramContext):
+    def visitProgram(self, ctx: TyptParser.ProgramContext) -> ProgramNode:
         """Visit `program' rule.
 
         Args:
