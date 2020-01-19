@@ -3,12 +3,15 @@
 from antlr.TyptParser import TyptParser
 from antlr.TyptVisitor import TyptVisitor
 
+from typt.typt_types import Type
+
 from typt.node import Node
 from typt.program_node import ProgramNode
 from typt.using_node import UsingNode
 
 # Done:
 #   program
+#   using
 
 
 class Typt(TyptVisitor):

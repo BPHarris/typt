@@ -1,4 +1,4 @@
-"""using_node.py - holds the AST node for the program rule."""
+"""using_node.py - holds the AST node for the using rule."""
 
 from typt.node import Node
 
