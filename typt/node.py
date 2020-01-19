@@ -3,28 +3,28 @@
 from typt.typt_types import Type
 
 
-class Token:
-    """A token class, representing info on the source code.
+class NodeMetadata:
+    """A NodeMetadata class, representing info on the source code.
 
     Args:
-        line    (int)   : The line number of the token being initialised.
-        column  (int)   : The column number of the token being initialised.
+        line    (int)   : The line number of the metadata being initialised.
+        column  (int)   : The column number of the metadata being initialised.
 
     Attributes:
-        line    (int)   : The line number of the token.
-        column  (int)   : The column (char) number of the token.
+        line    (int)   : The line number of the metadata.
+        column  (int)   : The column (char) number of the metadata.
 
     """
 
-    def __init__(self, line: None, column: None):
-        """Set token position."""
+    def __init__(self, line: int = None, column: int = None):
+        """Set position."""
         self.line = line
         self.column = column
 
     def __repr__(self) -> str:
-        """Return the string representation of the token."""
+        """Return the string representation of the metadata."""
         if not self.line or not self.column:
-            return 'EmptyToken'
+            return 'EmptyMetadata'
 
         return str(self.line) + ':' + str(self.column)
 
@@ -33,16 +33,16 @@ class Node:
     """AST node base class.
 
     Args:
-        token   (Token) : The token of the node being initialised.
+        meta    (NodeMetadata) : The metadata of the node being initialised.
 
     Attributes:
-        token   (Token) : The token of the AST node -- stores metadata.
+        meta    (NodeMetadata) : The metadata of the AST node -- stores metadata.
 
     """
 
-    def __init__(self, token=Token()):
+    def __init__(self, meta=NodeMetadata()):
         """Define all intrinsic member variables."""
-        self.token = token
+        self.meta = meta
 
     # TODO: Should return ???
     def codegen(self) -> None:

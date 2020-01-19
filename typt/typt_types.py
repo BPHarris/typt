@@ -13,19 +13,6 @@
 
 
 
-def compare_types(a: Type, b: Type) -> bool:
-    """Compare the given types A and B.
-
-    Return true if the two given types are sematically equivalent int the
-    typing rules for the Typt language. Return false otherwise.
-
-    Args:
-        a   (Type) : First given type.
-        b   (Type) : Second given type.
-    """
-    pass
-
-
 class Type:
     """A base class for Typt types."""
 
@@ -33,7 +20,7 @@ class Type:
         """Set base variables."""
         pass
 
-    def __eq__(self: Type, other: Type) -> bool:
+    def __eq__(self, other) -> bool:
         """Compare self to the given type."""
         return compare_types(self, other)
 
@@ -71,3 +58,16 @@ class StringType(Type):
 
     def __init__(self):
         super().__init__()
+
+
+def compare_types(a: Type, b: Type) -> bool:
+    """Compare the given types A and B.
+
+    Return true if the two given types are sematically equivalent int the
+    typing rules for the Typt language. Return false otherwise.
+
+    Args:
+        a   (Type) : First given type.
+        b   (Type) : Second given type.
+    """
+    pass
