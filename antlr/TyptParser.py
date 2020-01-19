@@ -671,7 +671,6 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
-            self.function_signatures = None # Func_signatureContext
             self.library_name = None # NameContext
             self.library_alias = None # NameContext
 
@@ -741,7 +740,7 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while True:
                 self.state = 132
-                localctx.function_signatures = self.func_signature()
+                self.func_signature()
                 self.state = 133
                 self.match(TyptParser.NEWLINE)
                 self.state = 137 

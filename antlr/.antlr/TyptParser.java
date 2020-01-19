@@ -257,7 +257,6 @@ public class TyptParser extends Parser {
 	}
 
 	public static class UsingContext extends ParserRuleContext {
-		public Func_signatureContext function_signatures;
 		public NameContext library_name;
 		public NameContext library_alias;
 		public List<TerminalNode> NEWLINE() { return getTokens(TyptParser.NEWLINE); }
@@ -306,7 +305,7 @@ public class TyptParser extends Parser {
 				{
 				{
 				setState(132);
-				((UsingContext)_localctx).function_signatures = func_signature();
+				func_signature();
 				setState(133);
 				match(NEWLINE);
 				}
