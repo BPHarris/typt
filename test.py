@@ -8,6 +8,9 @@ from Typt.TyptLexer import TyptLexer
 from Typt.TyptParser import TyptParser
 from Typt.TyptListener import TyptListener
 
+from io import StringIO
+from contextlib import redirect_stdout, redirect_stderr
+
 
 class TestFileHandling(TestCase):
     """Class for file handling test cases."""
@@ -22,31 +25,24 @@ class TestEmpty(TestCase):
         """Set up method (run before any tests)."""
         self.input_stream = FileStream('tests/empty/empty.typt')
 
-    def test_empty_lexer(self):
+    def test_empty(self):
         """Test lexer on empty file."""
-        lexer = TyptLexer(self.input_stream)
-        self.assertEqual(lexer.tokens, list())
-
-    def test_empty_parser(self):
-        """Test parser on empty file."""
-        lexer = TyptLexer(self.input_stream)
-        stream = CommonTokenStream(lexer)
-        parser = TyptParser(stream)
-
-        # TODO: What to assert?
-        parser.program
-
-    def test_empty_ast(self):
-        """Test ast on empty file."""
         lexer = TyptLexer(self.input_stream)
         stream = CommonTokenStream(lexer)
         parser = TyptParser(stream)
 
         ast = parser.program()
-        ptw = ParseTreeWalker().walk(TyptListener(), ast)
 
-        # TODO: What to assert?
-        ptw
+        # TODO: Fix this. stdout/err not redirected to buf correctly
+        buf = StringIO()
+        with redirect_stderr(buf), redirect_stdout(buf):
+            ParseTreeWalker().walk(TyptListener(), ast)
+
+        self.assertEqual(buf.getvalue(), '')
+
+    def tearDown(self):
+        """Tear down method (run after all tests)."""
+        del self.input_stream
 
 
 if __name__ == '__main__':
