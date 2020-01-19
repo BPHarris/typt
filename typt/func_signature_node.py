@@ -7,9 +7,9 @@ class FuncSignature(Node):
     """FuncSignature AST node.
 
     Attributes:
-        name            (str)               : The function name
-        parameter_list  (FuncParameterList) : The functions's parameter list
-        return_type     (str)               : The functions's return type
+        name            (str)                : The function name
+        parameter_list  (list[(name, type)]) : The functions's parameter list
+        return_type     (str)                : The functions's return type
 
     """
 
