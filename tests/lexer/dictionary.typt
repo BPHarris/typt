@@ -1,0 +1,1 @@
+d : Dict{String, Int} = {'example' : 4}
