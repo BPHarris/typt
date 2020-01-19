@@ -671,6 +671,9 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.function_signatures = None # Func_signatureContext
+            self.library_name = None # NameContext
+            self.library_alias = None # NameContext
 
         def NEWLINE(self, i:int=None):
             if i is None:
@@ -738,7 +741,7 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while True:
                 self.state = 132
-                self.func_signature()
+                localctx.function_signatures = self.func_signature()
                 self.state = 133
                 self.match(TyptParser.NEWLINE)
                 self.state = 137 
@@ -752,7 +755,7 @@ class TyptParser ( Parser ):
             self.state = 140
             self.match(TyptParser.T__2)
             self.state = 141
-            self.name()
+            localctx.library_name = self.name()
             self.state = 144
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -760,7 +763,7 @@ class TyptParser ( Parser ):
                 self.state = 142
                 self.match(TyptParser.T__3)
                 self.state = 143
-                self.name()
+                localctx.library_alias = self.name()
 
 
         except RecognitionException as re:
