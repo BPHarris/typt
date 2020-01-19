@@ -51,6 +51,7 @@ class Typt(TyptVisitor):
         using ::= ...
 
         """
+
         return self.visitChildren(ctx)
 
     def visitStmt(self, ctx: TyptParser.StmtContext):
