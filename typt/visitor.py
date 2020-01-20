@@ -12,6 +12,7 @@ from typt.func_signature_node import FuncSignatureNode
 from typt.stmt_node import StmtNode
 from typt.expr_stmt_node import ExprStmtNode
 from typt.assignment_expr_stmt_node import AssignmentExprStmtNode
+from typt.var_dec_stmt_node import VarDecStmtNode
 
 # 20th:
 #   TODO: Finish small statements
@@ -177,7 +178,7 @@ class Typt(TyptVisitor):
         """Dead method (never called)."""
         raise NotImplementedError('Should not be reached (augassign).')
     
-    def visitVar_dec_stmt(self, ctx: TyptParser.Var_dec_stmtContext):
+    def visitVar_dec_stmt(self, ctx: TyptParser.Var_dec_stmtContext) -> VarDecStmtNode:
         """Visit `var_dec_stmt' rule.
 
         Args:
@@ -186,7 +187,19 @@ class Typt(TyptVisitor):
         var_dec_stmt ::= ...
 
         """
-        return self.visitChildren(ctx)
+
+        # If no initial value given, set to None
+        if not ctx.rhs:
+            return VarDecStmtNode(
+                self.visitTest(ctx.lhs), ctx.typt_type().getText()
+            )
+
+        # Otherwise, parse intial value
+        return VarDecStmtNode(
+            self.visitTest(ctx.lhs),
+            ctx.typt_type().getText(),
+            self.visitTest(ctx.rhs)
+        )
     
     def visitDel_stmt(self, ctx: TyptParser.Del_stmtContext):
         """Visit `del_stmt' rule.
