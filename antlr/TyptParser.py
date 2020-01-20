@@ -1269,13 +1269,15 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
-        def name(self):
-            return self.getTypedRuleContext(TyptParser.NameContext,0)
-
+            self.lhs = None # NameContext
+            self.rhs = None # TestContext
 
         def typt_type(self):
             return self.getTypedRuleContext(TyptParser.Typt_typeContext,0)
+
+
+        def name(self):
+            return self.getTypedRuleContext(TyptParser.NameContext,0)
 
 
         def test(self):
@@ -1313,7 +1315,7 @@ class TyptParser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 179
-                self.name()
+                localctx.lhs = self.name()
                 self.state = 180
                 self.match(TyptParser.T__1)
                 self.state = 181
@@ -1323,7 +1325,7 @@ class TyptParser ( Parser ):
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 183
-                self.name()
+                localctx.lhs = self.name()
                 self.state = 184
                 self.match(TyptParser.T__1)
                 self.state = 185
@@ -1331,7 +1333,7 @@ class TyptParser ( Parser ):
                 self.state = 186
                 self.match(TyptParser.T__5)
                 self.state = 187
-                self.test()
+                localctx.rhs = self.test()
                 pass
 
 

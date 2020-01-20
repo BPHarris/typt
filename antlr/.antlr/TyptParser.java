@@ -753,11 +753,13 @@ public class TyptParser extends Parser {
 	}
 
 	public static class Var_dec_stmtContext extends ParserRuleContext {
-		public NameContext name() {
-			return getRuleContext(NameContext.class,0);
-		}
+		public NameContext lhs;
+		public TestContext rhs;
 		public Typt_typeContext typt_type() {
 			return getRuleContext(Typt_typeContext.class,0);
+		}
+		public NameContext name() {
+			return getRuleContext(NameContext.class,0);
 		}
 		public TestContext test() {
 			return getRuleContext(TestContext.class,0);
@@ -779,7 +781,7 @@ public class TyptParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(179);
-				name();
+				((Var_dec_stmtContext)_localctx).lhs = name();
 				setState(180);
 				match(T__1);
 				setState(181);
@@ -790,7 +792,7 @@ public class TyptParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(183);
-				name();
+				((Var_dec_stmtContext)_localctx).lhs = name();
 				setState(184);
 				match(T__1);
 				setState(185);
@@ -798,7 +800,7 @@ public class TyptParser extends Parser {
 				setState(186);
 				match(T__5);
 				setState(187);
-				test();
+				((Var_dec_stmtContext)_localctx).rhs = test();
 				}
 				break;
 			}
