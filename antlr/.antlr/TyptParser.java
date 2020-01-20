@@ -1259,6 +1259,10 @@ public class TyptParser extends Parser {
 	}
 
 	public static class For_stmtContext extends ParserRuleContext {
+		public ExprlistContext expr_list;
+		public TestlistContext test_list;
+		public SuiteContext for_suite;
+		public SuiteContext else_suite;
 		public ExprlistContext exprlist() {
 			return getRuleContext(ExprlistContext.class,0);
 		}
@@ -1287,15 +1291,15 @@ public class TyptParser extends Parser {
 			setState(242);
 			match(T__28);
 			setState(243);
-			exprlist();
+			((For_stmtContext)_localctx).expr_list = exprlist();
 			setState(244);
 			match(T__29);
 			setState(245);
-			testlist();
+			((For_stmtContext)_localctx).test_list = testlist();
 			setState(246);
 			match(T__1);
 			setState(247);
-			suite();
+			((For_stmtContext)_localctx).for_suite = suite();
 			setState(251);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -1306,7 +1310,7 @@ public class TyptParser extends Parser {
 				setState(249);
 				match(T__1);
 				setState(250);
-				suite();
+				((For_stmtContext)_localctx).else_suite = suite();
 				}
 			}
 

@@ -241,8 +241,8 @@ while_stmt
       ('else'                   ':' else_suite  = suite)?
     ;
 for_stmt
-    : 'for' exprlist 'in' testlist ':' suite
-      ('else' ':' suite)?
+    : 'for' expr_list=exprlist 'in' test_list=testlist  ':' for_suite=suite
+      ('else'                                           ':' else_suite=suite)?
     ;
 
 suite

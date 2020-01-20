@@ -16,6 +16,9 @@ print()
 while False:
     pass
 
+for x in iter:
+    wowzers('!')
+
 # ooh lad
 if func('str'):
     x = 5 + 2 * y

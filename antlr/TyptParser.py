@@ -1763,6 +1763,10 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.expr_list = None # ExprlistContext
+            self.test_list = None # TestlistContext
+            self.for_suite = None # SuiteContext
+            self.else_suite = None # SuiteContext
 
         def exprlist(self):
             return self.getTypedRuleContext(TyptParser.ExprlistContext,0)
@@ -1801,15 +1805,15 @@ class TyptParser ( Parser ):
             self.state = 242
             self.match(TyptParser.T__28)
             self.state = 243
-            self.exprlist()
+            localctx.expr_list = self.exprlist()
             self.state = 244
             self.match(TyptParser.T__29)
             self.state = 245
-            self.testlist()
+            localctx.test_list = self.testlist()
             self.state = 246
             self.match(TyptParser.T__1)
             self.state = 247
-            self.suite()
+            localctx.for_suite = self.suite()
             self.state = 251
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -1819,7 +1823,7 @@ class TyptParser ( Parser ):
                 self.state = 249
                 self.match(TyptParser.T__1)
                 self.state = 250
-                self.suite()
+                localctx.else_suite = self.suite()
 
 
         except RecognitionException as re:

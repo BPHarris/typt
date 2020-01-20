@@ -40,6 +40,7 @@ from typt.return_stmt_node import ReturnStmtNode
 
 from typt.if_stmt_node import IfStmtNode
 from typt.while_stmt_node import WhileStmtNode
+from typt.for_stmt_node import ForStmtNode
 
 from typt.suite_node import SuiteNode
 
@@ -52,6 +53,7 @@ from typing import Iterable
 # 21st:
 #   TODO: __repr__ for every node -- test output (ADD DEPTH!!!!!!)
 #   TODO: Switch from representing types as strings to Type objects
+#   TODO: Test brackets and order of operations in lexer
 
 # Done:
 #   program
@@ -74,7 +76,8 @@ from typing import Iterable
 #                   return_stmt
 #       compound_stmt
 #           if_stmt
-#           TODO compound statements
+#           while_stmt
+#           for_stmt            # TODO type annotations for exprlist, testlist
 #   suite
 #   TODO: test
 #       atom    # TODO self
@@ -370,16 +373,27 @@ class Typt(TyptVisitor):
 
         return WhileStmtNode(while_branch, else_branch)
 
-    def visitFor_stmt(self, ctx: TyptParser.For_stmtContext):
+    def visitFor_stmt(self, ctx: TyptParser.For_stmtContext) -> ForStmtNode:
         """Visit `for_stmt' rule.
 
         Args:
             ctx (For_stmtContext) : ...
 
-        for_stmt ::= ...
+        for_stmt ::= 'for' exprlist 'in' testlist   ':' suite
+                     ('else'                        ':' suite)?
 
         """
-        return self.visitChildren(ctx)
+        # Get for condition and body
+        expr_list = self.visitExprlist(ctx.expr_list)
+        test_list = self.visitTestlist(ctx.test_list)
+        for_branch = self.visitSuite(ctx.for_suite)
+
+        # Get else branch
+        else_branch = None
+        if ctx.else_suite:
+            else_branch = self.visitSuite(ctx.else_suite)
+
+        return ForStmtNode(expr_list, test_list, for_branch, else_branch)
 
     def visitSuite(self, ctx: TyptParser.SuiteContext) -> SuiteNode:
         """Visit `suite' rule.
