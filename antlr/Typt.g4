@@ -342,8 +342,6 @@ testlist : test (',' test)* (',')? ;
 /* Special Rules */
 // NOTE: needed as NAME does not work directly in parser rules, idk why
 name: NAME;
-value: NUMBER | STRING | 'None' | 'True' | 'False' ;
-
 
 /*****************************************************************************/
 

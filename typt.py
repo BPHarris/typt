@@ -4,7 +4,6 @@ from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 
 from antlr.TyptLexer import TyptLexer
 from antlr.TyptParser import TyptParser
-from antlr.TyptListener import TyptListener
 
 from typt.visitor import Typt
 

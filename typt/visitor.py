@@ -440,8 +440,5 @@ class Typt(TyptVisitor):
         # raise NotImplementedError('Don\'t visit name -- use .getText().')
         return None
 
-    def visitValue(self, ctx: TyptParser.ValueContext):
-        return self.visitChildren(ctx)
-    
     def visitTypt_type(self, ctx: TyptParser.Typt_typeContext):
         return self.visitChildren(ctx)

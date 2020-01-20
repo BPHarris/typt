@@ -1,4 +1,4 @@
-# Generated from .\antlr\Typt.g4 by ANTLR 4.7.2
+# Generated from antlr/Typt.g4 by ANTLR 4.8
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .TyptParser import TyptParser
@@ -266,11 +266,6 @@ class TyptVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TyptParser#name.
     def visitName(self, ctx:TyptParser.NameContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by TyptParser#value.
-    def visitValue(self, ctx:TyptParser.ValueContext):
         return self.visitChildren(ctx)
 
 

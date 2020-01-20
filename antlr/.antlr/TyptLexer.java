@@ -1,4 +1,4 @@
-// Generated from d:\Brandon\University\Third Year Project\Typt\antlr\Typt.g4 by ANTLR 4.7.1
+// Generated from /home/brandon/Documents/GitKraken/typt/antlr/Typt.g4 by ANTLR 4.7.1
 
 from antlr4.Token import CommonToken
 import re
