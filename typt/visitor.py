@@ -17,6 +17,8 @@ from typt.var_dec_stmt_node import VarDecStmtNode
 # 20th:
 #   TODO: Finish small statements
 #   TODO: visitTest
+#   ...
+#   TODO: del_stmt (skipped as need exprlist done first)
 
 # 21st:
 #   TODO: __repr__ for every node -- test output
@@ -32,6 +34,7 @@ from typt.var_dec_stmt_node import VarDecStmtNode
 #   small_stmt
 #   expr_stmt, anassign, augassign
 #   var_dec_stmt
+#   ¬del_stmt
 
 
 class Typt(TyptVisitor):
