@@ -217,7 +217,7 @@ class Typt(TyptVisitor):
 
     def visitFlow_stmt(self, ctx: TyptParser.Flow_stmtContext) -> StmtNode:
         """Visit `flow_stmt' rule."""
-
+        # Return relevant flow-stmt
         if ctx.break_stmt():
             return self.visitBreak_stmt(ctx.break_stmt())
         if ctx.continue_stmt():
@@ -256,7 +256,7 @@ class Typt(TyptVisitor):
 
         """
         return self.visitChildren(ctx)
-    
+
     def visitIf_stmt(self, ctx: TyptParser.If_stmtContext):
         """Visit `if_stmt' rule.
 
@@ -267,7 +267,7 @@ class Typt(TyptVisitor):
 
         """
         return self.visitChildren(ctx)
-    
+
     def visitWhile_stmt(self, ctx: TyptParser.While_stmtContext):
         """Visit `while_stmt' rule.
 
@@ -278,7 +278,7 @@ class Typt(TyptVisitor):
 
         """
         return self.visitChildren(ctx)
-    
+
     def visitFor_stmt(self, ctx: TyptParser.For_stmtContext):
         """Visit `for_stmt' rule.
 
@@ -289,7 +289,7 @@ class Typt(TyptVisitor):
 
         """
         return self.visitChildren(ctx)
-    
+
     def visitSuite(self, ctx: TyptParser.SuiteContext):
         """Visit `suite' rule.
 
@@ -325,10 +325,10 @@ class Typt(TyptVisitor):
         types = [type.getText() for type in ctx.typt_type()]
 
         return list(zip(names, types))
-    
+
     def visitClass_def(self, ctx: TyptParser.Class_defContext):
         return self.visitChildren(ctx)
-    
+
     def visitClass_dec(self, ctx: TyptParser.Class_decContext):
         return self.visitChildren(ctx)
     
