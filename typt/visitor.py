@@ -13,7 +13,13 @@ from typt.stmt_node import StmtNode
 from typt.expr_stmt_node import ExprStmtNode
 from typt.assignment_expr_stmt_node import AssignmentExprStmtNode
 
-# TODO: Switch from representing types as strings to Type objects
+# 20th:
+#   TODO: Finish small statements
+#   TODO: visitTest
+
+# 21st:
+#   TODO: __repr__ for every node -- test output
+#   TODO: Switch from representing types as strings to Type objects
 
 # Done:
 #   program
