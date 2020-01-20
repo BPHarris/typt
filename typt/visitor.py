@@ -72,6 +72,7 @@ from typing import Iterable
 #                   continue_stmt
 #                   return_stmt
 #       compound_stmt
+#           if_stmt
 #           TODO compound statements
 #   suite
 #   TODO: test
