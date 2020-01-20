@@ -178,7 +178,7 @@ small_stmt
     ;
 
 expr_stmt
-    : test ((anassign | augassign) test)?
+    : lhs=test ((anassign | augassign) rhs=test)?
     // test (',' test)* (',')? (anassign | augassign) test
     ;
 anassign

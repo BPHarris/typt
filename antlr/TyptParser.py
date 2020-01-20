@@ -1092,6 +1092,8 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # TestContext
+            self.rhs = None # TestContext
 
         def test(self, i:int=None):
             if i is None:
@@ -1136,7 +1138,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 166
-            self.test()
+            localctx.lhs = self.test()
             self.state = 173
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -1156,7 +1158,7 @@ class TyptParser ( Parser ):
                     raise NoViableAltException(self)
 
                 self.state = 171
-                self.test()
+                localctx.rhs = self.test()
 
 
         except RecognitionException as re:

@@ -605,6 +605,8 @@ public class TyptParser extends Parser {
 	}
 
 	public static class Expr_stmtContext extends ParserRuleContext {
+		public TestContext lhs;
+		public TestContext rhs;
 		public List<TestContext> test() {
 			return getRuleContexts(TestContext.class);
 		}
@@ -631,7 +633,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(166);
-			test();
+			((Expr_stmtContext)_localctx).lhs = test();
 			setState(173);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -668,7 +670,7 @@ public class TyptParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				setState(171);
-				test();
+				((Expr_stmtContext)_localctx).rhs = test();
 				}
 			}
 
