@@ -45,11 +45,12 @@ class Node:
         self.meta = meta
         self.depth = depth
 
-    # TODO: Should return str representing the output Python 3 code for the node
+    # Return str representing the output Python 3 code for the node
     def codegen(self) -> str:
         """Perform codegen for the given node."""
         raise NotImplementedError('Can not generate code for base AST node.')
 
+    # Return the type of the node, derived from typing rules
     def check_type() -> Type:
         """Peform type checking for given node."""
         raise NotImplementedError('Can not check type for base AST node.')

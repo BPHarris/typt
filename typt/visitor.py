@@ -51,8 +51,9 @@ from typt.test.literal_node import LiteralNode
 from typing import Iterable
 
 # 21st:
+#   TODO: Visit bodies for: test, argument_list, class
 #   TODO: __repr__ for every node -- test output (ADD DEPTH!!!!!!)
-#   TODO: Switch from representing types as strings to Type objects
+#           i.e. print parse tree
 #   TODO: Test brackets and order of operations in lexer
 
 # Done:
