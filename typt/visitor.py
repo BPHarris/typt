@@ -19,7 +19,7 @@ from typt.continue_stmt_node import ContinueStmtNode
 from typt.return_stmt_node import ReturnStmtNode
 
 # 20th:
-#   TODO: Finish small statements
+#   TODO: Compound statements
 #   TODO: visitTest
 #   ...
 #   TODO: del_stmt (skipped as need exprlist done first)
@@ -32,15 +32,20 @@ from typt.return_stmt_node import ReturnStmtNode
 #   program
 #   using
 #   func_signature
-#   func_parameter_list
+#       func_parameter_list
 #   stmt
-#   simple_stmt
-#   small_stmt
-#   expr_stmt, anassign, augassign
-#   var_dec_stmt
-#   ¬del_stmt
-#   pass_stmt
-#   flow_stmt, break_stmt, continue_stmt, return_stmt
+#       simple_stmt
+#       small_stmt
+#           expr_stmt
+#               anassign
+#               augassign
+#           var_dec_stmt
+#           ¬del_stmt
+#           pass_stmt
+#           flow_stmt
+#               break_stmt
+#               continue_stmt
+#               return_stmt
 
 
 class Typt(TyptVisitor):
