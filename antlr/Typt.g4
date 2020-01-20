@@ -362,9 +362,9 @@ typt_type
     
     /* Function Type */
     // 1-argument function
-    | typt_type                          '->' return_type=typt_type
+    | typt_type                          function_type='->' return_type=typt_type
     // n-argument function (n in 0..inf)
-    | '<' typt_type (',' typt_type)* '>' '->' return_type=typt_type
+    | '<' typt_type (',' typt_type)* '>' function_type='->' return_type=typt_type
 
     /* Other */
     | list_type     = 'List'    '[' element_type=typt_type ']'

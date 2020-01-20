@@ -3960,6 +3960,7 @@ class TyptParser ( Parser ):
             self.string_type = None # Token
             self.object_base_type = None # Token
             self.object_type = None # Token
+            self.function_type = None # Token
             self.return_type = None # Typt_typeContext
             self.list_type = None # Token
             self.element_type = None # Typt_typeContext
@@ -4089,7 +4090,7 @@ class TyptParser ( Parser ):
                 self.state = 601
                 self.match(TyptParser.T__43)
                 self.state = 602
-                self.match(TyptParser.T__33)
+                localctx.function_type = self.match(TyptParser.T__33)
                 self.state = 603
                 localctx.return_type = self.typt_type(5)
                 pass
@@ -4177,7 +4178,7 @@ class TyptParser ( Parser ):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
                     self.state = 638
-                    self.match(TyptParser.T__33)
+                    localctx.function_type = self.match(TyptParser.T__33)
                     self.state = 639
                     localctx.return_type = self.typt_type(7) 
                 self.state = 644

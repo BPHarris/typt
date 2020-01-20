@@ -3341,6 +3341,7 @@ public class TyptParser extends Parser {
 		public Token string_type;
 		public Token object_base_type;
 		public Token object_type;
+		public Token function_type;
 		public Typt_typeContext return_type;
 		public Token list_type;
 		public Typt_typeContext element_type;
@@ -3485,7 +3486,7 @@ public class TyptParser extends Parser {
 				setState(601);
 				match(T__43);
 				setState(602);
-				match(T__33);
+				((Typt_typeContext)_localctx).function_type = match(T__33);
 				setState(603);
 				((Typt_typeContext)_localctx).return_type = typt_type(5);
 				}
@@ -3582,7 +3583,7 @@ public class TyptParser extends Parser {
 					setState(637);
 					if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 					setState(638);
-					match(T__33);
+					((Typt_typeContext)_localctx).function_type = match(T__33);
 					setState(639);
 					((Typt_typeContext)_localctx).return_type = typt_type(7);
 					}
