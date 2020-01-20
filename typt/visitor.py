@@ -18,6 +18,7 @@ from typt.typt_types import SetType
 from typt.typt_types import DictType
 from typt.typt_types import FunctionType
 from typt.typt_types import ObjectType
+from typt.typt_types import is_int, is_float
 
 # Import Type AST nodes
 from typt.node import Node
@@ -455,24 +456,33 @@ class Typt(TyptVisitor):
         if ctx.name():
             return VarRefNode(self.visitName(ctx.name()))
 
-        # TODO Number => int/float
-
-        # Otherwise, get type from literal value
         text = ctx.getText()
+
+        # String
+        if ctx.string_literal:
+            return LiteralNode(StringType(), text)
+
+        # Number
+        if is_int(text):
+            return LiteralNode(IntType(), text)
+        if is_float(text):
+            return LiteralNode(FloatType(), text)
+
+        # None
         if text == 'None':
-            return LiteralNode('NoneType', text)
-        if text == 'True':
-            return LiteralNode('Bool', text)
-        if text == 'False':
-            return LiteralNode('Bool', text)
+            return LiteralNode(NoneType(), text)
+
+        # Boolean
+        if text == 'True' or text == 'False':
+            return LiteralNode(BoolType(), text)
+
+        # Self
         if text == 'self':
             # TODO self references
             print('Self not implemented @ visitAtom')
             return LiteralNode('', text)
 
-        # TODO If none of the above => then string
-
-        return self.visitChildren(ctx)
+        raise NotImplementedError('That type of atom is not implemented yet.')
 
     def visitTrailer(self, ctx: TyptParser.TrailerContext):
         return self.visitChildren(ctx)

@@ -2829,6 +2829,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class AtomContext extends ParserRuleContext {
+		public Token string_literal;
 		public NameContext name() {
 			return getRuleContext(NameContext.class,0);
 		}
@@ -2865,7 +2866,7 @@ public class TyptParser extends Parser {
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(495);
-				match(STRING);
+				((AtomContext)_localctx).string_literal = match(STRING);
 				}
 				break;
 			case T__62:

@@ -321,7 +321,7 @@ atom_expr   : atom trailer* ;
 atom
     : name
     | NUMBER
-    | STRING
+    | string_literal=STRING
     | 'None'
     | 'True'
     | 'False'

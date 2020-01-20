@@ -3426,6 +3426,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.string_literal = None # Token
 
         def name(self):
             return self.getTypedRuleContext(TyptParser.NameContext,0)
@@ -3470,7 +3471,7 @@ class TyptParser ( Parser ):
             elif token in [TyptParser.STRING]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 495
-                self.match(TyptParser.STRING)
+                localctx.string_literal = self.match(TyptParser.STRING)
                 pass
             elif token in [TyptParser.T__62]:
                 self.enterOuterAlt(localctx, 4)
