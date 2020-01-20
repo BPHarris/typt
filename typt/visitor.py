@@ -13,6 +13,7 @@ from typt.stmt_node import StmtNode
 from typt.expr_stmt_node import ExprStmtNode
 from typt.assignment_expr_stmt_node import AssignmentExprStmtNode
 from typt.var_dec_stmt_node import VarDecStmtNode
+from typt.pass_stmt_node import PassStmtNode
 
 # 20th:
 #   TODO: Finish small statements
@@ -35,6 +36,7 @@ from typt.var_dec_stmt_node import VarDecStmtNode
 #   expr_stmt, anassign, augassign
 #   var_dec_stmt
 #   ¬del_stmt
+#   pass_stmt
 
 
 class Typt(TyptVisitor):
@@ -206,26 +208,17 @@ class Typt(TyptVisitor):
         )
     
     def visitDel_stmt(self, ctx: TyptParser.Del_stmtContext):
-        """Visit `del_stmt' rule.
+        """Visit `del_stmt' rule."""
 
-        Args:
-            ctx (Del_stmtContext) : ...
+        # TODO: IMPLEMENT MEEEEEEEEEE! FOR IMMORTAN JOE ARRRRRRRRRRRRRGGG
 
-        del_stmt ::= ...
-
-        """
         return self.visitChildren(ctx)
     
     def visitPass_stmt(self, ctx: TyptParser.Pass_stmtContext):
-        """Visit `pass_stmt' rule.
+        """Visit `pass_stmt' rule."""
 
-        Args:
-            ctx (Pass_stmtContext) : ...
-
-        pass_stmt ::= ...
-
-        """
-        return self.visitChildren(ctx)
+        # Return new pass statment, not data or anything needed! :D
+        return PassStmtNode()
     
     def visitFlow_stmt(self, ctx: TyptParser.Flow_stmtContext):
         """Visit `flow_stmt' rule.
