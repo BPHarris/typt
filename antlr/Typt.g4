@@ -366,10 +366,10 @@ typt_type
     | '<' typt_type (',' typt_type)* '>' '->' typt_type // n-argument function (n in 0..inf)
 
     /* Other */
-    | list_type     = 'List'    '[' typt_type ']'
+    | list_type     = 'List'    '[' element_type=typt_type ']'
     | tuple_type    = 'Tuple'   '(' (typt_type (',' typt_type)*)? ')'
-    | set_type      = 'Set'     '(' typt_type ')'
-    | dict_type     = 'Dict'    '{' typt_type ',' typt_type '}'
+    | set_type      = 'Set'     '(' element_type=typt_type ')'
+    | dict_type     = 'Dict'    '{' key_type=typt_type ',' index_type=typt_type '}'
     ;
 
 

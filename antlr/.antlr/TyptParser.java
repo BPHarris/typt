@@ -3342,9 +3342,12 @@ public class TyptParser extends Parser {
 		public Token object_base_type;
 		public Token object_type;
 		public Token list_type;
+		public Typt_typeContext element_type;
 		public Token tuple_type;
 		public Token set_type;
 		public Token dict_type;
+		public Typt_typeContext key_type;
+		public Typt_typeContext index_type;
 		public List<NameContext> name() {
 			return getRuleContexts(NameContext.class);
 		}
@@ -3493,7 +3496,7 @@ public class TyptParser extends Parser {
 				setState(606);
 				match(T__65);
 				setState(607);
-				typt_type(0);
+				((Typt_typeContext)_localctx).element_type = typt_type(0);
 				setState(608);
 				match(T__66);
 				}
@@ -3541,7 +3544,7 @@ public class TyptParser extends Parser {
 				setState(624);
 				match(T__31);
 				setState(625);
-				typt_type(0);
+				((Typt_typeContext)_localctx).element_type = typt_type(0);
 				setState(626);
 				match(T__32);
 				}
@@ -3553,11 +3556,11 @@ public class TyptParser extends Parser {
 				setState(629);
 				match(T__73);
 				setState(630);
-				typt_type(0);
+				((Typt_typeContext)_localctx).key_type = typt_type(0);
 				setState(631);
 				match(T__4);
 				setState(632);
-				typt_type(0);
+				((Typt_typeContext)_localctx).index_type = typt_type(0);
 				setState(633);
 				match(T__74);
 				}

@@ -3961,9 +3961,12 @@ class TyptParser ( Parser ):
             self.object_base_type = None # Token
             self.object_type = None # Token
             self.list_type = None # Token
+            self.element_type = None # Typt_typeContext
             self.tuple_type = None # Token
             self.set_type = None # Token
             self.dict_type = None # Token
+            self.key_type = None # Typt_typeContext
+            self.index_type = None # Typt_typeContext
 
         def name(self, i:int=None):
             if i is None:
@@ -4096,7 +4099,7 @@ class TyptParser ( Parser ):
                 self.state = 606
                 self.match(TyptParser.T__65)
                 self.state = 607
-                self.typt_type(0)
+                localctx.element_type = self.typt_type(0)
                 self.state = 608
                 self.match(TyptParser.T__66)
                 pass
@@ -4136,7 +4139,7 @@ class TyptParser ( Parser ):
                 self.state = 624
                 self.match(TyptParser.T__31)
                 self.state = 625
-                self.typt_type(0)
+                localctx.element_type = self.typt_type(0)
                 self.state = 626
                 self.match(TyptParser.T__32)
                 pass
@@ -4147,11 +4150,11 @@ class TyptParser ( Parser ):
                 self.state = 629
                 self.match(TyptParser.T__73)
                 self.state = 630
-                self.typt_type(0)
+                localctx.key_type = self.typt_type(0)
                 self.state = 631
                 self.match(TyptParser.T__4)
                 self.state = 632
-                self.typt_type(0)
+                localctx.index_type = self.typt_type(0)
                 self.state = 633
                 self.match(TyptParser.T__74)
                 pass
