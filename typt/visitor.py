@@ -21,6 +21,7 @@ from typt.return_stmt_node import ReturnStmtNode
 
 from typt.suite_node import SuiteNode
 
+# TODO Create sub-classes of atom for BoolLiteral, IntLiteral, VariableReference, etc
 from typt.test.atom_node import AtomNode
 
 # 20th:
