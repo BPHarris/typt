@@ -29,6 +29,7 @@ from typt.stmt_node import StmtNode
 from typt.expr_stmt_node import ExprStmtNode
 from typt.assignment_expr_stmt_node import AssignmentExprStmtNode
 from typt.var_dec_stmt_node import VarDecStmtNode
+from typt.del_stmt_node import DelStmtNode
 from typt.pass_stmt_node import PassStmtNode
 from typt.break_stmt_node import BreakStmtNode
 from typt.continue_stmt_node import ContinueStmtNode
@@ -41,9 +42,6 @@ from typt.test.var_ref_node import VarRefNode
 from typt.test.literal_node import LiteralNode
 
 from typing import Iterable
-
-# 20th:
-#   TODO: del_stmt (skipped as need exprlist done first)
 
 # 21st:
 #   TODO: __repr__ for every node -- test output (ADD DEPTH!!!!!!)
@@ -62,7 +60,7 @@ from typing import Iterable
 #                   anassign
 #                   augassign
 #               var_dec_stmt
-#               ¬del_stmt
+#               del_stmt
 #               pass_stmt
 #               flow_stmt
 #                   break_stmt
@@ -238,11 +236,12 @@ class Typt(TyptVisitor):
             self.visitTest(ctx.rhs)
         )
 
-    def visitDel_stmt(self, ctx: TyptParser.Del_stmtContext):
+    def visitDel_stmt(self, ctx: TyptParser.Del_stmtContext) -> DelStmtNode:
         """Visit `del_stmt' rule."""
-        # TODO: IMPLEMENT MEEEEEEEEEE! FOR IMMORTAN JOE ARRRRRRRRRRRRRGGG
+        # Get expr_list
+        expr_list = self.visitExprlist(ctx.exprlist())
 
-        return self.visitChildren(ctx)
+        return DelStmtNode(expr_list)
 
     def visitPass_stmt(self, ctx: TyptParser.Pass_stmtContext) -> PassStmtNode:
         """Visit `pass_stmt' rule."""
