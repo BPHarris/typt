@@ -3,6 +3,7 @@
 from antlr.TyptParser import TyptParser
 from antlr.TyptVisitor import TyptVisitor
 
+# Import Typt types
 from typt.typt_types import NameTypePair
 from typt.typt_types import Type
 from typt.typt_types import NoneType
@@ -18,7 +19,7 @@ from typt.typt_types import DictType
 from typt.typt_types import FunctionType
 from typt.typt_types import ObjectType
 
-
+# Import Type AST nodes
 from typt.node import Node
 from typt.program_node import ProgramNode
 from typt.using_node import UsingNode
@@ -43,8 +44,6 @@ from typing import Iterable
 
 # 20th:
 #   TODO: del_stmt (skipped as need exprlist done first)
-#   TODO: REWRITE TO USE NameTypePair
-#   TODO: REWRITE TO USE visitName
 
 # 21st:
 #   TODO: __repr__ for every node -- test output (ADD DEPTH!!!!!!)
@@ -73,6 +72,7 @@ from typing import Iterable
 #           TODO compound statements
 #   suite
 #   TODO: test
+#       atom
 #   name
 #   typt_type
 
@@ -461,16 +461,16 @@ class Typt(TyptVisitor):
 
     def visitTrailer(self, ctx: TyptParser.TrailerContext):
         return self.visitChildren(ctx)
-    
+
     def visitSubscriptlist(self, ctx: TyptParser.SubscriptlistContext):
         return self.visitChildren(ctx)
-    
+
     def visitSubscript(self, ctx: TyptParser.SubscriptContext):
         return self.visitChildren(ctx)
-    
+
     def visitSliceop(self, ctx: TyptParser.SliceopContext):
         return self.visitChildren(ctx)
-    
+
     def visitExprlist(self, ctx: TyptParser.ExprlistContext):
         return self.visitChildren(ctx)
 
