@@ -31,6 +31,7 @@ from typt.var_dec_stmt_node import VarDecStmtNode
 #   simple_stmt
 #   small_stmt
 #   expr_stmt, anassign, augassign
+#   var_dec_stmt
 
 
 class Typt(TyptVisitor):
