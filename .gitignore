@@ -8,6 +8,9 @@ Typt/.antlr
 # Add vscode settings
 .vscode/
 
+# Linux build file
+build
+
 # --------------------------------------------------------------------------- #
 
 # Byte-compiled / optimized / DLL files
