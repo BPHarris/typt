@@ -3,7 +3,21 @@
 from antlr.TyptParser import TyptParser
 from antlr.TyptVisitor import TyptVisitor
 
+from typt.typt_types import NameTypePair
 from typt.typt_types import Type
+from typt.typt_types import NoneType
+from typt.typt_types import BoolType
+from typt.typt_types import IntType
+from typt.typt_types import FloatType
+from typt.typt_types import StringType
+from typt.typt_types import ObjectBaseType
+from typt.typt_types import ListType
+from typt.typt_types import TupleType
+from typt.typt_types import SetType
+from typt.typt_types import DictType
+from typt.typt_types import FunctionType
+from typt.typt_types import ObjectType
+
 
 from typt.node import Node
 from typt.program_node import ProgramNode
@@ -21,14 +35,14 @@ from typt.return_stmt_node import ReturnStmtNode
 
 from typt.suite_node import SuiteNode
 
-# TODO Create sub-classes of atom for BoolLiteral, IntLiteral, VariableReference, etc
-# Have atom_node.py hold all literal classes??
 from typt.test.atom_node import AtomNode
 from typt.test.var_ref_node import VarRefNode
 from typt.test.literal_node import LiteralNode
 
 # 20th:
 #   TODO: del_stmt (skipped as need exprlist done first)
+#   TODO: REWRITE TO USE NameTypePair
+#   TODO: REWRITE TO USE visitName
 
 # 21st:
 #   TODO: __repr__ for every node -- test output (ADD DEPTH!!!!!!)
@@ -57,7 +71,8 @@ from typt.test.literal_node import LiteralNode
 #           TODO compound statements
 #   suite
 #   TODO: test
-#   TODO: name
+#   name
+#   typt_type
 
 
 class Typt(TyptVisitor):
@@ -436,7 +451,7 @@ class Typt(TyptVisitor):
             return LiteralNode('Bool', text)
         if text == 'self':
             # TODO self references
-            print('Self not implemented')
+            print('Self not implemented @ visitAtom')
             return LiteralNode('', text)
 
         # TODO If none of the above => then string
@@ -461,11 +476,70 @@ class Typt(TyptVisitor):
     def visitTestlist(self, ctx: TyptParser.TestlistContext):
         return self.visitChildren(ctx)
 
-    def visitName(self, ctx: TyptParser.NameContext) -> None:
-        """Raise NotImplementedError."""
-        # TODO: When possible, uncomment raise Error
-        # raise NotImplementedError('Don\'t visit name -- use .getText().')
-        return None
+    def visitName(self, ctx: TyptParser.NameContext) -> str:
+        """Return the contents."""
+        return ctx.getText()
 
-    def visitTypt_type(self, ctx: TyptParser.Typt_typeContext):
-        return self.visitChildren(ctx)
+    def visitTypt_type(self, ctx: TyptParser.Typt_typeContext) -> Type:
+        """Temporary visit for typt_type."""
+        text = ctx.getText()
+
+        # Base Types (None, Bool, Int, Float, String, ObjectBaseType)
+        if ctx.none_type:
+            return NoneType()
+        if ctx.bool_type:
+            return BoolType()
+        if ctx.int_type:
+            return IntType()
+        if ctx.float_type:
+            return FloatType()
+        if ctx.string_type:
+            return StringType()
+        if ctx.object_base_type():
+            return ObjectBaseType()
+
+        # Object Type
+        if ctx.object_type:
+            # Get members names, types
+            names = [self.visitName(name) for name in ctx.name()]
+            types = [self.visitTypt_type(t) for t in ctx.typt_type()]
+
+            # Create NameTypePairs
+            members = list()
+            for (n, t) in zip(names, types):
+                members += [NameTypePair(n, t)]
+
+            return ObjectType(members)
+
+        # Function Type
+        if ctx.function_type:
+            return_type = self.visitTypt_type(ctx.return_type)
+
+            # Get parameter types
+            parameter_types = list()
+            for ctx_type in ctx.typt_type():
+                parameter_types += [self.visitTypt_type(ctx_type)]
+
+            return FunctionType(parameter_types, return_type)
+
+        # List, Tuple, Set, Dict
+        if ctx.list_type:
+            return ListType(self.visitTypt_type(ctx.element_type))
+        if ctx.tuple_type:
+            # Get type list
+            element_types = list()
+            for ctx_typt_type in ctx.typt_type():
+                element_types += [self.visitTypt_type(ctx_typt_type)]
+
+            return TupleType(element_types)
+        if ctx.set_type:
+            return SetType(self.visitTypt_type(ctx.element_type))
+        if ctx.dict_type:
+            return DictType(
+                self.visitTypt_type(ctx.key_type),
+                self.visitTypt_type(ctx.value_type)
+            )
+
+        raise NotImplementedError(
+            'The type \'{}\' is not implemented yet.'.format(text)
+        )
