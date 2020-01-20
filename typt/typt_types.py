@@ -157,3 +157,23 @@ def compare_types(a: Type, b: Type) -> bool:
         b   (Type) : Second given type.
     """
     pass
+
+
+def is_int(s: str) -> bool:
+    """Given a string representing a literal, return true if it is an int."""
+    try:
+        int(s)
+    except ValueError:
+        return False
+
+    return True
+
+
+def is_float(s: str) -> bool:
+    """Given a string representing a literal, return true if it is an float."""
+    try:
+        float(s)
+    except ValueError:
+        return False
+
+    return True
