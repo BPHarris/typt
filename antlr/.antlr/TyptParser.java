@@ -993,8 +993,8 @@ public class TyptParser extends Parser {
 	}
 
 	public static class Return_stmtContext extends ParserRuleContext {
-		public TestlistContext testlist() {
-			return getRuleContext(TestlistContext.class,0);
+		public TestContext test() {
+			return getRuleContext(TestContext.class,0);
 		}
 		public Return_stmtContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1017,7 +1017,7 @@ public class TyptParser extends Parser {
 			if (((((_la - 36)) & ~0x3f) == 0 && ((1L << (_la - 36)) & ((1L << (T__35 - 36)) | (1L << (T__41 - 36)) | (1L << (T__54 - 36)) | (1L << (T__55 - 36)) | (1L << (T__60 - 36)) | (1L << (T__62 - 36)) | (1L << (T__63 - 36)) | (1L << (T__64 - 36)) | (1L << (NUMBER - 36)) | (1L << (STRING - 36)) | (1L << (NAME - 36)))) != 0)) {
 				{
 				setState(206);
-				testlist();
+				test();
 				}
 			}
 
@@ -3737,7 +3737,7 @@ public class TyptParser extends Parser {
 		"\7\27\2\2\u00c5\33\3\2\2\2\u00c6\u00ca\5\36\20\2\u00c7\u00ca\5 \21\2\u00c8"+
 		"\u00ca\5\"\22\2\u00c9\u00c6\3\2\2\2\u00c9\u00c7\3\2\2\2\u00c9\u00c8\3"+
 		"\2\2\2\u00ca\35\3\2\2\2\u00cb\u00cc\7\30\2\2\u00cc\37\3\2\2\2\u00cd\u00ce"+
-		"\7\31\2\2\u00ce!\3\2\2\2\u00cf\u00d1\7\32\2\2\u00d0\u00d2\5f\64\2\u00d1"+
+		"\7\31\2\2\u00ce!\3\2\2\2\u00cf\u00d1\7\32\2\2\u00d0\u00d2\5<\37\2\u00d1"+
 		"\u00d0\3\2\2\2\u00d1\u00d2\3\2\2\2\u00d2#\3\2\2\2\u00d3\u00d9\5&\24\2"+
 		"\u00d4\u00d9\5(\25\2\u00d5\u00d9\5*\26\2\u00d6\u00d9\5.\30\2\u00d7\u00d9"+
 		"\5\64\33\2\u00d8\u00d3\3\2\2\2\u00d8\u00d4\3\2\2\2\u00d8\u00d5\3\2\2\2"+

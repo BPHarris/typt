@@ -216,7 +216,7 @@ flow_stmt
     ;
 break_stmt      : 'break';
 continue_stmt   : 'continue';
-return_stmt     : 'return' (testlist)?;
+return_stmt     : 'return' (test)?;
 
 
 /*****************************************************************************/

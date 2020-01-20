@@ -128,7 +128,7 @@ def serializedATN():
         buf.write("\2\u00c9\u00c6\3\2\2\2\u00c9\u00c7\3\2\2\2\u00c9\u00c8")
         buf.write("\3\2\2\2\u00ca\35\3\2\2\2\u00cb\u00cc\7\30\2\2\u00cc\37")
         buf.write("\3\2\2\2\u00cd\u00ce\7\31\2\2\u00ce!\3\2\2\2\u00cf\u00d1")
-        buf.write("\7\32\2\2\u00d0\u00d2\5f\64\2\u00d1\u00d0\3\2\2\2\u00d1")
+        buf.write("\7\32\2\2\u00d0\u00d2\5<\37\2\u00d1\u00d0\3\2\2\2\u00d1")
         buf.write("\u00d2\3\2\2\2\u00d2#\3\2\2\2\u00d3\u00d9\5&\24\2\u00d4")
         buf.write("\u00d9\5(\25\2\u00d5\u00d9\5*\26\2\u00d6\u00d9\5.\30\2")
         buf.write("\u00d7\u00d9\5\64\33\2\u00d8\u00d3\3\2\2\2\u00d8\u00d4")
@@ -1606,8 +1606,8 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def testlist(self):
-            return self.getTypedRuleContext(TyptParser.TestlistContext,0)
+        def test(self):
+            return self.getTypedRuleContext(TyptParser.TestContext,0)
 
 
         def getRuleIndex(self):
@@ -1644,7 +1644,7 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             if ((((_la - 36)) & ~0x3f) == 0 and ((1 << (_la - 36)) & ((1 << (TyptParser.T__35 - 36)) | (1 << (TyptParser.T__41 - 36)) | (1 << (TyptParser.T__54 - 36)) | (1 << (TyptParser.T__55 - 36)) | (1 << (TyptParser.T__60 - 36)) | (1 << (TyptParser.T__62 - 36)) | (1 << (TyptParser.T__63 - 36)) | (1 << (TyptParser.T__64 - 36)) | (1 << (TyptParser.NUMBER - 36)) | (1 << (TyptParser.STRING - 36)) | (1 << (TyptParser.NAME - 36)))) != 0):
                 self.state = 206
-                self.testlist()
+                self.test()
 
 
         except RecognitionException as re:
