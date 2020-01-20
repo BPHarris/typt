@@ -3953,6 +3953,17 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.none_type = None # Token
+            self.bool_type = None # Token
+            self.int_type = None # Token
+            self.float_type = None # Token
+            self.string_type = None # Token
+            self.object_base_type = None # Token
+            self.object_type = None # Token
+            self.list_type = None # Token
+            self.tuple_type = None # Token
+            self.set_type = None # Token
+            self.dict_type = None # Token
 
         def name(self, i:int=None):
             if i is None:
@@ -3994,37 +4005,37 @@ class TyptParser ( Parser ):
             la_ = self._interp.adaptivePredict(self._input,66,self._ctx)
             if la_ == 1:
                 self.state = 568
-                self.match(TyptParser.T__62)
+                localctx.none_type = self.match(TyptParser.T__62)
                 pass
 
             elif la_ == 2:
                 self.state = 569
-                self.match(TyptParser.T__68)
+                localctx.bool_type = self.match(TyptParser.T__68)
                 pass
 
             elif la_ == 3:
                 self.state = 570
-                self.match(TyptParser.T__69)
+                localctx.int_type = self.match(TyptParser.T__69)
                 pass
 
             elif la_ == 4:
                 self.state = 571
-                self.match(TyptParser.T__70)
+                localctx.float_type = self.match(TyptParser.T__70)
                 pass
 
             elif la_ == 5:
                 self.state = 572
-                self.match(TyptParser.T__71)
+                localctx.string_type = self.match(TyptParser.T__71)
                 pass
 
             elif la_ == 6:
                 self.state = 573
-                self.match(TyptParser.T__72)
+                localctx.object_base_type = self.match(TyptParser.T__72)
                 pass
 
             elif la_ == 7:
                 self.state = 574
-                self.match(TyptParser.T__72)
+                localctx.object_type = self.match(TyptParser.T__72)
                 self.state = 575
                 self.match(TyptParser.T__73)
 
@@ -4081,7 +4092,7 @@ class TyptParser ( Parser ):
 
             elif la_ == 9:
                 self.state = 605
-                self.match(TyptParser.T__75)
+                localctx.list_type = self.match(TyptParser.T__75)
                 self.state = 606
                 self.match(TyptParser.T__65)
                 self.state = 607
@@ -4092,7 +4103,7 @@ class TyptParser ( Parser ):
 
             elif la_ == 10:
                 self.state = 610
-                self.match(TyptParser.T__76)
+                localctx.tuple_type = self.match(TyptParser.T__76)
                 self.state = 611
                 self.match(TyptParser.T__31)
                 self.state = 620
@@ -4121,7 +4132,7 @@ class TyptParser ( Parser ):
 
             elif la_ == 11:
                 self.state = 623
-                self.match(TyptParser.T__77)
+                localctx.set_type = self.match(TyptParser.T__77)
                 self.state = 624
                 self.match(TyptParser.T__31)
                 self.state = 625
@@ -4132,7 +4143,7 @@ class TyptParser ( Parser ):
 
             elif la_ == 12:
                 self.state = 628
-                self.match(TyptParser.T__78)
+                localctx.dict_type = self.match(TyptParser.T__78)
                 self.state = 629
                 self.match(TyptParser.T__73)
                 self.state = 630

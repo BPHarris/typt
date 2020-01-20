@@ -348,21 +348,28 @@ name: NAME;
 
 /* Types System Parser Rules */
 typt_type
-    : 'None'
-    | 'Bool'
-    | 'Int'
-    | 'Float'
-    | 'String'
-    | 'Object'  // TODO: Should this be exposed?
+    /* Base Types */
+    : none_type         = 'None'
+    | bool_type         = 'Bool'
+    | int_type          = 'Int'
+    | float_type        = 'Float'
+    | string_type       = 'String'
+
+    /* Object Types */
+    | object_base_type  = 'Object'  // TODO: Should this be exposed?
     // TODO: Object type => [l_i : B_i] for i in 1..n
-    | 'Object' '{' (name ':' typt_type) (',' name ':' typt_type)* '}'
+    | object_type='Object' '{' (name ':' typt_type) (',' name ':' typt_type)* '}'
+    
+    /* Function Types */
     // TODO: Consider syntax for function typt_type
     | typt_type '->' typt_type                          // 1-argument function
     | '<' typt_type (',' typt_type)* '>' '->' typt_type // n-argument function (n in 0..inf)
-    | 'List'    '[' typt_type ']'
-    | 'Tuple'   '(' (typt_type (',' typt_type)*)? ')'
-    | 'Set'     '(' typt_type ')'
-    | 'Dict'    '{' typt_type ',' typt_type '}'
+
+    /* Other */
+    | list_type     = 'List'    '[' typt_type ']'
+    | tuple_type    = 'Tuple'   '(' (typt_type (',' typt_type)*)? ')'
+    | set_type      = 'Set'     '(' typt_type ')'
+    | dict_type     = 'Dict'    '{' typt_type ',' typt_type '}'
     ;
 
 

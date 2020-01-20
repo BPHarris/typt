@@ -3334,6 +3334,17 @@ public class TyptParser extends Parser {
 	}
 
 	public static class Typt_typeContext extends ParserRuleContext {
+		public Token none_type;
+		public Token bool_type;
+		public Token int_type;
+		public Token float_type;
+		public Token string_type;
+		public Token object_base_type;
+		public Token object_type;
+		public Token list_type;
+		public Token tuple_type;
+		public Token set_type;
+		public Token dict_type;
 		public List<NameContext> name() {
 			return getRuleContexts(NameContext.class);
 		}
@@ -3374,43 +3385,43 @@ public class TyptParser extends Parser {
 			case 1:
 				{
 				setState(568);
-				match(T__62);
+				((Typt_typeContext)_localctx).none_type = match(T__62);
 				}
 				break;
 			case 2:
 				{
 				setState(569);
-				match(T__68);
+				((Typt_typeContext)_localctx).bool_type = match(T__68);
 				}
 				break;
 			case 3:
 				{
 				setState(570);
-				match(T__69);
+				((Typt_typeContext)_localctx).int_type = match(T__69);
 				}
 				break;
 			case 4:
 				{
 				setState(571);
-				match(T__70);
+				((Typt_typeContext)_localctx).float_type = match(T__70);
 				}
 				break;
 			case 5:
 				{
 				setState(572);
-				match(T__71);
+				((Typt_typeContext)_localctx).string_type = match(T__71);
 				}
 				break;
 			case 6:
 				{
 				setState(573);
-				match(T__72);
+				((Typt_typeContext)_localctx).object_base_type = match(T__72);
 				}
 				break;
 			case 7:
 				{
 				setState(574);
-				match(T__72);
+				((Typt_typeContext)_localctx).object_type = match(T__72);
 				setState(575);
 				match(T__73);
 				{
@@ -3478,7 +3489,7 @@ public class TyptParser extends Parser {
 			case 9:
 				{
 				setState(605);
-				match(T__75);
+				((Typt_typeContext)_localctx).list_type = match(T__75);
 				setState(606);
 				match(T__65);
 				setState(607);
@@ -3490,7 +3501,7 @@ public class TyptParser extends Parser {
 			case 10:
 				{
 				setState(610);
-				match(T__76);
+				((Typt_typeContext)_localctx).tuple_type = match(T__76);
 				setState(611);
 				match(T__31);
 				setState(620);
@@ -3526,7 +3537,7 @@ public class TyptParser extends Parser {
 			case 11:
 				{
 				setState(623);
-				match(T__77);
+				((Typt_typeContext)_localctx).set_type = match(T__77);
 				setState(624);
 				match(T__31);
 				setState(625);
@@ -3538,7 +3549,7 @@ public class TyptParser extends Parser {
 			case 12:
 				{
 				setState(628);
-				match(T__78);
+				((Typt_typeContext)_localctx).dict_type = match(T__78);
 				setState(629);
 				match(T__73);
 				setState(630);
