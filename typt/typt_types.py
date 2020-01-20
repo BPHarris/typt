@@ -4,19 +4,14 @@ from typing import Iterable
 from collections import namedtuple
 
 # Todo list
-#   TODO: Object base type
-#   TODO: Object type
-#   TODO: Function type
-#   TODO: List type
-#   TODO: Tuple type
-#   TODO: Set type
-#   TODO: Dict type
-#
 #   TODO: compare_types: add typing rules
 
 
 NameTypePair = namedtuple('NameTypePair', ('name', 'type'))
 NameTypePair.__doc__ = """Store a (str, Type) pair."""
+
+TestSuitePair = namedtuple('TestSuitePair', ('test', 'suite'))
+TestSuitePair.__doc__ = """Store a (test: TestNode, suite: SuiteNode) pair."""
 
 
 class Type:

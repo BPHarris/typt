@@ -4,7 +4,7 @@ from antlr.TyptParser import TyptParser
 from antlr.TyptVisitor import TyptVisitor
 
 # Import Typt types
-from typt.typt_types import NameTypePair
+from typt.typt_types import NameTypePair, TestSuitePair
 from typt.typt_types import Type
 from typt.typt_types import NoneType
 from typt.typt_types import BoolType
@@ -38,7 +38,8 @@ from typt.break_stmt_node import BreakStmtNode
 from typt.continue_stmt_node import ContinueStmtNode
 from typt.return_stmt_node import ReturnStmtNode
 
-from typt.if_stmt_node import IfStmtNode, TestSuitePair
+from typt.if_stmt_node import IfStmtNode
+from typt.while_stmt_node import WhileStmtNode
 
 from typt.suite_node import SuiteNode
 
@@ -65,7 +66,7 @@ from typing import Iterable
 #                   anassign
 #                   augassign
 #               var_dec_stmt
-#               del_stmt
+#               del_stmt        # TODO type annotation for exprlist
 #               pass_stmt
 #               flow_stmt
 #                   break_stmt
@@ -323,12 +324,11 @@ class Typt(TyptVisitor):
                     ('else'      ':' suite)?
 
         """
-        # Get if_branch
+        # Get if branch
         if_branch = TestSuitePair(
             self.visitTest(ctx.if_test), self.visitSuite(ctx.if_suite)
         )
 
-        # Create the IfStmtNode
         if_stmt_node = IfStmtNode(if_branch)
 
         # Get the elif branches
@@ -348,16 +348,27 @@ class Typt(TyptVisitor):
 
         return if_stmt_node
 
-    def visitWhile_stmt(self, ctx: TyptParser.While_stmtContext):
+    def visitWhile_stmt(self, ctx: TyptParser.While_stmtContext) -> WhileStmtNode:
         """Visit `while_stmt' rule.
 
         Args:
             ctx (While_stmtContext) : ...
 
-        while_stmt ::= ...
+        while_stmt ::=  'while' test ':' suite
+                        ('else'      ':' suite)?
 
         """
-        return self.visitChildren(ctx)
+        # Get while branch
+        while_branch = TestSuitePair(
+            self.visitTest(ctx.while_test), self.visitSuite(ctx.while_suite)
+        )
+
+        # Get else branch
+        else_branch = None
+        if ctx.else_suite:
+            else_branch = self.visitSuite(ctx.else_suite)
+
+        return WhileStmtNode(while_branch, else_branch)
 
     def visitFor_stmt(self, ctx: TyptParser.For_stmtContext):
         """Visit `for_stmt' rule.

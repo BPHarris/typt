@@ -13,12 +13,16 @@ continue
 print()
 print()
 
+while False:
+    pass
+
 # ooh lad
 if func('str'):
     x = 5 + 2 * y
     t : Bool = False
     s : Int
     different(2.3, 4.3)
+    
     pass
 
 # short suite example

@@ -232,13 +232,13 @@ compound_stmt
     ;
 
 if_stmt
-    : 'if'    if_test=test ':' if_suite   = suite
-      ('elif'         test ':'              suite)*
-      ('else'              ':' else_suite = suite)? 
+    : 'if'    if_test = test    ':' if_suite   = suite
+      ('elif'           test    ':'              suite)*
+      ('else'                   ':' else_suite = suite)? 
     ;
 while_stmt
-    : 'while' test ':' suite
-      ('else'      ':' suite)?
+    : 'while' while_test = test ':' while_suite = suite
+      ('else'                   ':' else_suite  = suite)?
     ;
 for_stmt
     : 'for' exprlist 'in' testlist ':' suite

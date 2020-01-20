@@ -3,13 +3,9 @@
 from typt.stmt_node import StmtNode
 from typt.suite_node import SuiteNode
 
+from typt.typt_types import TestSuitePair
+
 from typing import Iterable
-
-from collections import namedtuple
-
-
-TestSuitePair = namedtuple('TestSuitePair', ('test', 'suite'))
-TestSuitePair.__doc__ = """Store a (test: TestNode, suite: SuiteNode) pair."""
 
 
 class IfStmtNode(StmtNode):

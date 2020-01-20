@@ -1198,6 +1198,9 @@ public class TyptParser extends Parser {
 	}
 
 	public static class While_stmtContext extends ParserRuleContext {
+		public TestContext while_test;
+		public SuiteContext while_suite;
+		public SuiteContext else_suite;
 		public TestContext test() {
 			return getRuleContext(TestContext.class,0);
 		}
@@ -1223,11 +1226,11 @@ public class TyptParser extends Parser {
 			setState(233);
 			match(T__27);
 			setState(234);
-			test();
+			((While_stmtContext)_localctx).while_test = test();
 			setState(235);
 			match(T__1);
 			setState(236);
-			suite();
+			((While_stmtContext)_localctx).while_suite = suite();
 			setState(240);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -1238,7 +1241,7 @@ public class TyptParser extends Parser {
 				setState(238);
 				match(T__1);
 				setState(239);
-				suite();
+				((While_stmtContext)_localctx).else_suite = suite();
 				}
 			}
 
