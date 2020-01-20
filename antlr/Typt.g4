@@ -357,11 +357,10 @@ typt_type
     | object_base_type  = 'Object'  // TODO: Should this be exposed?
 
     /* Object Type */
-    // TODO: Object type => [l_i : B_i] for i in 1..n
+    // Object type => [l_i : B_i] for i in 1..n
     | object_type='Object' '{' (name ':' typt_type) (',' name ':' typt_type)* '}'
     
     /* Function Type */
-    // TODO: Consider syntax for function typt_type
     | typt_type '->' typt_type                          // 1-argument function
     | '<' typt_type (',' typt_type)* '>' '->' typt_type // n-argument function (n in 0..inf)
 
