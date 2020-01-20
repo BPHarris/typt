@@ -18,10 +18,9 @@ from typt.break_stmt_node import BreakStmtNode
 from typt.continue_stmt_node import ContinueStmtNode
 from typt.return_stmt_node import ReturnStmtNode
 
+from typt.suite_node import SuiteNode
+
 # 20th:
-#   TODO: Compound statements
-#   TODO: visitTest
-#   ...
 #   TODO: del_stmt (skipped as need exprlist done first)
 
 # 21st:
@@ -35,17 +34,21 @@ from typt.return_stmt_node import ReturnStmtNode
 #       func_parameter_list
 #   stmt
 #       simple_stmt
-#       small_stmt
-#           expr_stmt
-#               anassign
-#               augassign
-#           var_dec_stmt
-#           ¬del_stmt
-#           pass_stmt
-#           flow_stmt
-#               break_stmt
-#               continue_stmt
-#               return_stmt
+#           small_stmt
+#               expr_stmt
+#                   anassign
+#                   augassign
+#               var_dec_stmt
+#               ¬del_stmt
+#               pass_stmt
+#               flow_stmt
+#                   break_stmt
+#                   continue_stmt
+#                   return_stmt
+#       compound_stmt
+#           TODO compound statements
+#   suite
+#   TODO: test
 
 
 class Typt(TyptVisitor):
@@ -295,16 +298,26 @@ class Typt(TyptVisitor):
         """
         return self.visitChildren(ctx)
 
-    def visitSuite(self, ctx: TyptParser.SuiteContext):
+    def visitSuite(self, ctx: TyptParser.SuiteContext) -> SuiteNode:
         """Visit `suite' rule.
 
         Args:
             ctx (SuiteContext) : ...
 
-        suite ::= ...
+        suite ::= simple_stmt | NEWLINE INDENT stmt+ DEDENT
 
         """
-        return self.visitChildren(ctx)
+        suite_node = SuiteNode()
+
+        # If the suite is just a simple statement, add it
+        if ctx.simple_stmt():
+            suite_node.stmt_list = [self.visitSimple_stmt(ctx.simple_stmt())]
+
+        # Otherwise, it is a block => add each stmt in the block
+        for s in ctx.stmt():
+            suite_node.stmt_list += [self.visitStmt(s)]
+
+        return suite_node
 
     def visitFunc_def(self, ctx: TyptParser.Func_defContext):
         return self.visitChildren(ctx)
