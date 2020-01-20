@@ -21,6 +21,8 @@ from typt.return_stmt_node import ReturnStmtNode
 
 from typt.suite_node import SuiteNode
 
+from typt.test.atom_node import AtomNode
+
 # 20th:
 #   TODO: del_stmt (skipped as need exprlist done first)
 
@@ -430,7 +432,7 @@ class Typt(TyptVisitor):
     
     def visitExprlist(self, ctx: TyptParser.ExprlistContext):
         return self.visitChildren(ctx)
-    
+
     def visitTestlist(self, ctx: TyptParser.TestlistContext):
         return self.visitChildren(ctx)
 
