@@ -1608,6 +1608,9 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.if_test = None # TestContext
+            self.if_suite = None # SuiteContext
+            self.else_suite = None # SuiteContext
 
         def test(self, i:int=None):
             if i is None:
@@ -1645,11 +1648,11 @@ class TyptParser ( Parser ):
             self.state = 214
             self.match(TyptParser.T__24)
             self.state = 215
-            self.test()
+            localctx.if_test = self.test()
             self.state = 216
             self.match(TyptParser.T__1)
             self.state = 217
-            self.suite()
+            localctx.if_suite = self.suite()
             self.state = 225
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -1675,7 +1678,7 @@ class TyptParser ( Parser ):
                 self.state = 229
                 self.match(TyptParser.T__1)
                 self.state = 230
-                self.suite()
+                localctx.else_suite = self.suite()
 
 
         except RecognitionException as re:

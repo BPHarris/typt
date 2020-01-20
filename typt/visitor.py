@@ -26,7 +26,9 @@ from typt.program_node import ProgramNode
 from typt.using_node import UsingNode
 from typt.func_def_node import FuncDefNode
 from typt.func_signature_node import FuncSignatureNode
+
 from typt.stmt_node import StmtNode
+
 from typt.expr_stmt_node import ExprStmtNode
 from typt.assignment_expr_stmt_node import AssignmentExprStmtNode
 from typt.var_dec_stmt_node import VarDecStmtNode
@@ -35,6 +37,8 @@ from typt.pass_stmt_node import PassStmtNode
 from typt.break_stmt_node import BreakStmtNode
 from typt.continue_stmt_node import ContinueStmtNode
 from typt.return_stmt_node import ReturnStmtNode
+
+from typt.if_stmt_node import IfStmtNode, TestSuitePair
 
 from typt.suite_node import SuiteNode
 
@@ -71,7 +75,7 @@ from typing import Iterable
 #           TODO compound statements
 #   suite
 #   TODO: test
-#       TODO: (finish) atom
+#       atom    # TODO self
 #   name
 #   typt_type
 
@@ -307,16 +311,41 @@ class Typt(TyptVisitor):
 
         raise NotImplementedError('That compound statement is not implemented')
 
-    def visitIf_stmt(self, ctx: TyptParser.If_stmtContext):
+    def visitIf_stmt(self, ctx: TyptParser.If_stmtContext) -> IfStmtNode:
         """Visit `if_stmt' rule.
 
         Args:
             ctx (If_stmtContext) : ...
 
-        if_stmt ::= ...
+        if_stmt ::= 'if'    test ':' suite
+                    ('elif' test ':' suite)*
+                    ('else'      ':' suite)?
 
         """
-        return self.visitChildren(ctx)
+        # Get if_branch
+        if_branch = TestSuitePair(
+            self.visitTest(ctx.if_test), self.visitSuite(ctx.if_suite)
+        )
+
+        # Create the IfStmtNode
+        if_stmt_node = IfStmtNode(if_branch)
+
+        # Get the elif branches
+        # HACK if there is an else branch, then len(suites) = len(tests)+1
+        #   but the final suite is discarded from the elif branches in the zip
+        # HACK the [1:] removes the if branch's test+suite from being in the
+        #   elif branch
+        tests = [self.visitTest(test) for test in ctx.test()[1:]]
+        suites = [self.visitSuite(suite) for suite in ctx.suite()[1:]]
+        if_stmt_node.elif_branches = [
+            TestSuitePair(t, s) for (t, s) in zip(tests, suites)
+        ]
+
+        # Get the else branch
+        if ctx.else_suite:
+            if_stmt_node.else_branch = self.visitSuite(ctx.else_suite)
+
+        return if_stmt_node
 
     def visitWhile_stmt(self, ctx: TyptParser.While_stmtContext):
         """Visit `while_stmt' rule.

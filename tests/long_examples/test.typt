@@ -21,8 +21,17 @@ if func('str'):
     different(2.3, 4.3)
     pass
 
-# short suire example
+# short suite example
 if x:   do_this()
+
+if x:
+    print(x)
+elif y:
+    print(y)
+elif z:
+    print(a.b.c)
+else:
+    print('nufin')
 
 def test_func(arg: Bool) -> None:
     return None

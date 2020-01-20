@@ -1114,6 +1114,9 @@ public class TyptParser extends Parser {
 	}
 
 	public static class If_stmtContext extends ParserRuleContext {
+		public TestContext if_test;
+		public SuiteContext if_suite;
+		public SuiteContext else_suite;
 		public List<TestContext> test() {
 			return getRuleContexts(TestContext.class);
 		}
@@ -1142,11 +1145,11 @@ public class TyptParser extends Parser {
 			setState(214);
 			match(T__24);
 			setState(215);
-			test();
+			((If_stmtContext)_localctx).if_test = test();
 			setState(216);
 			match(T__1);
 			setState(217);
-			suite();
+			((If_stmtContext)_localctx).if_suite = suite();
 			setState(225);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -1177,7 +1180,7 @@ public class TyptParser extends Parser {
 				setState(229);
 				match(T__1);
 				setState(230);
-				suite();
+				((If_stmtContext)_localctx).else_suite = suite();
 				}
 			}
 

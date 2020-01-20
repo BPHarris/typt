@@ -232,9 +232,9 @@ compound_stmt
     ;
 
 if_stmt
-    : 'if'    test ':' suite
-      ('elif' test ':' suite)*
-      ('else'      ':' suite)? 
+    : 'if'    if_test=test ':' if_suite   = suite
+      ('elif'         test ':'              suite)*
+      ('else'              ':' else_suite = suite)? 
     ;
 while_stmt
     : 'while' test ':' suite
