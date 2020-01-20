@@ -214,7 +214,7 @@ class Typt(TyptVisitor):
 
         return self.visitChildren(ctx)
     
-    def visitPass_stmt(self, ctx: TyptParser.Pass_stmtContext):
+    def visitPass_stmt(self, ctx: TyptParser.Pass_stmtContext) -> PassStmtNode:
         """Visit `pass_stmt' rule."""
 
         # Return new pass statment, not data or anything needed! :D
