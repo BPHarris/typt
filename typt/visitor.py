@@ -14,6 +14,9 @@ from typt.expr_stmt_node import ExprStmtNode
 from typt.assignment_expr_stmt_node import AssignmentExprStmtNode
 from typt.var_dec_stmt_node import VarDecStmtNode
 from typt.pass_stmt_node import PassStmtNode
+from typt.break_stmt_node import BreakStmtNode
+from typt.continue_stmt_node import ContinueStmtNode
+from typt.return_stmt_node import ReturnStmtNode
 
 # 20th:
 #   TODO: Finish small statements
@@ -37,6 +40,7 @@ from typt.pass_stmt_node import PassStmtNode
 #   var_dec_stmt
 #   ¬del_stmt
 #   pass_stmt
+#   flow_stmt, break_stmt, continue_stmt, return_stmt
 
 
 class Typt(TyptVisitor):
@@ -220,49 +224,40 @@ class Typt(TyptVisitor):
         # Return new pass statment, not data or anything needed! :D
         return PassStmtNode()
     
-    def visitFlow_stmt(self, ctx: TyptParser.Flow_stmtContext):
-        """Visit `flow_stmt' rule.
+    def visitFlow_stmt(self, ctx: TyptParser.Flow_stmtContext) -> StmtNode:
+        """Visit `flow_stmt' rule."""
 
-        Args:
-            ctx (Flow_stmtContext) : ...
+        if ctx.break_stmt():
+            return self.visitBreak_stmt(ctx.break_stmt())
+        if ctx.continue_stmt():
+            return self.visitContinue_stmt(ctx.continue_stmt())
+        if ctx.return_stmt():
+            return self.visitReturn_stmt(ctx.return_stmt())
 
-        flow_stmt ::= ...
-
-        """
-        return self.visitChildren(ctx)
+        raise NotImplementedError('Flow statement type not implemented.')
     
     def visitBreak_stmt(self, ctx: TyptParser.Break_stmtContext):
-        """Visit `break_stmt' rule.
+        """Visit `break_stmt' rule."""
 
-        Args:
-            ctx (Break_stmtContext) : ...
-
-        break_stmt ::= ...
-
-        """
-        return self.visitChildren(ctx)
+        # Return a new break statement
+        return BreakStmtNode()
     
     def visitContinue_stmt(self, ctx: TyptParser.Continue_stmtContext):
-        """Visit `continue_stmt' rule.
+        """Visit `continue_stmt' rule."""
 
-        Args:
-            ctx (Continue_stmtContext) : ...
-
-        continue_stmt ::= ...
-
-        """
-        return self.visitChildren(ctx)
+        # Return a new continue statement
+        return ContinueStmtNode()
     
     def visitReturn_stmt(self, ctx: TyptParser.Return_stmtContext):
-        """Visit `return_stmt' rule.
+        """Visit `return_stmt' rule."""
 
-        Args:
-            ctx (Return_stmtContext) : ...
+        # Return statement with return value
+        if ctx.test():
+            return ReturnStmtNode(self.visitTest(ctx.test()))
 
-        return_stmt ::= ...
-
-        """
-        return self.visitChildren(ctx)
+        # 'Empty' return statement
+        return ReturnStmtNode()
+        
     
     def visitCompound_stmt(self, ctx: TyptParser.Compound_stmtContext):
         """Visit `compound_stmt' rule.
