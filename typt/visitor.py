@@ -206,11 +206,11 @@ class Typt(TyptVisitor):
             self.visitTest(ctx.rhs)
         )
 
-    def visitAnassign(self, ctx: TyptParser.AnassignContext):
+    def visitAnassign(self, ctx: TyptParser.AnassignContext) -> None:
         """Dead method (never called)."""
         raise NotImplementedError('Should not be reached (anassign).')
 
-    def visitAugassign(self, ctx: TyptParser.AugassignContext):
+    def visitAugassign(self, ctx: TyptParser.AugassignContext) -> None:
         """Dead method (never called)."""
         raise NotImplementedError('Should not be reached (augassign).')
 
@@ -397,55 +397,55 @@ class Typt(TyptVisitor):
 
     def visitClass_dec(self, ctx: TyptParser.Class_decContext):
         return self.visitChildren(ctx)
-    
+
     def visitClass_method(self, ctx: TyptParser.Class_methodContext):
         return self.visitChildren(ctx)
-    
+
     def visitClass_static_method(self, ctx: TyptParser.Class_static_methodContext):
         return self.visitChildren(ctx)
-    
+
     def visitTest(self, ctx: TyptParser.TestContext):
         return self.visitChildren(ctx)
-    
+
     def visitOr_test(self, ctx: TyptParser.Or_testContext):
         return self.visitChildren(ctx)
-    
+
     def visitAnd_test(self, ctx: TyptParser.And_testContext):
         return self.visitChildren(ctx)
-    
+
     def visitNot_test(self, ctx: TyptParser.Not_testContext):
         return self.visitChildren(ctx)
-    
+
     def visitComparison(self, ctx: TyptParser.ComparisonContext):
         return self.visitChildren(ctx)
-    
+
     def visitComp_op(self, ctx: TyptParser.Comp_opContext):
         return self.visitChildren(ctx)
-    
+
     def visitExpr(self, ctx: TyptParser.ExprContext):
         return self.visitChildren(ctx)
-    
+
     def visitXor_expr(self, ctx: TyptParser.Xor_exprContext):
         return self.visitChildren(ctx)
-    
+
     def visitAnd_expr(self, ctx: TyptParser.And_exprContext):
         return self.visitChildren(ctx)
-    
+
     def visitShift_expr(self, ctx: TyptParser.Shift_exprContext):
         return self.visitChildren(ctx)
-    
+
     def visitArith_expr(self, ctx: TyptParser.Arith_exprContext):
         return self.visitChildren(ctx)
-    
+
     def visitTerm(self, ctx: TyptParser.TermContext):
         return self.visitChildren(ctx)
-    
+
     def visitFactor(self, ctx: TyptParser.FactorContext):
         return self.visitChildren(ctx)
-    
+
     def visitPower(self, ctx: TyptParser.PowerContext):
         return self.visitChildren(ctx)
-    
+
     def visitAtom_expr(self, ctx: TyptParser.Atom_exprContext):
         return self.visitChildren(ctx)
 
