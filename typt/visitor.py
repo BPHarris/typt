@@ -22,7 +22,10 @@ from typt.return_stmt_node import ReturnStmtNode
 from typt.suite_node import SuiteNode
 
 # TODO Create sub-classes of atom for BoolLiteral, IntLiteral, VariableReference, etc
+# Have atom_node.py hold all literal classes??
 from typt.test.atom_node import AtomNode
+from typt.test.var_ref_node import VarRefNode
+from typt.test.literal_node import LiteralNode
 
 # 20th:
 #   TODO: del_stmt (skipped as need exprlist done first)
@@ -415,10 +418,31 @@ class Typt(TyptVisitor):
     
     def visitAtom_expr(self, ctx: TyptParser.Atom_exprContext):
         return self.visitChildren(ctx)
-    
-    def visitAtom(self, ctx: TyptParser.AtomContext):
+
+    def visitAtom(self, ctx: TyptParser.AtomContext) -> AtomNode:
+        """Return VarRefNode or LiteralNode, depending on atom."""
+        # Return the appropriate subtype of atom
+        if ctx.name():
+            return VarRefNode(ctx.name().getText())
+
+        # TODO Number => int/float
+
+        text = ctx.getText()
+        if text == 'None':
+            return LiteralNode('NoneType', text)
+        if text == 'True':
+            return LiteralNode('Bool', text)
+        if text == 'False':
+            return LiteralNode('Bool', text)
+        if text == 'self':
+            # TODO self references
+            print('Self not implemented')
+            return LiteralNode('', text)
+
+        # TODO If none of the above => then string
+
         return self.visitChildren(ctx)
-    
+
     def visitTrailer(self, ctx: TyptParser.TrailerContext):
         return self.visitChildren(ctx)
     
