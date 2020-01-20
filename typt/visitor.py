@@ -51,6 +51,7 @@ from typt.suite_node import SuiteNode
 #           TODO compound statements
 #   suite
 #   TODO: test
+#   TODO: name
 
 
 class Typt(TyptVisitor):
@@ -432,10 +433,13 @@ class Typt(TyptVisitor):
     
     def visitTestlist(self, ctx: TyptParser.TestlistContext):
         return self.visitChildren(ctx)
-    
-    def visitName(self, ctx: TyptParser.NameContext):
-        return self.visitChildren(ctx)
-    
+
+    def visitName(self, ctx: TyptParser.NameContext) -> None:
+        """Raise NotImplementedError."""
+        # TODO: When possible, uncomment raise Error
+        # raise NotImplementedError('Don\'t visit name -- use .getText().')
+        return None
+
     def visitValue(self, ctx: TyptParser.ValueContext):
         return self.visitChildren(ctx)
     
