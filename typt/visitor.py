@@ -114,12 +114,12 @@ class Typt(TyptVisitor):
         using ::= ...
 
         """
-        library_name = ctx.library_name.getText()
+        library_name = self.visitName(ctx.library_name)
 
         # If no alias => alias is same as name, otherwise get alias
         library_alias = library_name
         if ctx.library_alias:
-            library_alias = ctx.library_alias.getText()
+            library_alias = self.visitName(ctx.library_alias)
 
         using = UsingNode(library_name, library_alias)
 
@@ -357,7 +357,7 @@ class Typt(TyptVisitor):
     def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> FuncSignatureNode:
         """Visit `func_signature' rule."""
         func_signature = FuncSignatureNode(
-            ctx.name().getText(), ctx.typt_type().getText()
+            self.visitName(ctx.name()), ctx.typt_type().getText()
         )
 
         # If parameters non-empty, get parameter nodes
@@ -372,7 +372,7 @@ class Typt(TyptVisitor):
         # Return the parameter list as a list of tuples of form (id, type)
         parameter_list = list()
 
-        names = [name.getText() for name in ctx.name()]
+        names = [self.visitName(name) for name in ctx.name()]
         types = [type.getText() for type in ctx.typt_type()]
 
         return list(zip(names, types))
@@ -436,12 +436,13 @@ class Typt(TyptVisitor):
 
     def visitAtom(self, ctx: TyptParser.AtomContext) -> AtomNode:
         """Return VarRefNode or LiteralNode, depending on atom."""
-        # Return the appropriate subtype of atom
+        # If the atom is a variable reference, return a new VarRefNode
         if ctx.name():
-            return VarRefNode(ctx.name().getText())
+            return VarRefNode(self.visitName(ctx.name()))
 
         # TODO Number => int/float
 
+        # Otherwise, get type from literal value
         text = ctx.getText()
         if text == 'None':
             return LiteralNode('NoneType', text)
