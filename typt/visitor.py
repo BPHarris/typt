@@ -72,7 +72,7 @@ from typing import Iterable
 #           TODO compound statements
 #   suite
 #   TODO: test
-#       atom
+#       TODO: (finish) atom
 #   name
 #   typt_type
 
@@ -280,16 +280,32 @@ class Typt(TyptVisitor):
         # 'Empty' return statement
         return ReturnStmtNode()
 
-    def visitCompound_stmt(self, ctx: TyptParser.Compound_stmtContext):
+    def visitCompound_stmt(self, ctx: TyptParser.Compound_stmtContext) -> StmtNode:
         """Visit `compound_stmt' rule.
 
         Args:
             ctx (Compound_stmtContext) : ...
 
-        compound_stmt ::= ...
+        compound_stmt ::= if_stmt
+                        | while_stmt
+                        | for_stmt
+                        | func_def
+                        | class_def
 
         """
-        return self.visitChildren(ctx)
+        # Return relevant child statement
+        if ctx.if_stmt():
+            return self.visitIf_stmt(ctx.if_stmt())
+        if ctx.while_stmt():
+            return self.visitWhile_stmt(ctx.while_stmt())
+        if ctx.for_stmt():
+            return self.visitFor_stmt(ctx.for_stmt())
+        if ctx.func_def():
+            return self.visitFunc_def(ctx.func_def())
+        if ctx.class_def():
+            return self.visitClass_def(ctx.class_def())
+
+        raise NotImplementedError('That compound statement is not implemented')
 
     def visitIf_stmt(self, ctx: TyptParser.If_stmtContext):
         """Visit `if_stmt' rule.
