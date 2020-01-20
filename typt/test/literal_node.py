@@ -2,6 +2,8 @@
 
 from typt.test.atom_node import AtomNode
 
+from typt.typt_types import Type
+
 
 class LiteralNode(AtomNode):
     """LiteralNode AST node."""
