@@ -3960,6 +3960,7 @@ class TyptParser ( Parser ):
             self.string_type = None # Token
             self.object_base_type = None # Token
             self.object_type = None # Token
+            self.return_type = None # Typt_typeContext
             self.list_type = None # Token
             self.element_type = None # Typt_typeContext
             self.tuple_type = None # Token
@@ -4090,7 +4091,7 @@ class TyptParser ( Parser ):
                 self.state = 602
                 self.match(TyptParser.T__33)
                 self.state = 603
-                self.typt_type(5)
+                localctx.return_type = self.typt_type(5)
                 pass
 
             elif la_ == 9:
@@ -4178,7 +4179,7 @@ class TyptParser ( Parser ):
                     self.state = 638
                     self.match(TyptParser.T__33)
                     self.state = 639
-                    self.typt_type(7) 
+                    localctx.return_type = self.typt_type(7) 
                 self.state = 644
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,67,self._ctx)

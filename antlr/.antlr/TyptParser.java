@@ -3341,6 +3341,7 @@ public class TyptParser extends Parser {
 		public Token string_type;
 		public Token object_base_type;
 		public Token object_type;
+		public Typt_typeContext return_type;
 		public Token list_type;
 		public Typt_typeContext element_type;
 		public Token tuple_type;
@@ -3486,7 +3487,7 @@ public class TyptParser extends Parser {
 				setState(602);
 				match(T__33);
 				setState(603);
-				typt_type(5);
+				((Typt_typeContext)_localctx).return_type = typt_type(5);
 				}
 				break;
 			case 9:
@@ -3583,7 +3584,7 @@ public class TyptParser extends Parser {
 					setState(638);
 					match(T__33);
 					setState(639);
-					typt_type(7);
+					((Typt_typeContext)_localctx).return_type = typt_type(7);
 					}
 					} 
 				}

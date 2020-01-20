@@ -361,8 +361,10 @@ typt_type
     | object_type='Object' '{' (name ':' typt_type) (',' name ':' typt_type)* '}'
     
     /* Function Type */
-    | typt_type '->' typt_type                          // 1-argument function
-    | '<' typt_type (',' typt_type)* '>' '->' typt_type // n-argument function (n in 0..inf)
+    // 1-argument function
+    | typt_type                          '->' return_type=typt_type
+    // n-argument function (n in 0..inf)
+    | '<' typt_type (',' typt_type)* '>' '->' return_type=typt_type
 
     /* Other */
     | list_type     = 'List'    '[' element_type=typt_type ']'
