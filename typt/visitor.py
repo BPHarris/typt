@@ -63,7 +63,6 @@ class Typt(TyptVisitor):
         program ::= using* stmt* EOF
 
         """
-
         # Add using-declarations to program
         for using_ctx in ctx.using():
             self.program.using_list += [self.visitUsing(using_ctx)]
@@ -83,7 +82,6 @@ class Typt(TyptVisitor):
         using ::= ...
 
         """
-
         library_name = ctx.library_name.getText()
 
         # If no alias => alias is same as name, otherwise get alias
@@ -101,7 +99,6 @@ class Typt(TyptVisitor):
 
     def visitStmt(self, ctx: TyptParser.StmtContext) -> StmtNode:
         """Visit `stmt' rule."""
-
         # If simple statment, visit child
         if ctx.simple_stmt():
             return self.visitSimple_stmt(ctx.simple_stmt())
@@ -133,13 +130,11 @@ class Typt(TyptVisitor):
 
     def visitSimple_stmt(self, ctx: TyptParser.Simple_stmtContext) -> StmtNode:
         """Visit `simple_stmt' rule."""
-
         # Visit the child small_stmt
         return self.visitSmall_stmt(ctx.small_stmt())
 
     def visitSmall_stmt(self, ctx: TyptParser.Small_stmtContext) -> StmtNode:
         """Visit `small_stmt' rule."""
-
         # Return the child statement
         if ctx.expr_stmt():
             return self.visitExpr_stmt(ctx.expr_stmt())
@@ -163,7 +158,6 @@ class Typt(TyptVisitor):
         expr_stmt ::= ...
 
         """
-
         # If no right-hand side (i.e. not an assignment expression)
         if not ctx.rhs:
             return ExprStmtNode(self.visitTest(ctx.lhs))
@@ -187,7 +181,7 @@ class Typt(TyptVisitor):
     def visitAugassign(self, ctx: TyptParser.AugassignContext):
         """Dead method (never called)."""
         raise NotImplementedError('Should not be reached (augassign).')
-    
+
     def visitVar_dec_stmt(self, ctx: TyptParser.Var_dec_stmtContext) -> VarDecStmtNode:
         """Visit `var_dec_stmt' rule.
 
@@ -197,7 +191,6 @@ class Typt(TyptVisitor):
         var_dec_stmt ::= ...
 
         """
-
         # If no initial value given, set to None
         if not ctx.rhs:
             return VarDecStmtNode(
@@ -210,20 +203,18 @@ class Typt(TyptVisitor):
             ctx.typt_type().getText(),
             self.visitTest(ctx.rhs)
         )
-    
+
     def visitDel_stmt(self, ctx: TyptParser.Del_stmtContext):
         """Visit `del_stmt' rule."""
-
         # TODO: IMPLEMENT MEEEEEEEEEE! FOR IMMORTAN JOE ARRRRRRRRRRRRRGGG
 
         return self.visitChildren(ctx)
-    
+
     def visitPass_stmt(self, ctx: TyptParser.Pass_stmtContext) -> PassStmtNode:
         """Visit `pass_stmt' rule."""
-
         # Return new pass statment, not data or anything needed! :D
         return PassStmtNode()
-    
+
     def visitFlow_stmt(self, ctx: TyptParser.Flow_stmtContext) -> StmtNode:
         """Visit `flow_stmt' rule."""
 
@@ -235,30 +226,26 @@ class Typt(TyptVisitor):
             return self.visitReturn_stmt(ctx.return_stmt())
 
         raise NotImplementedError('Flow statement type not implemented.')
-    
-    def visitBreak_stmt(self, ctx: TyptParser.Break_stmtContext):
-        """Visit `break_stmt' rule."""
 
+    def visitBreak_stmt(self, ctx: TyptParser.Break_stmtContext) -> BreakStmtNode:
+        """Visit `break_stmt' rule."""
         # Return a new break statement
         return BreakStmtNode()
-    
-    def visitContinue_stmt(self, ctx: TyptParser.Continue_stmtContext):
-        """Visit `continue_stmt' rule."""
 
+    def visitContinue_stmt(self, ctx: TyptParser.Continue_stmtContext) -> ContinueStmtNode:
+        """Visit `continue_stmt' rule."""
         # Return a new continue statement
         return ContinueStmtNode()
-    
-    def visitReturn_stmt(self, ctx: TyptParser.Return_stmtContext):
-        """Visit `return_stmt' rule."""
 
+    def visitReturn_stmt(self, ctx: TyptParser.Return_stmtContext) -> ReturnStmtNode:
+        """Visit `return_stmt' rule."""
         # Return statement with return value
         if ctx.test():
             return ReturnStmtNode(self.visitTest(ctx.test()))
 
         # 'Empty' return statement
         return ReturnStmtNode()
-        
-    
+
     def visitCompound_stmt(self, ctx: TyptParser.Compound_stmtContext):
         """Visit `compound_stmt' rule.
 
@@ -313,13 +300,12 @@ class Typt(TyptVisitor):
 
         """
         return self.visitChildren(ctx)
-    
+
     def visitFunc_def(self, ctx: TyptParser.Func_defContext):
         return self.visitChildren(ctx)
-    
+
     def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> FuncSignatureNode:
         """Visit `func_signature' rule."""
-
         func_signature = FuncSignatureNode(
             ctx.name().getText(), ctx.typt_type().getText()
         )
@@ -329,10 +315,9 @@ class Typt(TyptVisitor):
                 self.visitFunc_parameter_list(ctx.func_parameter_list())
 
         return func_signature
-    
+
     def visitFunc_parameter_list(self, ctx: TyptParser.Func_parameter_listContext) -> list:
         """Visit `func_parameter_list' rule."""
-
         # Return the parameter list as a list of tuples of form (id, type)
         parameter_list = list()
 
