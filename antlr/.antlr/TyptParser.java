@@ -3347,7 +3347,7 @@ public class TyptParser extends Parser {
 		public Token set_type;
 		public Token dict_type;
 		public Typt_typeContext key_type;
-		public Typt_typeContext index_type;
+		public Typt_typeContext value_type;
 		public List<NameContext> name() {
 			return getRuleContexts(NameContext.class);
 		}
@@ -3560,7 +3560,7 @@ public class TyptParser extends Parser {
 				setState(631);
 				match(T__4);
 				setState(632);
-				((Typt_typeContext)_localctx).index_type = typt_type(0);
+				((Typt_typeContext)_localctx).value_type = typt_type(0);
 				setState(633);
 				match(T__74);
 				}
