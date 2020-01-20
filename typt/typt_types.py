@@ -1,5 +1,8 @@
 """types.py - classes representing typt types."""
 
+from typing import Iterable
+from collections import namedtuple
+
 # Todo list
 #   TODO: Object base type
 #   TODO: Object type
@@ -10,6 +13,10 @@
 #   TODO: Dict type
 #
 #   TODO: compare_types: add typing rules
+
+
+NameTypePair = namedtuple('NameTypePair', ('name', 'type'))
+NameTypePair.__doc__ = """Store a (str, Type) pair."""
 
 
 class Type:
@@ -103,6 +110,38 @@ class DictType(Type):
         """Set the element type."""
         self.key_type = key_type
         self.value_type = value_type
+
+        super().__init__()
+
+
+class FunctionType(Type):
+    """Class for Typt::FunctionType type.
+
+    Attributes:
+        parameters      (Iterator[Type])    ...
+        return_type     (Type)              ...
+
+    """
+
+    def __init__(self, parmeters: Iterable[Type], return_type: Type):
+        """Set parameters and return type."""
+        self.parameters = parmeters
+        self.return_type = return_type
+
+        super().__init__()
+
+
+class ObjectType(Type):
+    """Class for Typt::ObjectType type.
+
+    Attributes:
+        members     (Iterable[NameTypePair])    ...
+
+    """
+
+    def __init__(self, members: Iterable[NameTypePair]):
+        """Set parameters and return type."""
+        self.members = members
 
         super().__init__()
 
