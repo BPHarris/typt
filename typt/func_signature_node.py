@@ -2,18 +2,20 @@
 
 from typt.node import Node
 
+from typt.typt_types import Type
+
 
 class FuncSignatureNode(Node):
     """FuncSignatureNode AST node.
 
     Attributes:
-        name            (str)                : The function name
-        parameter_list  (list[(name, type)]) : The functions's parameter list
-        return_type     (str)                : The functions's return type
+        name            (str)                       : The function name
+        parameter_list  (Iterable[NameTypePair])    : The functions's parameter list
+        return_type     (Type)                      : The functions's return type
 
     """
 
-    def __init__(self, name: str, return_type: str, depth: int = 0):
+    def __init__(self, name: str, return_type: Type, depth: int = 0):
         """Initialise using_list and stmt_list."""
         self.name = name
         self.parameter_list = list()

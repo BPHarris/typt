@@ -39,6 +39,8 @@ from typt.test.atom_node import AtomNode
 from typt.test.var_ref_node import VarRefNode
 from typt.test.literal_node import LiteralNode
 
+from typing import Iterable
+
 # 20th:
 #   TODO: del_stmt (skipped as need exprlist done first)
 #   TODO: REWRITE TO USE NameTypePair
@@ -226,13 +228,13 @@ class Typt(TyptVisitor):
         # If no initial value given, set to None
         if not ctx.rhs:
             return VarDecStmtNode(
-                self.visitTest(ctx.lhs), ctx.typt_type().getText()
+                self.visitTest(ctx.lhs), self.visitTypt_type(ctx.typt_type())
             )
 
         # Otherwise, parse intial value
         return VarDecStmtNode(
             self.visitTest(ctx.lhs),
-            ctx.typt_type().getText(),
+            self.visitTypt_type(ctx.typt_type()),
             self.visitTest(ctx.rhs)
         )
 
@@ -357,7 +359,7 @@ class Typt(TyptVisitor):
     def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> FuncSignatureNode:
         """Visit `func_signature' rule."""
         func_signature = FuncSignatureNode(
-            self.visitName(ctx.name()), ctx.typt_type().getText()
+            self.visitName(ctx.name()), self.visitTypt_type(ctx.typt_type())
         )
 
         # If parameters non-empty, get parameter nodes
@@ -367,15 +369,13 @@ class Typt(TyptVisitor):
 
         return func_signature
 
-    def visitFunc_parameter_list(self, ctx: TyptParser.Func_parameter_listContext) -> list:
+    def visitFunc_parameter_list(self, ctx: TyptParser.Func_parameter_listContext) -> Iterable[NameTypePair]:
         """Visit `func_parameter_list' rule."""
         # Return the parameter list as a list of tuples of form (id, type)
-        parameter_list = list()
-
         names = [self.visitName(name) for name in ctx.name()]
-        types = [type.getText() for type in ctx.typt_type()]
+        types = [self.visitTypt_type(type) for type in ctx.typt_type()]
 
-        return list(zip(names, types))
+        return [NameTypePair(n, t) for (n, t) in zip(names, types)]
 
     def visitClass_def(self, ctx: TyptParser.Class_defContext):
         return self.visitChildren(ctx)
@@ -496,7 +496,7 @@ class Typt(TyptVisitor):
             return FloatType()
         if ctx.string_type:
             return StringType()
-        if ctx.object_base_type():
+        if ctx.object_base_type:
             return ObjectBaseType()
 
         # Object Type
