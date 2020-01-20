@@ -131,6 +131,7 @@ def at_start_of_line(self):
 /*****************************************************************************/
 
 /* Global TODO */
+// TODO: Add list, tuple, dict, set, etc. defs as atoms i.e. [1, 2, 3] is an atom
 // TODO: Multi-line comments
 // TODO: Sequences (i.e. 'print(); print()'), worth it?
 // TODO: Omit return type (i.e. no '-> type') as short-hand for '-> None'
