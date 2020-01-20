@@ -8,6 +8,7 @@ from typt.typt_types import Type
 from typt.node import Node
 from typt.program_node import ProgramNode
 from typt.using_node import UsingNode
+from typt.func_def_node import FuncDefNode
 from typt.func_signature_node import FuncSignatureNode
 from typt.stmt_node import StmtNode
 from typt.expr_stmt_node import ExprStmtNode
@@ -30,6 +31,7 @@ from typt.suite_node import SuiteNode
 # Done:
 #   program
 #   using
+#   func_def
 #   func_signature
 #       func_parameter_list
 #   stmt
@@ -319,8 +321,16 @@ class Typt(TyptVisitor):
 
         return suite_node
 
-    def visitFunc_def(self, ctx: TyptParser.Func_defContext):
-        return self.visitChildren(ctx)
+    def visitFunc_def(self, ctx: TyptParser.Func_defContext) -> FuncDefNode:
+        """Visit `func_def' rule."""
+        # Get function signature
+        func_signature = self.visitFunc_signature(ctx.func_signature())
+
+        # Get suite
+        suite = self.visitSuite(ctx.suite())
+
+        # Return FuncDefNode
+        return FuncDefNode(func_signature, suite)
 
     def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> FuncSignatureNode:
         """Visit `func_signature' rule."""
@@ -328,6 +338,7 @@ class Typt(TyptVisitor):
             ctx.name().getText(), ctx.typt_type().getText()
         )
 
+        # If parameters non-empty, get parameter nodes
         if ctx.func_parameter_list():
             func_signature.parameter_list = \
                 self.visitFunc_parameter_list(ctx.func_parameter_list())
