@@ -4,6 +4,22 @@ from antlr4.error.ErrorListener import ErrorListener
 
 from io import StringIO
 
+
+def log_error(filename: str = None, line: int = None, msg: str = None) -> None:
+    """Log an error to terminal."""
+    prefix = 'typt: '
+
+    if filename:
+        prefix += filename
+
+        if line:
+            prefix += ':' + line
+
+        prefix += ': '
+
+    print(prefix + msg)
+
+
 class TyptErrorListener(ErrorListener):
     """Custom ErrorListener for Typt.
 

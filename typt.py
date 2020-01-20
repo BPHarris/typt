@@ -1,11 +1,13 @@
 """typt.py - compiler for the Typt language."""
 
-from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
+from antlr4 import FileStream, CommonTokenStream
 
 from antlr.TyptLexer import TyptLexer
 from antlr.TyptParser import TyptParser
 
 from typt.visitor import Typt
+
+from error import log_error
 
 from sys import argv
 from os.path import isfile
@@ -13,23 +15,8 @@ from os.path import isfile
 # See: https://tomassetti.me/antlr-mega-tutorial/
 #   Sections:   19. Testing with Python (unittest stuffs)
 
-# TODO: Add error listener, move log_error
+# TODO: Add error listener
 # TODO: Add ANY rule to grammar? Section 33
-
-
-def log_error(filename: str = None, line: int = None, msg: str = None) -> None:
-    """Log an error to terminal."""
-    prefix = 'typt: '
-
-    if filename:
-        prefix += filename
-
-        if line:
-            prefix += ':' + line
-
-        prefix += ': '
-
-    print(prefix + msg)
 
 
 def main(filename: str = None) -> None:
