@@ -10,6 +10,8 @@ from typt.program_node import ProgramNode
 from typt.using_node import UsingNode
 from typt.func_signature_node import FuncSignatureNode
 from typt.stmt_node import StmtNode
+from typt.expr_stmt_node import ExprStmtNode
+from typt.assignment_expr_stmt_node import AssignmentExprStmtNode
 
 # TODO: Switch from representing types as strings to Type objects
 
@@ -19,6 +21,9 @@ from typt.stmt_node import StmtNode
 #   func_signature
 #   func_parameter_list
 #   stmt
+#   simple_stmt
+#   small_stmt
+#   expr_stmt, anassign, augassign
 
 
 class Typt(TyptVisitor):
@@ -132,7 +137,7 @@ class Typt(TyptVisitor):
 
         raise NotImplementedError('Small statment type not implemented yet.')
 
-    def visitExpr_stmt(self, ctx: TyptParser.Expr_stmtContext):
+    def visitExpr_stmt(self, ctx: TyptParser.Expr_stmtContext) -> StmtNode:
         """Visit `expr_stmt' rule.
 
         Args:
@@ -141,31 +146,30 @@ class Typt(TyptVisitor):
         expr_stmt ::= ...
 
         """
-        return self.visitChildren(ctx)
 
+        # If no right-hand side (i.e. not an assignment expression)
+        if not ctx.rhs:
+            return ExprStmtNode(self.visitTest(ctx.lhs))
+
+        # Otherwise (i.e. is assignment expression), get type of assignment
+        if ctx.anassign():
+            assignment_type = ctx.anassign().getText()
+        if ctx.augassign():
+            assignment_type = ctx.augassign().getText()
+
+        return AssignmentExprStmtNode(
+            self.visitTest(ctx.lhs),
+            assignment_type,
+            self.visitTest(ctx.rhs)
+        )
 
     def visitAnassign(self, ctx: TyptParser.AnassignContext):
-        """Visit `anassign' rule.
-
-        Args:
-            ctx (AnassignContext) : ...
-
-        anassign ::= ...
-
-        """
-        return self.visitChildren(ctx)
-
+        """Dead method (never called)."""
+        raise NotImplementedError('Should not be reached (anassign).')
 
     def visitAugassign(self, ctx: TyptParser.AugassignContext):
-        """Visit `augassign' rule.
-
-        Args:
-            ctx (AugassignContext) : ...
-
-        augassign ::= ...
-
-        """
-        return self.visitChildren(ctx)
+        """Dead method (never called)."""
+        raise NotImplementedError('Should not be reached (augassign).')
     
     def visitVar_dec_stmt(self, ctx: TyptParser.Var_dec_stmtContext):
         """Visit `var_dec_stmt' rule.
