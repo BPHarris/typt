@@ -22,7 +22,7 @@ from typt.pass_stmt_node import PassStmtNode
 #   TODO: del_stmt (skipped as need exprlist done first)
 
 # 21st:
-#   TODO: __repr__ for every node -- test output
+#   TODO: __repr__ for every node -- test output (ADD DEPTH!!!!!!)
 #   TODO: Switch from representing types as strings to Type objects
 
 # Done:
