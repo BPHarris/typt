@@ -27,6 +27,10 @@ if x:   do_this()
 def test_func(arg: Bool) -> None:
     return None
 
+function: Float -> Float
+def higher_order(arg: Int -> Int) -> Int:
+    pass
+
 class AClass:
     x : String = 'test'
 
