@@ -12,7 +12,6 @@
 #   TODO: compare_types: add typing rules
 
 
-
 class Type:
     """A base class for Typt types."""
 
@@ -57,6 +56,54 @@ class StringType(Type):
     """Class for Typt::String type."""
 
     def __init__(self):
+        super().__init__()
+
+
+class ObjectBaseType(Type):
+    """Class for Typt::ObjectBaseType type."""
+
+    def __init__(self):
+        super().__init__()
+
+
+class ListType(Type):
+    """Class for Typt::ListType type."""
+
+    def __init__(self, element_type: Type):
+        """Set the element type."""
+        self.element_type = element_type
+
+        super().__init__()
+
+
+class TupleType(Type):
+    """Class for Typt::TupleType type."""
+
+    def __init__(self, element_type_list: list):
+        """Set the element types."""
+        self.element_type_list = element_type_list
+
+        super().__init__()
+
+
+class SetType(Type):
+    """Class for Typt::SetType type."""
+
+    def __init__(self, element_type: Type):
+        """Set the element type."""
+        self.element_type = element_type
+
+        super().__init__()
+
+
+class DictType(Type):
+    """Class for Typt::DictType type."""
+
+    def __init__(self, key_type: Type, value_type: Type):
+        """Set the element type."""
+        self.key_type = key_type
+        self.value_type = value_type
+
         super().__init__()
 
 
