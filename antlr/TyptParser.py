@@ -2590,6 +2590,7 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.lhs = None # And_testContext
+            self.op = None # Token
 
         def and_test(self, i:int=None):
             if i is None:
@@ -2624,7 +2625,7 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while _la==TyptParser.T__39:
                 self.state = 387
-                self.match(TyptParser.T__39)
+                localctx.op = self.match(TyptParser.T__39)
                 self.state = 388
                 self.and_test()
                 self.state = 393
@@ -2646,6 +2647,7 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.lhs = None # Not_testContext
+            self.op = None # Token
 
         def not_test(self, i:int=None):
             if i is None:
@@ -2680,7 +2682,7 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while _la==TyptParser.T__40:
                 self.state = 395
-                self.match(TyptParser.T__40)
+                localctx.op = self.match(TyptParser.T__40)
                 self.state = 396
                 self.not_test()
                 self.state = 401
@@ -2701,6 +2703,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.op = None # Token
             self.lhs = None # Not_testContext
 
         def not_test(self):
@@ -2734,7 +2737,7 @@ class TyptParser ( Parser ):
             if token in [TyptParser.T__41]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 402
-                self.match(TyptParser.T__41)
+                localctx.op = self.match(TyptParser.T__41)
                 self.state = 403
                 localctx.lhs = self.not_test()
                 pass
@@ -2964,6 +2967,7 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.lhs = None # Xor_exprContext
+            self.op = None # Token
 
         def xor_expr(self, i:int=None):
             if i is None:
@@ -2998,7 +3002,7 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while _la==TyptParser.T__49:
                 self.state = 433
-                self.match(TyptParser.T__49)
+                localctx.op = self.match(TyptParser.T__49)
                 self.state = 434
                 self.xor_expr()
                 self.state = 439
@@ -3020,6 +3024,7 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.lhs = None # And_exprContext
+            self.op = None # Token
 
         def and_expr(self, i:int=None):
             if i is None:
@@ -3054,7 +3059,7 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while _la==TyptParser.T__50:
                 self.state = 441
-                self.match(TyptParser.T__50)
+                localctx.op = self.match(TyptParser.T__50)
                 self.state = 442
                 self.and_expr()
                 self.state = 447
@@ -3076,6 +3081,7 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.lhs = None # Shift_exprContext
+            self.op = None # Token
 
         def shift_expr(self, i:int=None):
             if i is None:
@@ -3110,7 +3116,7 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while _la==TyptParser.T__51:
                 self.state = 449
-                self.match(TyptParser.T__51)
+                localctx.op = self.match(TyptParser.T__51)
                 self.state = 450
                 self.shift_expr()
                 self.state = 455
@@ -3132,6 +3138,7 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.lhs = None # Arith_exprContext
+            self.op = None # Token
 
         def arith_expr(self, i:int=None):
             if i is None:
@@ -3166,9 +3173,10 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while _la==TyptParser.T__52 or _la==TyptParser.T__53:
                 self.state = 457
+                localctx.op = self._input.LT(1)
                 _la = self._input.LA(1)
                 if not(_la==TyptParser.T__52 or _la==TyptParser.T__53):
-                    self._errHandler.recoverInline(self)
+                    localctx.op = self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
@@ -3193,6 +3201,7 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.lhs = None # TermContext
+            self.op = None # Token
 
         def term(self, i:int=None):
             if i is None:
@@ -3227,9 +3236,10 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while _la==TyptParser.T__54 or _la==TyptParser.T__55:
                 self.state = 465
+                localctx.op = self._input.LT(1)
                 _la = self._input.LA(1)
                 if not(_la==TyptParser.T__54 or _la==TyptParser.T__55):
-                    self._errHandler.recoverInline(self)
+                    localctx.op = self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
@@ -3254,6 +3264,7 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.lhs = None # FactorContext
+            self.op = None # Token
 
         def factor(self, i:int=None):
             if i is None:
@@ -3288,9 +3299,10 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__37) | (1 << TyptParser.T__56) | (1 << TyptParser.T__57) | (1 << TyptParser.T__58) | (1 << TyptParser.T__59))) != 0):
                 self.state = 473
+                localctx.op = self._input.LT(1)
                 _la = self._input.LA(1)
                 if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__37) | (1 << TyptParser.T__56) | (1 << TyptParser.T__57) | (1 << TyptParser.T__58) | (1 << TyptParser.T__59))) != 0)):
-                    self._errHandler.recoverInline(self)
+                    localctx.op = self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
@@ -3314,6 +3326,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.op = None # Token
 
         def factor(self):
             return self.getTypedRuleContext(TyptParser.FactorContext,0)
@@ -3347,9 +3360,10 @@ class TyptParser ( Parser ):
             if token in [TyptParser.T__54, TyptParser.T__55, TyptParser.T__60]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 480
+                localctx.op = self._input.LT(1)
                 _la = self._input.LA(1)
                 if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__54) | (1 << TyptParser.T__55) | (1 << TyptParser.T__60))) != 0)):
-                    self._errHandler.recoverInline(self)
+                    localctx.op = self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
@@ -3379,6 +3393,7 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.lhs = None # Atom_exprContext
+            self.op = None # Token
             self.rhs = None # FactorContext
 
         def atom_expr(self):
@@ -3415,7 +3430,7 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             if _la==TyptParser.T__61:
                 self.state = 486
-                self.match(TyptParser.T__61)
+                localctx.op = self.match(TyptParser.T__61)
                 self.state = 487
                 localctx.rhs = self.factor()
 
