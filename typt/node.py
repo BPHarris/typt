@@ -36,11 +36,11 @@ class Node:
         meta    (NodeMetadata) : The metadata of the node being initialised.
 
     Attributes:
-        meta    (NodeMetadata) : The metadata of the AST node -- stores metadata.
+        meta    (NodeMetadata) : The metadata of the AST node instance.
 
     """
 
-    def __init__(self, meta=NodeMetadata(), depth: int = 0):
+    def __init__(self, meta: NodeMetadata = NodeMetadata(), depth: int = 0):
         """Define all intrinsic member variables."""
         self.meta = meta
         self.depth = depth
@@ -58,3 +58,9 @@ class Node:
     def __repr__(self) -> str:
         """Return the string representation of node."""
         return self.__class__.__name__
+
+    def __str__(self) -> str:
+        """Return a formatted string representation of the node."""
+        indentation = '\t' * self.depth
+
+        return indentation.join(self.__repr__().splitlines(keepends=True))
