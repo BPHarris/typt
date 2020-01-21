@@ -1,4 +1,7 @@
-"""assignment_expr_stmt_node.py - holds the AST node for an assignment expression statement."""
+"""assignment_expr_stmt_node.py.
+
+Holds the AST node for an assignment expression statement.
+"""
 
 from typt.stmt_node import StmtNode
 from typt.test_node import TestNode
@@ -13,4 +16,4 @@ class AssignmentExprStmtNode(StmtNode):
         self.assignment_type = assignment_type
         self.rhs = rhs
 
-        super().__init__()
+        super().__init__(depth=depth)

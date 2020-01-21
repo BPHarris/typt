@@ -7,8 +7,8 @@ class DelStmtNode(StmtNode):
     """Nothing to be implemented."""
 
     # TODO Type annotation for expr_list
-    def __init__(self, expr_list: None, depth=0):
+    def __init__(self, expr_list: None, depth: int = 0):
         """Set expression list."""
         self.expr_list = expr_list
 
-        super().__init__(depth=0)
+        super().__init__(depth=depth)

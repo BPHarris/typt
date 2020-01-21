@@ -17,7 +17,7 @@ class ProgramNode(Node):
         self.using_list = list()
         self.stmt_list = list()
 
-        super().__init__()
+        super().__init__(depth=depth)
 
     def __repr__(self) -> str:
         """Return string representation of program."""

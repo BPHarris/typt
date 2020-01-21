@@ -15,4 +15,4 @@ class VarDecStmtNode(StmtNode):
         self.var_type = var_type
         self.rhs = rhs
 
-        super().__init__(depth=0)
+        super().__init__(depth=depth)

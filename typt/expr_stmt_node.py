@@ -11,4 +11,4 @@ class ExprStmtNode(StmtNode):
         """Set the test node (expression body)."""
         self.test_node = test_node
 
-        super().__init__()
+        super().__init__(depth=depth)

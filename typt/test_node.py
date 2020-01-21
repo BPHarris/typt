@@ -8,4 +8,4 @@ class TestNode(Node):
 
     def __init__(self, depth: int = 0):
         """Call super initialiser."""
-        super().__init__()
+        super().__init__(depth=depth)

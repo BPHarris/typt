@@ -9,7 +9,7 @@ from typt.typt_types import TestSuitePair
 class WhileStmtNode(StmtNode):
     """While statement AST node."""
 
-    def __init__(self, while_branch: TestSuitePair, else_branch: SuiteNode, depth=0):
+    def __init__(self, while_branch: TestSuitePair, else_branch: SuiteNode, depth: int = 0):
         """Set initial values."""
         self.while_branch = while_branch
         self.else_branch = else_branch

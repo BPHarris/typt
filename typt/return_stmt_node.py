@@ -7,7 +7,7 @@ from typt.test_node import TestNode
 class ReturnStmtNode(StmtNode):
     """ReturnStmt AST node."""
 
-    def __init__(self, return_value: TestNode = None, depth=0):
+    def __init__(self, return_value: TestNode = None, depth: int = 0):
         """Set return_value."""
         self.return_value = return_value
 

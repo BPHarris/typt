@@ -19,4 +19,4 @@ class UsingNode(Node):
         self.library_name = library_name
         self.library_alias = library_alias
 
-        super().__init__()
+        super().__init__(depth=depth)

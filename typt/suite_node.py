@@ -6,7 +6,7 @@ from typt.node import Node
 class SuiteNode(Node):
     """SuiteNode AST node."""
 
-    def __init__(self, depth=0):
+    def __init__(self, depth: int = 0):
         """Initialise statement list."""
         self.stmt_list = list()
 

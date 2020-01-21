@@ -8,9 +8,9 @@ from typt.typt_types import Type
 class LiteralNode(AtomNode):
     """LiteralNode AST node."""
 
-    def __init__(self, typt_type: Type, data: str, depth=0):
+    def __init__(self, typt_type: Type, data: str, depth: int = 0):
         """Store the data as a string literal for EzPz codegen."""
         self.typt_type = typt_type
         self.data = data
 
-        super().__init__(depth=0)
+        super().__init__(depth=depth)

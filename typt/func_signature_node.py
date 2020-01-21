@@ -21,4 +21,4 @@ class FuncSignatureNode(Node):
         self.parameter_list = list()
         self.return_type = return_type
 
-        super().__init__()
+        super().__init__(depth=depth)
