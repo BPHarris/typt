@@ -84,6 +84,11 @@ from typing import Iterable
 #   suite
 #   test
 #       or_test
+#       and_test
+#       not_test
+#       comparison
+#           comp_op
+#       expr
 #       atom    # TODO self
 #   name
 #   typt_type
