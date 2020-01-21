@@ -106,8 +106,13 @@ class NodePrinter:
 
     def print(self) -> None:
         """Print the root node."""
+        # Store state
         old = (NodePrinter.depth, NodePrinter.indent, )
+
+        # Print the AST from the root node
         self._print(self.root)
+
+        # Restore state
         NodePrinter.depth, NodePrinter.indent = old
 
     def _print(self, node: printable_types, name: str = '') -> None:
