@@ -467,8 +467,27 @@ class Typt(TyptVisitor):
         """Delegate to or_test (test ::= or_test)."""
         return self.visitOr_test(ctx.or_test())
 
-    def visitOr_test(self, ctx: TyptParser.Or_testContext) -> TestOpNode:
-        return self.visitChildren(ctx)
+    def visitOr_test(self, ctx: TyptParser.Or_testContext) -> TestNode:
+        """Get node for or_test; delegates to and_test if needed.
+
+        or_test ::= and_test ('or' and_test)*
+
+        """
+        # Get LHS
+        lhs = self.visitAnd_test(ctx.lhs)
+
+        # If only lhs => delegate (no or_test occuring)
+        if not ctx.op:
+            return lhs
+
+        test_op_node = TestOpNode(ctx.op.text, lhs)
+
+        # Add remaining operators
+        # NOTE [0] == lhs, so skip it with [1:]
+        for rhs in ctx.and_test()[1:]:
+            test_op_node.operands += [self.visitAnd_test(rhs)]
+
+        return test_op_node
 
     def visitAnd_test(self, ctx: TyptParser.And_testContext):
         return self.visitChildren(ctx)
