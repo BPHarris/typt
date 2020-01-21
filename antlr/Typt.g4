@@ -307,7 +307,7 @@ test        : or_test ;
 or_test     : lhs=and_test (op='or' and_test)* ;
 and_test    : lhs=not_test (op='and' not_test)* ;
 not_test    : op='not' lhs=not_test | comparison ;
-comparison  : lhs=expr (comp_op expr)* ;
+comparison  : lhs=expr (op=comp_op expr)* ;
 comp_op     : '<'|'>'|'=='|'>='|'<='|'!='|'in'|'not' 'in'|'is'|'is' 'not' ;
 expr        : or_expr ;
 or_expr     : lhs=xor_expr (op='|' xor_expr)* ;

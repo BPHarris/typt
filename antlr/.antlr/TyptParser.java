@@ -2191,6 +2191,7 @@ public class TyptParser extends Parser {
 
 	public static class ComparisonContext extends ParserRuleContext {
 		public ExprContext lhs;
+		public Comp_opContext op;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -2225,7 +2226,7 @@ public class TyptParser extends Parser {
 				{
 				{
 				setState(408);
-				comp_op();
+				((ComparisonContext)_localctx).op = comp_op();
 				setState(409);
 				expr();
 				}

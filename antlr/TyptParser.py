@@ -2764,6 +2764,7 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.lhs = None # ExprContext
+            self.op = None # Comp_opContext
 
         def expr(self, i:int=None):
             if i is None:
@@ -2805,7 +2806,7 @@ class TyptParser ( Parser ):
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__29) | (1 << TyptParser.T__41) | (1 << TyptParser.T__42) | (1 << TyptParser.T__43) | (1 << TyptParser.T__44) | (1 << TyptParser.T__45) | (1 << TyptParser.T__46) | (1 << TyptParser.T__47) | (1 << TyptParser.T__48))) != 0):
                 self.state = 408
-                self.comp_op()
+                localctx.op = self.comp_op()
                 self.state = 409
                 self.expr()
                 self.state = 415
