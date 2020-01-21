@@ -544,11 +544,12 @@ class Typt(TyptVisitor):
         return lhs
 
     def visitComp_op(self, ctx: TyptParser.Comp_opContext):
-        """Should not be reached. Use <op_ctx>.text instead."""
+        """Will not be reached. Use <op_ctx>.text instead."""
         raise NotImplementedError('Should not reach visitComp_op.')
 
-    def visitExpr(self, ctx: TyptParser.ExprContext):
-        return self.visitChildren(ctx)
+    def visitExpr(self, ctx: TyptParser.ExprContext) -> TestNode:
+        """Delegate to or_expr."""
+        return self.visitOr_expr(ctx.or_expr())
 
     def visitOr_expr(self, ctx: TyptParser.Or_exprContext):
         return self.visitChildren(ctx)
