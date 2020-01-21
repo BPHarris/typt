@@ -489,7 +489,7 @@ class Typt(TyptVisitor):
 
         return test_op_node
 
-    def visitAnd_test(self, ctx: TyptParser.And_testContext):
+    def visitAnd_test(self, ctx: TyptParser.And_testContext) -> TestNode:
         """Get node for and_test; delegates to not_test if needed.
 
         and_test ::= not_test ('and' not_test)*
@@ -511,7 +511,7 @@ class Typt(TyptVisitor):
 
         return test_op_node
 
-    def visitNot_test(self, ctx: TyptParser.Not_testContext):
+    def visitNot_test(self, ctx: TyptParser.Not_testContext) -> TestNode:
         """Get node for not_test; delegates to comparison if needed.
 
         not_test ::= 'not' not_test | comparison
