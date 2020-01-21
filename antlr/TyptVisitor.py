@@ -189,6 +189,11 @@ class TyptVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by TyptParser#or_expr.
+    def visitOr_expr(self, ctx:TyptParser.Or_exprContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by TyptParser#xor_expr.
     def visitXor_expr(self, ctx:TyptParser.Xor_exprContext):
         return self.visitChildren(ctx)

@@ -482,6 +482,9 @@ class Typt(TyptVisitor):
     def visitExpr(self, ctx: TyptParser.ExprContext):
         return self.visitChildren(ctx)
 
+    def visitOr_expr(self, ctx: TyptParser.Or_exprContext):
+        return self.visitChildren(ctx)
+
     def visitXor_expr(self, ctx: TyptParser.Xor_exprContext):
         return self.visitChildren(ctx)
 

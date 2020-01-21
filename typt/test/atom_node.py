@@ -1,9 +1,9 @@
 """atom_node.py - holds the base atom AST node."""
 
-from typt.node import Node
+from typt.test_node import TestNode
 
 
-class AtomNode(Node):
+class AtomNode(TestNode):
     """AtomNode AST node."""
 
     pass
