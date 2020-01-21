@@ -512,7 +512,17 @@ class Typt(TyptVisitor):
         return test_op_node
 
     def visitNot_test(self, ctx: TyptParser.Not_testContext):
-        return self.visitChildren(ctx)
+        """Get node for not_test; delegates to comparison if needed.
+
+        not_test ::= 'not' not_test | comparison
+
+        """
+        # If rule is: 'not' (not_test), recurse
+        if ctx.lhs:
+            return TestOpNode(ctx.op.text, self.visitNot_test(ctx.lhs))
+
+        # Otherwise, delegate to comparison
+        return self.visitComparison(ctx.comparison())
 
     def visitComparison(self, ctx: TyptParser.ComparisonContext):
         return self.visitChildren(ctx)
