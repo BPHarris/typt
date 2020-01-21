@@ -560,7 +560,7 @@ class Typt(TyptVisitor):
         """Delegate to or_expr."""
         return self.visitOr_expr(ctx.or_expr())
 
-    def visitOr_expr(self, ctx: TyptParser.Or_exprContext):
+    def visitOr_expr(self, ctx: TyptParser.Or_exprContext) -> TestNode:
         """Get sub tree of ExprOpNode."""
         # Get lhs
         lhs = self.visitXor_expr(ctx.lhs)
@@ -578,7 +578,7 @@ class Typt(TyptVisitor):
 
         return lhs
 
-    def visitXor_expr(self, ctx: TyptParser.Xor_exprContext):
+    def visitXor_expr(self, ctx: TyptParser.Xor_exprContext) -> TestNode:
         """Get sub tree of ExprOpNode."""
         # Get lhs
         lhs = self.visitAnd_expr(ctx.lhs)
@@ -596,7 +596,7 @@ class Typt(TyptVisitor):
 
         return lhs
 
-    def visitAnd_expr(self, ctx: TyptParser.And_exprContext):
+    def visitAnd_expr(self, ctx: TyptParser.And_exprContext) -> TestNode:
         """Get sub tree of ExprOpNode."""
         # Get lhs
         lhs = self.visitShift_expr(ctx.lhs)
