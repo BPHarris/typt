@@ -46,6 +46,7 @@ from typt.suite_node import SuiteNode
 
 from typt.test_node import TestNode
 from typt.test.test_op_node import TestOpNode
+from typt.test.comp_op_node import CompOpNode
 
 from typt.test.atom_node import AtomNode
 from typt.test.var_ref_node import VarRefNode
@@ -524,11 +525,27 @@ class Typt(TyptVisitor):
         # Otherwise, delegate to comparison
         return self.visitComparison(ctx.comparison())
 
-    def visitComparison(self, ctx: TyptParser.ComparisonContext):
-        return self.visitChildren(ctx)
+    def visitComparison(self, ctx: TyptParser.ComparisonContext) -> TestNode:
+        """Get sub tree of CompOpNodes."""
+        # Get lhs
+        lhs = self.visitExpr(ctx.lhs)
+
+        # If no RHS operands, delegate to Expr
+        if not ctx.op:
+            return lhs
+
+        # Foreach operator and operand, lhs' = (lhs OP rhs)
+        # i.e. left-associative
+        # NOTE [1:] to skip lhs
+        for op, rhs in zip(ctx.comp_op(), ctx.expr()[1:]):
+            rhs = self.visitExpr(rhs)
+            lhs = CompOpNode(op.text, lhs, rhs)
+
+        return lhs
 
     def visitComp_op(self, ctx: TyptParser.Comp_opContext):
-        return self.visitChildren(ctx)
+        """Should not be reached. Use <op_ctx>.text instead."""
+        raise NotImplementedError('Should not reach visitComp_op.')
 
     def visitExpr(self, ctx: TyptParser.ExprContext):
         return self.visitChildren(ctx)
