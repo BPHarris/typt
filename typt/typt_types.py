@@ -25,6 +25,10 @@ class Type:
         """Compare self to the given type."""
         return compare_types(self, other)
 
+    def __repr__(self) -> str:
+        """Return a string representation of the Type."""
+        return 'Typt::' + self.__class__.__name__
+
 
 class NoneType(Type):
     """Class for Typt::None type."""

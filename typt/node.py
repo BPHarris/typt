@@ -1,6 +1,8 @@
 """node.py - holds the AST node base class and related data structures."""
 
-from typt.typt_types import Type
+from typt.typt_types import Type, NameTypePair, TestSuitePair
+
+from typing import Union
 
 
 class NodeMetadata:
@@ -40,10 +42,9 @@ class Node:
 
     """
 
-    def __init__(self, meta: NodeMetadata = NodeMetadata(), depth: int = 0):
+    def __init__(self, meta: NodeMetadata = NodeMetadata(), depth=0):
         """Define all intrinsic member variables."""
         self.meta = meta
-        self.depth = depth
 
     # Return str representing the output Python 3 code for the node
     def codegen(self) -> str:
@@ -59,8 +60,128 @@ class Node:
         """Return the string representation of node."""
         return self.__class__.__name__
 
-    def __str__(self) -> str:
-        """Return a formatted string representation of the node."""
-        indentation = '\t' * self.depth
 
-        return indentation.join(self.__repr__().splitlines(keepends=True))
+printable_types = Union[
+    Node, Type, NameTypePair, TestSuitePair, list, str, None
+]
+printable_types.__doc__ = """The printable types for NodePrinter::_print."""
+
+
+class NodePrinter:
+    """Pretty print the AST of which 'root' is the root.
+
+    Attributes:
+        NodePrinter.depth   (int)   : The tree-depth of the node to print
+        root                (Node)  : The root node to print from
+        indent              (str)   : The string used to denote indentation
+
+    # TODO Remove all references to depth in *_node.py
+
+    """
+
+    depth = 0
+    indent = '-'
+
+    def __init__(self, root: Node, indent_str: str = '    '):
+        """Set the initial values."""
+        self.root = root
+        NodePrinter.indent = indent_str
+
+    @staticmethod
+    def puts(string: str) -> None:
+        """Print the given string at the current indentation level."""
+        # Get indent level
+        indent = NodePrinter.depth * NodePrinter.indent
+
+        # Get lines (i.e. split on \n if present)
+        lines = str(string).splitlines(keepends=True)
+
+        # Apply indent
+        indented_lines = list()
+        for line in lines:
+            indented_lines += [indent + line]
+
+        # Print each line in the string with the indent in front
+        return print(''.join(indented_lines))
+
+    def print(self) -> None:
+        """Print the root node."""
+        old = (NodePrinter.depth, NodePrinter.indent, )
+        self._print(self.root)
+        NodePrinter.depth, NodePrinter.indent = old
+
+    def _print(self, node: printable_types, name: str = '') -> None:
+        """Print the given node and it's children."""
+        # Node print
+        if isinstance(node, Node):
+            return self._print_node(node)
+
+        # Typt type
+        if isinstance(node, Type):
+            return NodePrinter.puts(str(node))
+
+        # NameTypePair
+        if isinstance(node, NameTypePair):
+            NodePrinter.puts('NameTypePair')
+
+            NodePrinter.depth += 1
+            NodePrinter.puts('name: ' + str(node.name))
+            NodePrinter.puts('type: ' + str(node.type))
+            NodePrinter.depth -= 1
+
+            return
+
+        # TestSuitePair
+        if isinstance(node, TestSuitePair):
+            NodePrinter.puts('TestSuitePair')
+
+            NodePrinter.depth += 1
+            self._print(node.test)
+            self._print(node.suite)
+            NodePrinter.depth -= 1
+
+            return
+
+        # List print
+        if type(node) == list:
+            # Print each elem
+            for element in node:
+                self._print(element, name)
+
+            return
+
+        # String
+        if type(node) == str:
+            return NodePrinter.puts(name + ': ' + node)
+
+        # None
+        if not node:
+            name = name if name else '<None>'
+
+            # Print as warning (i.e. red background for text)
+            return NodePrinter.puts(
+                '\x1b[1;37;41m' + name + ': ' + 'Empty' + '\x1b[0m'
+            )
+
+        raise NotImplementedError('Can\'t print type {}.'.format(type(node)))
+
+    def _print_node(self, node: Node) -> None:
+        """Print the given node and it's children."""
+        # Check type
+        if not isinstance(node, Node):
+            return
+
+        # Print name
+        NodePrinter.puts(str(node))
+
+        # Print children
+        NodePrinter.depth += 1
+        for name, attribute in vars(node).items():
+            # Skippable attributes
+            if name == 'meta':
+                continue
+            if name == 'depth':
+                continue
+
+            self._print(attribute, name=name)
+        NodePrinter.depth -= 1

@@ -538,7 +538,7 @@ class Typt(TyptVisitor):
         # Self
         if text == 'self':
             # TODO self references
-            print('Self not implemented @ visitAtom')
+            print('\x1b[1;37;41m' + 'visitAtom: self not implemented' + '\x1b[0m')
             return LiteralNode('', text)
 
         raise NotImplementedError('That type of atom is not implemented yet.')

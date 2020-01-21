@@ -6,6 +6,7 @@ from antlr.TyptLexer import TyptLexer
 from antlr.TyptParser import TyptParser
 
 from typt.visitor import Typt
+from typt.node import NodePrinter
 
 from error import log_error
 
@@ -41,7 +42,8 @@ def main(filename: str = None) -> None:
     tree = Typt().visit(parser.program())
 
     # Print parse tree
-    print(tree)
+    # print(tree)
+    NodePrinter(tree).print()
 
     # Type checking
     # TODO: type checking

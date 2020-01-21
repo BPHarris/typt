@@ -18,14 +18,3 @@ class ProgramNode(Node):
         self.stmt_list = list()
 
         super().__init__(depth=depth)
-
-    def __repr__(self) -> str:
-        """Return string representation of program."""
-        s = ''
-
-        s += 'Program\n'
-        s += '\t' + str(self.using_list) + '\n'
-        s += '\t' + str(self.stmt_list) + '\n'
-        s += 'End'
-
-        return s
