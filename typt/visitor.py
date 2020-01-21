@@ -44,6 +44,9 @@ from typt.for_stmt_node import ForStmtNode
 
 from typt.suite_node import SuiteNode
 
+from typt.test_node import TestNode
+from typt.test.test_op_node import TestOpNode
+
 from typt.test.atom_node import AtomNode
 from typt.test.var_ref_node import VarRefNode
 from typt.test.literal_node import LiteralNode
@@ -52,8 +55,6 @@ from typing import Iterable
 
 # 21st:
 #   TODO: Visit bodies for: test, argument_list, class
-#   TODO: __repr__ for every node -- test output (ADD DEPTH!!!!!!)
-#           i.e. print parse tree
 #   TODO: Test brackets and order of operations in lexer
 
 # Done:
@@ -80,7 +81,8 @@ from typing import Iterable
 #           while_stmt
 #           for_stmt            # TODO type annotations for exprlist, testlist
 #   suite
-#   TODO: test
+#   test
+#       or_test
 #       atom    # TODO self
 #   name
 #   typt_type
@@ -237,12 +239,12 @@ class Typt(TyptVisitor):
         # If no initial value given, set to None
         if not ctx.rhs:
             return VarDecStmtNode(
-                self.visitTest(ctx.lhs), self.visitTypt_type(ctx.typt_type())
+                self.visitName(ctx.lhs), self.visitTypt_type(ctx.typt_type())
             )
 
         # Otherwise, parse intial value
         return VarDecStmtNode(
-            self.visitTest(ctx.lhs),
+            self.visitName(ctx.lhs),
             self.visitTypt_type(ctx.typt_type()),
             self.visitTest(ctx.rhs)
         )
@@ -461,10 +463,11 @@ class Typt(TyptVisitor):
     def visitClass_static_method(self, ctx: TyptParser.Class_static_methodContext):
         return self.visitChildren(ctx)
 
-    def visitTest(self, ctx: TyptParser.TestContext):
-        return self.visitChildren(ctx)
+    def visitTest(self, ctx: TyptParser.TestContext) -> TestNode:
+        """Delegate to or_test (test ::= or_test)."""
+        return self.visitOr_test(ctx.or_test())
 
-    def visitOr_test(self, ctx: TyptParser.Or_testContext):
+    def visitOr_test(self, ctx: TyptParser.Or_testContext) -> TestOpNode:
         return self.visitChildren(ctx)
 
     def visitAnd_test(self, ctx: TyptParser.And_testContext):
