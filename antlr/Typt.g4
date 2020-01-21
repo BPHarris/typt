@@ -304,20 +304,20 @@ class_static_method
 
 /* Parser Rules: Tests and Expressions */
 test        : or_test ;
-or_test     : and_test ('or' and_test)* ;
-and_test    : not_test ('and' not_test)* ;
-not_test    : 'not' not_test | comparison ;
-comparison  : expr (comp_op expr)* ;
+or_test     : lhs=and_test ('or' and_test)* ;
+and_test    : lhs=not_test ('and' not_test)* ;
+not_test    : 'not' lhs=not_test | comparison ;
+comparison  : lhs=expr (comp_op expr)* ;
 comp_op     : '<'|'>'|'=='|'>='|'<='|'!='|'in'|'not' 'in'|'is'|'is' 'not' ;
 expr        : or_expr ;
-or_expr     : xor_expr ('|' xor_expr)* ;
-xor_expr    : and_expr ('^' and_expr)* ;
-and_expr    : shift_expr ('&' shift_expr)* ;
-shift_expr  : arith_expr (('<<'|'>>') arith_expr)* ;
-arith_expr  : term (('+'|'-') term)* ;
-term        : factor (('*'|'@'|'/'|'%'|'//') factor)* ;
+or_expr     : lhs=xor_expr ('|' xor_expr)* ;
+xor_expr    : lhs=and_expr ('^' and_expr)* ;
+and_expr    : lhs=shift_expr ('&' shift_expr)* ;
+shift_expr  : lhs=arith_expr (('<<'|'>>') arith_expr)* ;
+arith_expr  : lhs=term (('+'|'-') term)* ;
+term        : lhs=factor (('*'|'@'|'/'|'%'|'//') factor)* ;
 factor      : ('+'|'-'|'~') factor | power ;
-power       : atom_expr ('**' factor)? ;
+power       : lhs=atom_expr ('**' rhs=factor)? ;
 atom_expr   : atom trailer* ;
 atom
     : name

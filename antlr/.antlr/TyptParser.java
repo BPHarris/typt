@@ -2022,6 +2022,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class Or_testContext extends ParserRuleContext {
+		public And_testContext lhs;
 		public List<And_testContext> and_test() {
 			return getRuleContexts(And_testContext.class);
 		}
@@ -2042,7 +2043,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(386);
-			and_test();
+			((Or_testContext)_localctx).lhs = and_test();
 			setState(391);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2073,6 +2074,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class And_testContext extends ParserRuleContext {
+		public Not_testContext lhs;
 		public List<Not_testContext> not_test() {
 			return getRuleContexts(Not_testContext.class);
 		}
@@ -2093,7 +2095,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(394);
-			not_test();
+			((And_testContext)_localctx).lhs = not_test();
 			setState(399);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2124,6 +2126,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class Not_testContext extends ParserRuleContext {
+		public Not_testContext lhs;
 		public Not_testContext not_test() {
 			return getRuleContext(Not_testContext.class,0);
 		}
@@ -2149,7 +2152,7 @@ public class TyptParser extends Parser {
 				setState(402);
 				match(T__41);
 				setState(403);
-				not_test();
+				((Not_testContext)_localctx).lhs = not_test();
 				}
 				break;
 			case T__35:
@@ -2184,6 +2187,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class ComparisonContext extends ParserRuleContext {
+		public ExprContext lhs;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -2210,7 +2214,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(407);
-			expr();
+			((ComparisonContext)_localctx).lhs = expr();
 			setState(413);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2373,6 +2377,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class Or_exprContext extends ParserRuleContext {
+		public Xor_exprContext lhs;
 		public List<Xor_exprContext> xor_expr() {
 			return getRuleContexts(Xor_exprContext.class);
 		}
@@ -2393,7 +2398,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(432);
-			xor_expr();
+			((Or_exprContext)_localctx).lhs = xor_expr();
 			setState(437);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2424,6 +2429,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class Xor_exprContext extends ParserRuleContext {
+		public And_exprContext lhs;
 		public List<And_exprContext> and_expr() {
 			return getRuleContexts(And_exprContext.class);
 		}
@@ -2444,7 +2450,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(440);
-			and_expr();
+			((Xor_exprContext)_localctx).lhs = and_expr();
 			setState(445);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2475,6 +2481,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class And_exprContext extends ParserRuleContext {
+		public Shift_exprContext lhs;
 		public List<Shift_exprContext> shift_expr() {
 			return getRuleContexts(Shift_exprContext.class);
 		}
@@ -2495,7 +2502,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(448);
-			shift_expr();
+			((And_exprContext)_localctx).lhs = shift_expr();
 			setState(453);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2526,6 +2533,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class Shift_exprContext extends ParserRuleContext {
+		public Arith_exprContext lhs;
 		public List<Arith_exprContext> arith_expr() {
 			return getRuleContexts(Arith_exprContext.class);
 		}
@@ -2546,7 +2554,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(456);
-			arith_expr();
+			((Shift_exprContext)_localctx).lhs = arith_expr();
 			setState(461);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2585,6 +2593,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class Arith_exprContext extends ParserRuleContext {
+		public TermContext lhs;
 		public List<TermContext> term() {
 			return getRuleContexts(TermContext.class);
 		}
@@ -2605,7 +2614,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(464);
-			term();
+			((Arith_exprContext)_localctx).lhs = term();
 			setState(469);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2644,6 +2653,7 @@ public class TyptParser extends Parser {
 	}
 
 	public static class TermContext extends ParserRuleContext {
+		public FactorContext lhs;
 		public List<FactorContext> factor() {
 			return getRuleContexts(FactorContext.class);
 		}
@@ -2664,7 +2674,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(472);
-			factor();
+			((TermContext)_localctx).lhs = factor();
 			setState(477);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2771,6 +2781,8 @@ public class TyptParser extends Parser {
 	}
 
 	public static class PowerContext extends ParserRuleContext {
+		public Atom_exprContext lhs;
+		public FactorContext rhs;
 		public Atom_exprContext atom_expr() {
 			return getRuleContext(Atom_exprContext.class,0);
 		}
@@ -2791,7 +2803,7 @@ public class TyptParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(485);
-			atom_expr();
+			((PowerContext)_localctx).lhs = atom_expr();
 			setState(488);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2800,7 +2812,7 @@ public class TyptParser extends Parser {
 				setState(486);
 				match(T__61);
 				setState(487);
-				factor();
+				((PowerContext)_localctx).rhs = factor();
 				}
 			}
 

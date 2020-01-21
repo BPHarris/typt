@@ -2589,6 +2589,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # And_testContext
 
         def and_test(self, i:int=None):
             if i is None:
@@ -2617,7 +2618,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 386
-            self.and_test()
+            localctx.lhs = self.and_test()
             self.state = 391
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -2644,6 +2645,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # Not_testContext
 
         def not_test(self, i:int=None):
             if i is None:
@@ -2672,7 +2674,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 394
-            self.not_test()
+            localctx.lhs = self.not_test()
             self.state = 399
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -2699,6 +2701,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # Not_testContext
 
         def not_test(self):
             return self.getTypedRuleContext(TyptParser.Not_testContext,0)
@@ -2733,7 +2736,7 @@ class TyptParser ( Parser ):
                 self.state = 402
                 self.match(TyptParser.T__41)
                 self.state = 403
-                self.not_test()
+                localctx.lhs = self.not_test()
                 pass
             elif token in [TyptParser.T__35, TyptParser.T__54, TyptParser.T__55, TyptParser.T__60, TyptParser.T__62, TyptParser.T__63, TyptParser.T__64, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
                 self.enterOuterAlt(localctx, 2)
@@ -2757,6 +2760,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # ExprContext
 
         def expr(self, i:int=None):
             if i is None:
@@ -2792,7 +2796,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 407
-            self.expr()
+            localctx.lhs = self.expr()
             self.state = 413
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -2959,6 +2963,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # Xor_exprContext
 
         def xor_expr(self, i:int=None):
             if i is None:
@@ -2987,7 +2992,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 432
-            self.xor_expr()
+            localctx.lhs = self.xor_expr()
             self.state = 437
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -3014,6 +3019,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # And_exprContext
 
         def and_expr(self, i:int=None):
             if i is None:
@@ -3042,7 +3048,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 440
-            self.and_expr()
+            localctx.lhs = self.and_expr()
             self.state = 445
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -3069,6 +3075,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # Shift_exprContext
 
         def shift_expr(self, i:int=None):
             if i is None:
@@ -3097,7 +3104,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 448
-            self.shift_expr()
+            localctx.lhs = self.shift_expr()
             self.state = 453
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -3124,6 +3131,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # Arith_exprContext
 
         def arith_expr(self, i:int=None):
             if i is None:
@@ -3152,7 +3160,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 456
-            self.arith_expr()
+            localctx.lhs = self.arith_expr()
             self.state = 461
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -3184,6 +3192,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # TermContext
 
         def term(self, i:int=None):
             if i is None:
@@ -3212,7 +3221,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 464
-            self.term()
+            localctx.lhs = self.term()
             self.state = 469
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -3244,6 +3253,7 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # FactorContext
 
         def factor(self, i:int=None):
             if i is None:
@@ -3272,7 +3282,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 472
-            self.factor()
+            localctx.lhs = self.factor()
             self.state = 477
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -3368,6 +3378,8 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.lhs = None # Atom_exprContext
+            self.rhs = None # FactorContext
 
         def atom_expr(self):
             return self.getTypedRuleContext(TyptParser.Atom_exprContext,0)
@@ -3397,7 +3409,7 @@ class TyptParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 485
-            self.atom_expr()
+            localctx.lhs = self.atom_expr()
             self.state = 488
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -3405,7 +3417,7 @@ class TyptParser ( Parser ):
                 self.state = 486
                 self.match(TyptParser.T__61)
                 self.state = 487
-                self.factor()
+                localctx.rhs = self.factor()
 
 
         except RecognitionException as re:
