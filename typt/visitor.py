@@ -47,6 +47,7 @@ from typt.suite_node import SuiteNode
 from typt.test_node import TestNode
 from typt.test.test_op_node import TestOpNode
 from typt.test.comp_op_node import CompOpNode
+from typt.test.expr_op_node import ExprOpNode
 
 from typt.test.atom_node import AtomNode
 from typt.test.var_ref_node import VarRefNode
@@ -89,6 +90,9 @@ from typing import Iterable
 #       comparison
 #           comp_op
 #       expr
+#           or_expr
+#           xor_expr
+#           and_expr
 #       atom    # TODO self
 #   name
 #   typt_type
@@ -557,13 +561,58 @@ class Typt(TyptVisitor):
         return self.visitOr_expr(ctx.or_expr())
 
     def visitOr_expr(self, ctx: TyptParser.Or_exprContext):
-        return self.visitChildren(ctx)
+        """Get sub tree of ExprOpNode."""
+        # Get lhs
+        lhs = self.visitXor_expr(ctx.lhs)
+
+        # If no RHS operands, delegate
+        if not ctx.op:
+            return lhs
+
+        # Foreach operator and operand, lhs' = (lhs OP rhs)
+        # i.e. left-associative
+        # NOTE [1:] to skip lhs
+        for rhs in ctx.expr()[1:]:
+            rhs = self.visitXor_expr(rhs)
+            lhs = ExprOpNode(ctx.op.text, lhs, rhs)
+
+        return lhs
 
     def visitXor_expr(self, ctx: TyptParser.Xor_exprContext):
-        return self.visitChildren(ctx)
+        """Get sub tree of ExprOpNode."""
+        # Get lhs
+        lhs = self.visitAnd_expr(ctx.lhs)
+
+        # If no RHS operands, delegate
+        if not ctx.op:
+            return lhs
+
+        # Foreach operator and operand, lhs' = (lhs OP rhs)
+        # i.e. left-associative
+        # NOTE [1:] to skip lhs
+        for rhs in ctx.expr()[1:]:
+            rhs = self.visitAnd_expr(rhs)
+            lhs = ExprOpNode(ctx.op.text, lhs, rhs)
+
+        return lhs
 
     def visitAnd_expr(self, ctx: TyptParser.And_exprContext):
-        return self.visitChildren(ctx)
+        """Get sub tree of ExprOpNode."""
+        # Get lhs
+        lhs = self.visitShift_expr(ctx.lhs)
+
+        # If no RHS operands, delegate
+        if not ctx.op:
+            return lhs
+
+        # Foreach operator and operand, lhs' = (lhs OP rhs)
+        # i.e. left-associative
+        # NOTE [1:] to skip lhs
+        for rhs in ctx.expr()[1:]:
+            rhs = self.visitShift_expr(rhs)
+            lhs = ExprOpNode(ctx.op.text, lhs, rhs)
+
+        return lhs
 
     def visitShift_expr(self, ctx: TyptParser.Shift_exprContext):
         return self.visitChildren(ctx)
