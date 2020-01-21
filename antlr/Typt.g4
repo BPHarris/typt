@@ -313,10 +313,14 @@ expr        : or_expr ;
 or_expr     : lhs=xor_expr (op='|' xor_expr)* ;
 xor_expr    : lhs=and_expr (op='^' and_expr)* ;
 and_expr    : lhs=shift_expr (op='&' shift_expr)* ;
-shift_expr  : lhs=arith_expr (op=('<<'|'>>') arith_expr)* ;
-arith_expr  : lhs=term (op=('+'|'-') term)* ;
-term        : lhs=factor (op=('*'|'@'|'/'|'%'|'//') factor)* ;
-factor      : op=('+'|'-'|'~') factor | power ;
+shift_expr  : lhs=arith_expr (op=shift_op arith_expr)* ;
+shift_op    : '<<' | '>>' ;
+arith_expr  : lhs=term (op=arith_op term)* ;
+arith_op    : '+' | '-' ;
+term        : lhs=factor (op=term_op factor)* ;
+term_op     : '*' | '@' | '/' | '%' | '//' ;
+factor      : op=factor_op factor | power ;
+factor_op   : '+' | '-' | '~' ;
 power       : lhs=atom_expr (op='**' rhs=factor)? ;
 atom_expr   : atom trailer* ;
 atom

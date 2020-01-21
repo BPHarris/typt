@@ -209,8 +209,18 @@ class TyptVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by TyptParser#shift_op.
+    def visitShift_op(self, ctx:TyptParser.Shift_opContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by TyptParser#arith_expr.
     def visitArith_expr(self, ctx:TyptParser.Arith_exprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TyptParser#arith_op.
+    def visitArith_op(self, ctx:TyptParser.Arith_opContext):
         return self.visitChildren(ctx)
 
 
@@ -219,8 +229,18 @@ class TyptVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by TyptParser#term_op.
+    def visitTerm_op(self, ctx:TyptParser.Term_opContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by TyptParser#factor.
     def visitFactor(self, ctx:TyptParser.FactorContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TyptParser#factor_op.
+    def visitFactor_op(self, ctx:TyptParser.Factor_opContext):
         return self.visitChildren(ctx)
 
 
