@@ -490,7 +490,26 @@ class Typt(TyptVisitor):
         return test_op_node
 
     def visitAnd_test(self, ctx: TyptParser.And_testContext):
-        return self.visitChildren(ctx)
+        """Get node for and_test; delegates to not_test if needed.
+
+        and_test ::= not_test ('and' not_test)*
+
+        """
+        # Get LHS
+        lhs = self.visitNot_test(ctx.lhs)
+
+        # If only lhs => delegate (no or_test occuring)
+        if not ctx.op:
+            return lhs
+
+        test_op_node = TestOpNode(ctx.op.text, lhs)
+
+        # Add remaining operators
+        # NOTE [0] == lhs, so skip it with [1:]
+        for rhs in ctx.not_test()[1:]:
+            test_op_node.operands += [self.visitNot_test(rhs)]
+
+        return test_op_node
 
     def visitNot_test(self, ctx: TyptParser.Not_testContext):
         return self.visitChildren(ctx)
