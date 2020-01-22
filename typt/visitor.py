@@ -858,8 +858,9 @@ class Typt(TyptVisitor):
             return_type = self.visitTypt_type(ctx.return_type)
 
             # Get parameter types
+            # NOTE [:-1] to skip return type in param types -- duh!
             parameter_types = list()
-            for ctx_type in ctx.typt_type():
+            for ctx_type in ctx.typt_type()[:-1]:
                 parameter_types += [self.visitTypt_type(ctx_type)]
 
             return FunctionType(parameter_types, return_type)
