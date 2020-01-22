@@ -52,7 +52,7 @@ else:
 def test_func(arg: Bool) -> None:
     return None
 
-function: Float -> Float
+function: Function<Int, Int -> Float>
 def higher_order(arg: Int -> Int) -> Int:
     pass
 
