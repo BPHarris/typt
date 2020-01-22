@@ -2,8 +2,8 @@
 # https://github.com/github/gitignore/blob/master/Python.gitignore
 
 # Project Specific
-Typt/__pycache__/
-Typt/.antlr
+antlr/__pycache__/
+antlr/.antlr
 
 # Add vscode settings
 .vscode/
