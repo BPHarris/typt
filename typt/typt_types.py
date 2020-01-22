@@ -129,7 +129,7 @@ class FunctionType(Type):
     """Class for Typt::FunctionType type.
 
     Attributes:
-        parameters      (Iterator[Type])    ...
+        parameters      (Iterable[Type])    ...
         return_type     (Type)              ...
 
     """
@@ -140,6 +140,13 @@ class FunctionType(Type):
         self.return_type = return_type
 
         super().__init__()
+
+    def __repr__(self) -> str:
+        """Return string representation of a FunctionType."""
+        p_types = [repr(param) for param in self.parameters]
+        type = '<' + ', '.join(p_types) + ' -> ' + repr(self.return_type) + '>'
+
+        return super().__repr__() + type
 
 
 class ObjectType(Type):
