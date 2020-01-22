@@ -1629,11 +1629,11 @@ public class TyptParser extends Parser {
 		public Class_static_methodContext class_static_method(int i) {
 			return getRuleContext(Class_static_methodContext.class,i);
 		}
-		public List<AtomContext> atom() {
-			return getRuleContexts(AtomContext.class);
+		public List<TestContext> test() {
+			return getRuleContexts(TestContext.class);
 		}
-		public AtomContext atom(int i) {
-			return getRuleContext(AtomContext.class,i);
+		public TestContext test(int i) {
+			return getRuleContext(TestContext.class,i);
 		}
 		public Func_parameter_listContext func_parameter_list() {
 			return getRuleContext(Func_parameter_listContext.class,0);
@@ -1686,7 +1686,7 @@ public class TyptParser extends Parser {
 						setState(312);
 						match(T__5);
 						setState(313);
-						atom();
+						test();
 						}
 					}
 
@@ -3951,7 +3951,7 @@ public class TyptParser extends Parser {
 		"\2\2\u0131\u0132\3\2\2\2\u0132\63\3\2\2\2\u0133\u0134\5\66\34\2\u0134"+
 		"\u0135\7\4\2\2\u0135\u0136\7V\2\2\u0136\u0142\7_\2\2\u0137\u0138\5r:\2"+
 		"\u0138\u0139\7\4\2\2\u0139\u013c\5t;\2\u013a\u013b\7\b\2\2\u013b\u013d"+
-		"\5d\63\2\u013c\u013a\3\2\2\2\u013c\u013d\3\2\2\2\u013d\u013e\3\2\2\2\u013e"+
+		"\5<\37\2\u013c\u013a\3\2\2\2\u013c\u013d\3\2\2\2\u013d\u013e\3\2\2\2\u013e"+
 		"\u013f\7V\2\2\u013f\u0141\3\2\2\2\u0140\u0137\3\2\2\2\u0141\u0144\3\2"+
 		"\2\2\u0142\u0140\3\2\2\2\u0142\u0143\3\2\2\2\u0143\u0150\3\2\2\2\u0144"+
 		"\u0142\3\2\2\2\u0145\u0146\7!\2\2\u0146\u0147\7%\2\2\u0147\u0148\7\"\2"+

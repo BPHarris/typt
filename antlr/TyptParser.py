@@ -172,7 +172,7 @@ def serializedATN():
         buf.write("\2\2\2\u0131\u0132\3\2\2\2\u0132\63\3\2\2\2\u0133\u0134")
         buf.write("\5\66\34\2\u0134\u0135\7\4\2\2\u0135\u0136\7V\2\2\u0136")
         buf.write("\u0142\7_\2\2\u0137\u0138\5r:\2\u0138\u0139\7\4\2\2\u0139")
-        buf.write("\u013c\5t;\2\u013a\u013b\7\b\2\2\u013b\u013d\5d\63\2\u013c")
+        buf.write("\u013c\5t;\2\u013a\u013b\7\b\2\2\u013b\u013d\5<\37\2\u013c")
         buf.write("\u013a\3\2\2\2\u013c\u013d\3\2\2\2\u013d\u013e\3\2\2\2")
         buf.write("\u013e\u013f\7V\2\2\u013f\u0141\3\2\2\2\u0140\u0137\3")
         buf.write("\2\2\2\u0141\u0144\3\2\2\2\u0142\u0140\3\2\2\2\u0142\u0143")
@@ -2178,11 +2178,11 @@ class TyptParser ( Parser ):
                 return self.getTypedRuleContext(TyptParser.Class_static_methodContext,i)
 
 
-        def atom(self, i:int=None):
+        def test(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(TyptParser.AtomContext)
+                return self.getTypedRuleContexts(TyptParser.TestContext)
             else:
-                return self.getTypedRuleContext(TyptParser.AtomContext,i)
+                return self.getTypedRuleContext(TyptParser.TestContext,i)
 
 
         def func_parameter_list(self):
@@ -2241,7 +2241,7 @@ class TyptParser ( Parser ):
                         self.state = 312
                         self.match(TyptParser.T__5)
                         self.state = 313
-                        self.atom()
+                        self.test()
 
 
                     self.state = 316
