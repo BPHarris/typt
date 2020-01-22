@@ -160,7 +160,7 @@ class ObjectType(Type):
     """
 
     def __init__(self, members: Iterable[NameTypePair]):
-        """Set parameters and return type."""
+        """Set member types."""
         self.members = members
 
         super().__init__()
