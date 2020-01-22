@@ -334,9 +334,10 @@ atom
     ;
 trailer: '(' (argument_list)? ')' | '[' subscriptlist ']' | '.' name;
 
-subscriptlist: subscript (',' subscript)* (',')?;
-subscript: test | (test)? ':' (test)? (sliceop)?;
-sliceop: ':' (test)?;
+// subscriptlist: subscript (',' subscript)* (',')?;    # TODO Subscript list
+subscriptlist   : subscript ;
+subscript       : test | (test)? ':' (test)? (sliceop)?;
+sliceop         : ':' (test)?;
 
 exprlist : expr (',' expr)* (',')? ;
 testlist : test (',' test)* (',')? ;
