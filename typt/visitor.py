@@ -59,9 +59,10 @@ from typt.test.literal_node import LiteralNode
 
 from typing import Iterable
 
-# 21st:
-#   TODO: Visit bodies for: test, argument_list, class
+# 22nd:
+#   TODO: Visit bodies for: classes, trailers, exprlist, testlist
 #   TODO: Test brackets and order of operations in lexer
+#   TODO: Begin typing rules
 
 # Done:
 #   program
@@ -104,7 +105,7 @@ from typing import Iterable
 #           power
 #       atom_expr
 #           atom    # TODO self
-#           
+#           TODO trailer
 #   name
 #   typt_type
 
