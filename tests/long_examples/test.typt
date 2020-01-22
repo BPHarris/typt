@@ -12,6 +12,11 @@ pass
 continue
 print()
 print()
+b : Bool = True == False
+i : Int = 2 << 10
+f : Float = 3 + 2
+f : Float = 3 / 2
+n : Int = -2
 
 while False:
     pass
