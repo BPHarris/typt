@@ -48,6 +48,7 @@ from typt.test_node import TestNode
 from typt.test.test_op_node import TestOpNode
 from typt.test.comp_op_node import CompOpNode
 from typt.test.expr_op_node import ExprOpNode
+from typt.test.unary_expr_op_node import UnaryExprOpNode
 
 from typt.test.atom_node import AtomNode
 from typt.test.var_ref_node import VarRefNode
@@ -93,6 +94,11 @@ from typing import Iterable
 #           or_expr
 #           xor_expr
 #           and_expr
+#           shitf_expr
+#           arith_expr
+#           term
+#           factor
+#           power
 #       atom    # TODO self
 #   name
 #   typt_type
@@ -548,12 +554,12 @@ class Typt(TyptVisitor):
         # NOTE [1:] to skip lhs
         for op, rhs in zip(ctx.comp_op(), ctx.expr()[1:]):
             rhs = self.visitExpr(rhs)
-            lhs = CompOpNode(op.text, lhs, rhs)
+            lhs = CompOpNode(op.getText(), lhs, rhs)
 
         return lhs
 
-    def visitComp_op(self, ctx: TyptParser.Comp_opContext):
-        """Will not be reached. Use <op_ctx>.text instead."""
+    def visitComp_op(self, ctx: TyptParser.Comp_opContext) -> None:
+        """Will not be reached. Use <op_ctx>.getText() instead."""
         raise NotImplementedError('Should not reach visitComp_op.')
 
     def visitExpr(self, ctx: TyptParser.ExprContext) -> TestNode:
@@ -572,7 +578,7 @@ class Typt(TyptVisitor):
         # Foreach operator and operand, lhs' = (lhs OP rhs)
         # i.e. left-associative
         # NOTE [1:] to skip lhs
-        for rhs in ctx.expr()[1:]:
+        for rhs in ctx.xor_expr()[1:]:
             rhs = self.visitXor_expr(rhs)
             lhs = ExprOpNode(ctx.op.text, lhs, rhs)
 
@@ -590,7 +596,7 @@ class Typt(TyptVisitor):
         # Foreach operator and operand, lhs' = (lhs OP rhs)
         # i.e. left-associative
         # NOTE [1:] to skip lhs
-        for rhs in ctx.expr()[1:]:
+        for rhs in ctx.and_expr()[1:]:
             rhs = self.visitAnd_expr(rhs)
             lhs = ExprOpNode(ctx.op.text, lhs, rhs)
 
@@ -608,26 +614,104 @@ class Typt(TyptVisitor):
         # Foreach operator and operand, lhs' = (lhs OP rhs)
         # i.e. left-associative
         # NOTE [1:] to skip lhs
-        for rhs in ctx.expr()[1:]:
+        for rhs in ctx.shift_expr()[1:]:
             rhs = self.visitShift_expr(rhs)
             lhs = ExprOpNode(ctx.op.text, lhs, rhs)
 
         return lhs
 
-    def visitShift_expr(self, ctx: TyptParser.Shift_exprContext):
-        return self.visitChildren(ctx)
+    def visitShift_expr(self, ctx: TyptParser.Shift_exprContext) -> TestNode:
+        """Get sub tree of ExprOpNode."""
+        # Get lhs
+        lhs = self.visitArith_expr(ctx.lhs)
 
-    def visitArith_expr(self, ctx: TyptParser.Arith_exprContext):
-        return self.visitChildren(ctx)
+        # If no RHS operands, delegate to Expr
+        if not ctx.op:
+            return lhs
 
-    def visitTerm(self, ctx: TyptParser.TermContext):
-        return self.visitChildren(ctx)
+        # Foreach operator and operand, lhs' = (lhs OP rhs)
+        # i.e. left-associative
+        # NOTE [1:] to skip lhs
+        for op, rhs in zip(ctx.shift_op(), ctx.arith_expr()[1:]):
+            rhs = self.visitArith_expr(rhs)
+            lhs = ExprOpNode(op.getText(), lhs, rhs)
 
-    def visitFactor(self, ctx: TyptParser.FactorContext):
-        return self.visitChildren(ctx)
+        return lhs
 
-    def visitPower(self, ctx: TyptParser.PowerContext):
-        return self.visitChildren(ctx)
+    def visitShift_op(self, ctx: TyptParser.Shift_opContext) -> None:
+        """Will not be reached. Use <op_ctx>.getText() instead."""
+        raise NotImplementedError('Should not reach visitShift_op.')
+
+    def visitArith_expr(self, ctx: TyptParser.Arith_exprContext) -> TestNode:
+        """Get sub tree of ExprOpNode."""
+        # Get lhs
+        lhs = self.visitTerm(ctx.lhs)
+
+        # If no RHS operands, delegate to Expr
+        if not ctx.op:
+            return lhs
+
+        # Foreach operator and operand, lhs' = (lhs OP rhs)
+        # i.e. left-associative
+        # NOTE [1:] to skip lhs
+        for op, rhs in zip(ctx.arith_op(), ctx.term()[1:]):
+            rhs = self.visitTerm(rhs)
+            lhs = ExprOpNode(op.getText(), lhs, rhs)
+
+        return lhs
+
+    def visitArith_op(self, ctx: TyptParser.Arith_opContext) -> None:
+        """Will not be reached. Use <op_ctx>.getText() instead."""
+        raise NotImplementedError('Should not reach visitArith_op.')
+
+    def visitTerm(self, ctx: TyptParser.TermContext) -> TestNode:
+        """Get sub tree of ExprOpNode."""
+        # Get lhs
+        lhs = self.visitFactor(ctx.lhs)
+
+        # If no RHS operands, delegate to Expr
+        if not ctx.op:
+            return lhs
+
+        # Foreach operator and operand, lhs' = (lhs OP rhs)
+        # i.e. left-associative
+        # NOTE [1:] to skip lhs
+        for op, rhs in zip(ctx.term_op(), ctx.factor()[1:]):
+            rhs = self.visitFactor(rhs)
+            lhs = ExprOpNode(op.getText(), lhs, rhs)
+
+        return lhs
+
+    def visitTerm_op(self, ctx: TyptParser.Term_opContext) -> None:
+        """Will not be reached. Use <op_ctx>.getText() instead."""
+        raise NotImplementedError('Should not reach visitTerm_op.')
+
+    def visitFactor(self, ctx: TyptParser.FactorContext) -> TestNode:
+        """Return UnaryExprOpNode or delegate."""
+        # If no op, just delegate
+        if not ctx.op:
+            return self.visitPower(ctx.power())
+
+        # Otherwise, get factor as unary op
+        return UnaryExprOpNode(
+            ctx.op.getText(), self.visitFactor(ctx.factor())
+        )
+
+    def visitFactor_op(self, ctx: TyptParser.Factor_opContext) -> None:
+        """Will not be reached. Use <op_ctx>.getText() instead."""
+        raise NotImplementedError('Should not reach visitFactor_op.')
+
+    def visitPower(self, ctx: TyptParser.PowerContext) -> TestNode:
+        """Get sub tree of ExprOpNode."""
+        # Get lhs
+        lhs = self.visitAtom_expr(ctx.lhs)
+
+        # If no RHS operands, delegate to atom_expr
+        if not ctx.op:
+            return lhs
+
+        # Otherwise, get factor
+        return ExprOpNode(ctx.op.text, lhs, self.visitFactor(ctx.factor()))
 
     def visitAtom_expr(self, ctx: TyptParser.Atom_exprContext):
         return self.visitChildren(ctx)
