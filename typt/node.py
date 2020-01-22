@@ -157,7 +157,10 @@ class NodePrinter:
 
         # String
         if type(node) == str:
-            return NodePrinter.puts(name + ': ' + node)
+            # If name is data then keep '' around string, otherwise don't
+            node_str = repr(node) if name == 'data' else str(node)
+
+            return NodePrinter.puts(name + ': ' + node_str)
 
         # None
         if not node:
