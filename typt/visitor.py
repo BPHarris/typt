@@ -50,6 +50,7 @@ from typt.test.comp_op_node import CompOpNode
 from typt.test.expr_op_node import ExprOpNode
 from typt.test.unary_expr_op_node import UnaryExprOpNode
 
+from typt.test.atom_expr_node import AtomExprNode
 from typt.test.atom_node import AtomNode
 from typt.test.var_ref_node import VarRefNode
 from typt.test.literal_node import LiteralNode
@@ -99,7 +100,9 @@ from typing import Iterable
 #           term
 #           factor
 #           power
-#       atom    # TODO self
+#       atom_expr
+#           atom    # TODO self
+#           
 #   name
 #   typt_type
 
@@ -713,8 +716,15 @@ class Typt(TyptVisitor):
         # Otherwise, get factor
         return ExprOpNode(ctx.op.text, lhs, self.visitFactor(ctx.factor()))
 
-    def visitAtom_expr(self, ctx: TyptParser.Atom_exprContext):
-        return self.visitChildren(ctx)
+    def visitAtom_expr(self, ctx: TyptParser.Atom_exprContext) -> TestNode:
+        """Return atom expression node -- with trailers."""
+        atom_expr = AtomExprNode(self.visitAtom(ctx.atom()))
+
+        # Add trailers
+        for trailer in ctx.trailer():
+            atom_expr.trailer_list += [self.visitTrailer(trailer)]
+
+        return atom_expr
 
     def visitAtom(self, ctx: TyptParser.AtomContext) -> AtomNode:
         """Return VarRefNode or LiteralNode, depending on atom."""
