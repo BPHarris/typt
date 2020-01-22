@@ -120,6 +120,10 @@ class DictType(Type):
 
         super().__init__()
 
+    def __repr__(self) -> str:
+        """Return a string representation of a SetType."""
+        return super().__repr__() + '(' + repr(self.element_type) + ')'
+
 
 class FunctionType(Type):
     """Class for Typt::FunctionType type.
