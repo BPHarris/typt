@@ -799,10 +799,10 @@ class Typt(TyptVisitor):
 
         raise NotImplementedError('Should not reach me.')
 
-    def visitExprlist(self, ctx: TyptParser.ExprlistContext):
+    def visitExprlist(self, ctx: TyptParser.ExprlistContext) -> List[ExprOpNode]:
         return self.visitChildren(ctx)
 
-    def visitTestlist(self, ctx: TyptParser.TestlistContext):
+    def visitTestlist(self, ctx: TyptParser.TestlistContext) -> List[TestNode]:
         return self.visitChildren(ctx)
 
     def visitName(self, ctx: TyptParser.NameContext) -> str:
