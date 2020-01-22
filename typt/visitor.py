@@ -58,7 +58,7 @@ from typt.test.var_ref_node import VarRefNode
 from typt.test.literal_node import LiteralNode
 from typt.subscript_node import SubscriptNode
 
-from typing import Iterable
+from typing import Iterable, List
 
 # 22nd:
 #   TODO: Visit bodies for: classes, exprlist, testlist
@@ -800,10 +800,22 @@ class Typt(TyptVisitor):
         raise NotImplementedError('Should not reach me.')
 
     def visitExprlist(self, ctx: TyptParser.ExprlistContext) -> List[ExprOpNode]:
-        return self.visitChildren(ctx)
+        """Return list of expression operation nodes, length >= 1."""
+        expr_list = list()
+
+        for expr in ctx.expr():
+            expr_list += [self.visitExpr(expr)]
+
+        return expr_list
 
     def visitTestlist(self, ctx: TyptParser.TestlistContext) -> List[TestNode]:
-        return self.visitChildren(ctx)
+        """Return list of expression operation nodes, length >= 1."""
+        test_list = list()
+
+        for test in ctx.test():
+            test_list += [self.visitTest(test)]
+
+        return test_list
 
     def visitName(self, ctx: TyptParser.NameContext) -> str:
         """Return the contents."""
