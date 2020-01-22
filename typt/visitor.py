@@ -257,7 +257,8 @@ class Typt(TyptVisitor):
         # If no initial value given, set to None
         if not ctx.rhs:
             return VarDecStmtNode(
-                self.visitName(ctx.lhs), self.visitTypt_type(ctx.typt_type())
+                self.visitName(ctx.lhs),
+                self.visitTypt_type(ctx.typt_type())
             )
 
         # Otherwise, parse intial value
