@@ -3883,6 +3883,9 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.start = None # TestContext
+            self.upto = None # TestContext
+            self.step = None # SliceopContext
 
         def test(self, i:int=None):
             if i is None:
@@ -3919,7 +3922,7 @@ class TyptParser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 541
-                self.test()
+                localctx.start = self.test()
                 pass
 
             elif la_ == 2:
@@ -3929,7 +3932,7 @@ class TyptParser ( Parser ):
                 _la = self._input.LA(1)
                 if ((((_la - 36)) & ~0x3f) == 0 and ((1 << (_la - 36)) & ((1 << (TyptParser.T__35 - 36)) | (1 << (TyptParser.T__41 - 36)) | (1 << (TyptParser.T__54 - 36)) | (1 << (TyptParser.T__55 - 36)) | (1 << (TyptParser.T__60 - 36)) | (1 << (TyptParser.T__62 - 36)) | (1 << (TyptParser.T__63 - 36)) | (1 << (TyptParser.T__64 - 36)) | (1 << (TyptParser.NUMBER - 36)) | (1 << (TyptParser.STRING - 36)) | (1 << (TyptParser.NAME - 36)))) != 0):
                     self.state = 542
-                    self.test()
+                    localctx.start = self.test()
 
 
                 self.state = 545
@@ -3939,7 +3942,7 @@ class TyptParser ( Parser ):
                 _la = self._input.LA(1)
                 if ((((_la - 36)) & ~0x3f) == 0 and ((1 << (_la - 36)) & ((1 << (TyptParser.T__35 - 36)) | (1 << (TyptParser.T__41 - 36)) | (1 << (TyptParser.T__54 - 36)) | (1 << (TyptParser.T__55 - 36)) | (1 << (TyptParser.T__60 - 36)) | (1 << (TyptParser.T__62 - 36)) | (1 << (TyptParser.T__63 - 36)) | (1 << (TyptParser.T__64 - 36)) | (1 << (TyptParser.NUMBER - 36)) | (1 << (TyptParser.STRING - 36)) | (1 << (TyptParser.NAME - 36)))) != 0):
                     self.state = 546
-                    self.test()
+                    localctx.upto = self.test()
 
 
                 self.state = 550
@@ -3947,7 +3950,7 @@ class TyptParser ( Parser ):
                 _la = self._input.LA(1)
                 if _la==TyptParser.T__1:
                     self.state = 549
-                    self.sliceop()
+                    localctx.step = self.sliceop()
 
 
                 pass

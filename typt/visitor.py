@@ -52,15 +52,16 @@ from typt.test.comp_op_node import CompOpNode
 from typt.test.expr_op_node import ExprOpNode
 from typt.test.unary_expr_op_node import UnaryExprOpNode
 
-from typt.test.atom_expr_node import AtomExprNode
+from typt.test.atom_expr_node import AtomExprNode, TrailerType
 from typt.test.atom_node import AtomNode
 from typt.test.var_ref_node import VarRefNode
 from typt.test.literal_node import LiteralNode
+from typt.subscript_node import SubscriptNode
 
 from typing import Iterable
 
 # 22nd:
-#   TODO: Visit bodies for: classes, trailers, exprlist, testlist
+#   TODO: Visit bodies for: classes, exprlist, testlist
 #   TODO: Test brackets and order of operations in lexer
 #   TODO: Begin typing rules
 
@@ -105,7 +106,10 @@ from typing import Iterable
 #           power
 #       atom_expr
 #           atom    # TODO self
-#           TODO trailer
+#           trailer
+#               subscriptlist
+#                   subscript
+#                   sliceop
 #   name
 #   typt_type
 
@@ -755,17 +759,45 @@ class Typt(TyptVisitor):
 
         raise NotImplementedError('That type of atom is not implemented yet.')
 
-    def visitTrailer(self, ctx: TyptParser.TrailerContext):
-        return self.visitChildren(ctx)
+    def visitTrailer(self, ctx: TyptParser.TrailerContext) -> TrailerType:
+        """Delegate da trailer."""
+        # Is argument_list?
+        if ctx.argument_list():
+            return self.visitArgument_list(ctx.argument_list())
 
-    def visitSubscriptlist(self, ctx: TyptParser.SubscriptlistContext):
-        return self.visitChildren(ctx)
+        # HACK Is empty argument_list
+        if ctx.getText() == '()':
+            return ArgumentListNode()
 
-    def visitSubscript(self, ctx: TyptParser.SubscriptContext):
-        return self.visitChildren(ctx)
+        # Is subscriptlist?
+        if ctx.subscriptlist():
+            return self.visitSubscriptlist(ctx.subscriptlist())
+
+        # Is name?
+        if ctx.name():
+            return self.visitName(ctx.name())
+
+        raise NotImplementedError('Invalid trailer type.')
+
+    def visitSubscriptlist(self, ctx: TyptParser.SubscriptlistContext) -> SubscriptNode:
+        """Delegate to subscript."""
+        return self.visitSubscript(ctx.subscript())
+
+    def visitSubscript(self, ctx: TyptParser.SubscriptContext) -> SubscriptNode:
+        """Get the subscript."""
+        # Get start:upto:step
+        start = None if not ctx.start else self.visitTest(ctx.start)
+        upto = None if not ctx.upto else self.visitTest(ctx.upto)
+        step = None if not ctx.step else self.visitSliceop(ctx.step)
+
+        return SubscriptNode(start, upto, step)
 
     def visitSliceop(self, ctx: TyptParser.SliceopContext):
-        return self.visitChildren(ctx)
+        """DELEGATE HAHAHAHAHA."""
+        if ctx.test():
+            return self.visitTest(ctx.test())
+
+        raise NotImplementedError('Should not reach me.')
 
     def visitExprlist(self, ctx: TyptParser.ExprlistContext):
         return self.visitChildren(ctx)
