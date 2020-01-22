@@ -89,6 +89,12 @@ class TupleType(Type):
 
         super().__init__()
 
+    def __repr__(self) -> str:
+        """Return a string representation of a TupleType."""
+        element_types = [repr(e_type) for e_type in self.element_type_list]
+
+        return super().__repr__() + '(' + ', '.join(element_types) + ')'
+
 
 class SetType(Type):
     """Class for Typt::SetType type."""
