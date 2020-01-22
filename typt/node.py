@@ -73,7 +73,7 @@ class NodePrinter:
     Attributes:
         NodePrinter.depth   (int)   : The tree-depth of the node to print
         root                (Node)  : The root node to print from
-        indent              (str)   : The string used to denote indentation
+        NodePrinter.indent  (str)   : The string used to denote indentation
 
     # TODO Remove all references to depth in *_node.py
 
@@ -157,8 +157,9 @@ class NodePrinter:
 
         # String
         if type(node) == str:
-            # If name is data then keep '' around string, otherwise don't
-            node_str = repr(node) if name == 'data' else str(node)
+            # HACK If name is data (i.e. the string belongs to a LiteralNode)
+            # then keep the '' around the string, otherwise don't
+            node_str = repr(node) if name == 'data' else node
 
             return NodePrinter.puts(name + ': ' + node_str)
 
@@ -175,10 +176,6 @@ class NodePrinter:
 
     def _print_node(self, node: Node) -> None:
         """Print the given node and it's children."""
-        # Check type
-        if not isinstance(node, Node):
-            return
-
         # Print name
         NodePrinter.puts(str(node))
 
@@ -187,8 +184,6 @@ class NodePrinter:
         for name, attribute in vars(node).items():
             # Skippable attributes
             if name == 'meta':
-                continue
-            if name == 'depth':
                 continue
 
             self._print(attribute, name=name)

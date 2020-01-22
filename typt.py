@@ -16,8 +16,8 @@ from os.path import isfile
 # See: https://tomassetti.me/antlr-mega-tutorial/
 #   Sections:   19. Testing with Python (unittest stuffs)
 
-# TODO: Add error listener
-# TODO: Add ANY rule to grammar? Section 33
+# TODO Finish error listener
+# TODO Add ANY rule to grammar? Section 33
 
 
 def main(filename: str = None) -> None:
@@ -46,10 +46,10 @@ def main(filename: str = None) -> None:
     NodePrinter(tree).print()
 
     # Type checking
-    # TODO: type checking
+    # TODO type checking
 
     # Codegen
-    # TODO: codegen
+    # TODO codegen
 
 
 if __name__ == '__main__':
