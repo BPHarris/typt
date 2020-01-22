@@ -27,6 +27,8 @@ from typt.using_node import UsingNode
 from typt.func_def_node import FuncDefNode
 from typt.func_signature_node import FuncSignatureNode
 
+from typt.argument_list_node import ArgumentListNode
+
 from typt.stmt_node import StmtNode
 
 from typt.expr_stmt_node import ExprStmtNode
@@ -170,27 +172,19 @@ class Typt(TyptVisitor):
         # Otherwise (is compound stmt), visit child
         return self.visitCompound_stmt(ctx.compound_stmt())
 
-    def visitArgument_list(self, ctx: TyptParser.Argument_listContext):
-        """Visit `argument_list' rule.
+    def visitArgument_list(self, ctx: TyptParser.Argument_listContext) -> ArgumentListNode:
+        """Return argument_list."""
+        argument_list_node = ArgumentListNode()
 
-        Args:
-            ctx (Argument_listContext) : ...
+        # Add arguments
+        for argument in ctx.argument():
+            argument_list_node.argument_list += [self.visitArgument(argument)]
 
-        argument_list ::= ...
+        return argument_list_node
 
-        """
-        return self.visitChildren(ctx)
-
-    def visitArgument(self, ctx: TyptParser.ArgumentContext):
-        """Visit `argument' rule.
-
-        Args:
-            ctx (ArgumentContext) : ...
-
-        argument ::= ...
-
-        """
-        return self.visitChildren(ctx)
+    def visitArgument(self, ctx: TyptParser.ArgumentContext) -> TestNode:
+        """Delegate to test."""
+        return self.visitTest(ctx.test())
 
     def visitSimple_stmt(self, ctx: TyptParser.Simple_stmtContext) -> StmtNode:
         """Visit `simple_stmt' rule."""
