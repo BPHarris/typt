@@ -299,15 +299,15 @@ def serializedATN():
         buf.write("\u026b\u026c\7$\2\2\u026c\u026d\5t;\7\u026d\u028d\3\2")
         buf.write("\2\2\u026e\u026f\7N\2\2\u026f\u0270\7D\2\2\u0270\u0271")
         buf.write("\5t;\2\u0271\u0272\7E\2\2\u0272\u028d\3\2\2\2\u0273\u0274")
-        buf.write("\7O\2\2\u0274\u027d\7\"\2\2\u0275\u027a\5t;\2\u0276\u0277")
+        buf.write("\7O\2\2\u0274\u027d\7D\2\2\u0275\u027a\5t;\2\u0276\u0277")
         buf.write("\7\7\2\2\u0277\u0279\5t;\2\u0278\u0276\3\2\2\2\u0279\u027c")
         buf.write("\3\2\2\2\u027a\u0278\3\2\2\2\u027a\u027b\3\2\2\2\u027b")
         buf.write("\u027e\3\2\2\2\u027c\u027a\3\2\2\2\u027d\u0275\3\2\2\2")
         buf.write("\u027d\u027e\3\2\2\2\u027e\u027f\3\2\2\2\u027f\u028d\7")
-        buf.write("#\2\2\u0280\u0281\7P\2\2\u0281\u0282\7\"\2\2\u0282\u0283")
-        buf.write("\5t;\2\u0283\u0284\7#\2\2\u0284\u028d\3\2\2\2\u0285\u0286")
-        buf.write("\7Q\2\2\u0286\u0287\7L\2\2\u0287\u0288\5t;\2\u0288\u0289")
-        buf.write("\7\7\2\2\u0289\u028a\5t;\2\u028a\u028b\7M\2\2\u028b\u028d")
+        buf.write("E\2\2\u0280\u0281\7P\2\2\u0281\u0282\7D\2\2\u0282\u0283")
+        buf.write("\5t;\2\u0283\u0284\7E\2\2\u0284\u028d\3\2\2\2\u0285\u0286")
+        buf.write("\7Q\2\2\u0286\u0287\7D\2\2\u0287\u0288\5t;\2\u0288\u0289")
+        buf.write("\7\7\2\2\u0289\u028a\5t;\2\u028a\u028b\7E\2\2\u028b\u028d")
         buf.write("\3\2\2\2\u028c\u0248\3\2\2\2\u028c\u024a\3\2\2\2\u028c")
         buf.write("\u024b\3\2\2\2\u028c\u024c\3\2\2\2\u028c\u024d\3\2\2\2")
         buf.write("\u028c\u024e\3\2\2\2\u028c\u024f\3\2\2\2\u028c\u0261\3")
@@ -4341,7 +4341,7 @@ class TyptParser ( Parser ):
                 self.state = 625
                 localctx.tuple_type = self.match(TyptParser.T__76)
                 self.state = 626
-                self.match(TyptParser.T__31)
+                self.match(TyptParser.T__65)
                 self.state = 635
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -4363,25 +4363,25 @@ class TyptParser ( Parser ):
 
 
                 self.state = 637
-                self.match(TyptParser.T__32)
+                self.match(TyptParser.T__66)
                 pass
 
             elif la_ == 11:
                 self.state = 638
                 localctx.set_type = self.match(TyptParser.T__77)
                 self.state = 639
-                self.match(TyptParser.T__31)
+                self.match(TyptParser.T__65)
                 self.state = 640
                 localctx.element_type = self.typt_type(0)
                 self.state = 641
-                self.match(TyptParser.T__32)
+                self.match(TyptParser.T__66)
                 pass
 
             elif la_ == 12:
                 self.state = 643
                 localctx.dict_type = self.match(TyptParser.T__78)
                 self.state = 644
-                self.match(TyptParser.T__73)
+                self.match(TyptParser.T__65)
                 self.state = 645
                 localctx.key_type = self.typt_type(0)
                 self.state = 646
@@ -4389,7 +4389,7 @@ class TyptParser ( Parser ):
                 self.state = 647
                 localctx.value_type = self.typt_type(0)
                 self.state = 648
-                self.match(TyptParser.T__74)
+                self.match(TyptParser.T__66)
                 pass
 
 

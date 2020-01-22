@@ -374,9 +374,9 @@ typt_type
 
     /* Other */
     | list_type     = 'List'    '[' element_type=typt_type ']'
-    | tuple_type    = 'Tuple'   '(' (typt_type (',' typt_type)*)? ')'
-    | set_type      = 'Set'     '(' element_type=typt_type ')'
-    | dict_type     = 'Dict'    '{' key_type=typt_type ',' value_type=typt_type '}'
+    | tuple_type    = 'Tuple'   '[' (typt_type (',' typt_type)*)? ']'
+    | set_type      = 'Set'     '[' element_type=typt_type ']'
+    | dict_type     = 'Dict'    '[' key_type=typt_type ',' value_type=typt_type ']'
     ;
 
 

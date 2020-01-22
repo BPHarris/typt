@@ -18,8 +18,8 @@ f : Float = 3 + 2
 f : Float = 3 / 2
 n : Int = -2
 l : List[Int]
-tuple : Tuple(Int, Tuple(String, String), Float)
-s : Set(Bool)
+tuple : Tuple[Int, Tuple[String, String], Float]
+s : Set[Bool]
 
 while False:
     pass
