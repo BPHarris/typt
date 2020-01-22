@@ -1,9 +1,13 @@
 # Taken (and adapted) from
 # https://github.com/github/gitignore/blob/master/Python.gitignore
 
-# Project Specific
+# ANTLR Specific
 antlr/__pycache__/
 antlr/.antlr
+
+# Typt specific
+typt/__pycache__/
+typt/test/__pycache__/
 
 # Add vscode settings
 .vscode/
