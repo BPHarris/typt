@@ -61,10 +61,10 @@ class Node:
         return self.__class__.__name__
 
 
-printable_types = Union[
+Printables = Union[
     Node, Type, NameTypePair, TestSuitePair, list, str, None
 ]
-printable_types.__doc__ = """The printable types for NodePrinter::_print."""
+Printables.__doc__ = """The printable types for NodePrinter::_print."""
 
 
 class NodePrinter:
@@ -115,7 +115,7 @@ class NodePrinter:
         # Restore state
         NodePrinter.depth, NodePrinter.indent = old
 
-    def _print(self, node: printable_types, name: str = '') -> None:
+    def _print(self, node: Printables, name: str = '') -> None:
         """Print the given node and it's children."""
         # Node print
         if isinstance(node, Node):
