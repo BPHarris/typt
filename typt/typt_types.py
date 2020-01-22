@@ -33,43 +33,37 @@ class Type:
 class NoneType(Type):
     """Class for Typt::None type."""
 
-    def __init__(self):
-        super().__init__()
+    pass
 
 
 class BoolType(Type):
     """Class for Typt::Bool type."""
 
-    def __init__(self):
-        super().__init__()
+    pass
 
 
 class IntType(Type):
     """Class for Typt::Int type."""
 
-    def __init__(self):
-        super().__init__()
+    pass
 
 
 class FloatType(Type):
     """Class for Typt::Float type."""
 
-    def __init__(self):
-        super().__init__()
+    pass
 
 
 class StringType(Type):
     """Class for Typt::String type."""
 
-    def __init__(self):
-        super().__init__()
+    pass
 
 
 class ObjectBaseType(Type):
     """Class for Typt::ObjectBaseType type."""
 
-    def __init__(self):
-        super().__init__()
+    pass
 
 
 class ListType(Type):
@@ -80,6 +74,10 @@ class ListType(Type):
         self.element_type = element_type
 
         super().__init__()
+
+    def __repr__(self) -> str:
+        """Return a string representation of a ListType."""
+        return super().__repr__() + '[' + repr(self.element_type) + ']'
 
 
 class TupleType(Type):
