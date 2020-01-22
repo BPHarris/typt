@@ -20,6 +20,7 @@ n : Int = -2
 l : List[Int]
 tuple : Tuple[Int, Tuple[String, String], Float]
 s : Set[Bool]
+d : Dict[String, Tuple[Int, Int]]
 
 while False:
     pass

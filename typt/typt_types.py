@@ -122,7 +122,9 @@ class DictType(Type):
 
     def __repr__(self) -> str:
         """Return a string representation of a SetType."""
-        return super().__repr__() + '(' + repr(self.element_type) + ')'
+        kv_types_str = [repr(self.key_type), repr(self.value_type)]
+
+        return super().__repr__() + '{' + ' => '.join(kv_types_str) + '}'
 
 
 class FunctionType(Type):
