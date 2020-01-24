@@ -202,6 +202,25 @@ class FunctionType(Type):
 
         super().__init__()
 
+    def __eq__(self, other) -> bool:
+        """Check if the other is an equivalent function."""
+        if isinstance(other, FunctionType):
+            # Check return types
+            if not isinstance(other.return_type, type(self.return_type)):
+                return False
+
+            # Check parameter lengths
+            if len(self.parameters) != len(other.parameters):
+                return False
+
+            # Check parameter types
+            pairs = zip(self.parameters, other.parameters)
+            for (s, o) in pairs:
+                if not isinstance(s, type(o)):
+                    return False
+            return True
+        return False
+
     def __repr__(self) -> str:
         """Return string representation of a FunctionType."""
         p_types = [repr(param) for param in self.parameters]
