@@ -116,6 +116,23 @@ class TupleType(Type):
 
         super().__init__()
 
+    def __eq__(self, other) -> bool:
+        """Check if the other is an equivalent tuple."""
+        if isinstance(other, TupleType):
+            # If they have a different number of args, no equal!
+            if len(self.element_type_list) != len(other.element_type_list):
+                return False
+
+            # For each argument pair, if the arguements aren't the same type,
+            # => bye bye
+            arg_pairs = zip(self.element_type_list, other.element_type_list)
+            for (s, o) in arg_pairs:
+                if not isinstance(s, type(o)):
+                    return False
+            return True
+
+        return False
+
     def __repr__(self) -> str:
         """Return a string representation of a TupleType."""
         element_types = [repr(e_type) for e_type in self.element_type_list]
