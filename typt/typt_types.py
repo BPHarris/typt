@@ -95,6 +95,13 @@ class ListType(Type):
 
         super().__init__()
 
+    def __eq__(self, other) -> bool:
+        """Check if the other is an equivalent list."""
+        if isinstance(other, ListType):
+            if isinstance(other.element_type, type(self.element_type)):
+                return True
+        return False
+
     def __repr__(self) -> str:
         """Return a string representation of a ListType."""
         return super().__repr__() + '[' + repr(self.element_type) + ']'
