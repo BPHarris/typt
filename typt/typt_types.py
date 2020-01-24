@@ -44,7 +44,7 @@ class BoolType(Type):
     """Class for Typt::Bool type."""
 
     def __eq__(self, other) -> bool:
-        """Compare a NoneType to another type."""
+        """Compare a BoolType to another type."""
         if isinstance(other, BoolType):
             return True
         return False
@@ -54,7 +54,7 @@ class IntType(Type):
     """Class for Typt::Int type."""
 
     def __eq__(self, other) -> bool:
-        """Compare a NoneType to another type."""
+        """Compare a IntType to another type."""
         if isinstance(other, IntType):
             return True
         return False
@@ -64,7 +64,7 @@ class FloatType(Type):
     """Class for Typt::Float type."""
 
     def __eq__(self, other) -> bool:
-        """Compare a NoneType to another type."""
+        """Compare a FloatType to another type."""
         if isinstance(other, FloatType):
             return True
         return False
@@ -74,7 +74,7 @@ class StringType(Type):
     """Class for Typt::String type."""
 
     def __eq__(self, other) -> bool:
-        """Compare a NoneType to another type."""
+        """Compare a StringType to another type."""
         if isinstance(other, StringType):
             return True
         return False
@@ -151,8 +151,8 @@ class FunctionType(Type):
     """Class for Typt::FunctionType type.
 
     Attributes:
-        parameters      (Iterable[Type])    ...
-        return_type     (Type)              ...
+        parameters      (Iterable[Type]) : The function parameter types.
+        return_type     (Type)           : The function return type.
 
     """
 
