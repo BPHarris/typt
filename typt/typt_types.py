@@ -171,8 +171,16 @@ class DictType(Type):
 
         super().__init__()
 
+    def __eq__(self, other) -> bool:
+        """Check if the other is an equivalent dict."""
+        if isinstance(other, DictType):
+            if isinstance(self.key_type, type(other.key_type)) \
+                    and isinstance(self.value_type, type(other.value_type)):
+                return True
+        return False
+
     def __repr__(self) -> str:
-        """Return a string representation of a SetType."""
+        """Return a string representation of a DictType."""
         kv_types_str = [repr(self.key_type), repr(self.value_type)]
 
         return super().__repr__() + '{' + ' => '.join(kv_types_str) + '}'
