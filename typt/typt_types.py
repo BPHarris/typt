@@ -3,8 +3,7 @@
 from typing import Iterable
 from collections import namedtuple
 
-# Todo list
-#   TODO: compare_types: add typing rules
+from copy import deepcopy
 
 
 NameTypePair = namedtuple('NameTypePair', ('name', 'type'))
@@ -20,10 +19,6 @@ class Type:
     def __init__(self):
         """Set base variables."""
         pass
-
-    def __eq__(self, other) -> bool:
-        """Compare self to the given type."""
-        return compare_types(self, other)
 
     def __repr__(self) -> str:
         """Return a string representation of the Type."""
@@ -83,7 +78,13 @@ class StringType(Type):
 class ObjectBaseType(Type):
     """Class for Typt::ObjectBaseType type."""
 
-    pass
+    def __eq__(self, other) -> bool:
+        """Compare a ObjectBaseType to another type."""
+        # Type equality
+        if isinstance(other, ObjectBaseType):
+            return True
+
+        return False
 
 
 class ListType(Type):
@@ -233,7 +234,7 @@ class ObjectType(Type):
     """Class for Typt::ObjectType type.
 
     Attributes:
-        members     (Iterable[NameTypePair])    ...
+        members     (Iterable[NameTypePair]) : The object's members.
 
     """
 
@@ -243,24 +244,47 @@ class ObjectType(Type):
 
         super().__init__()
 
+    def __eq__(self, other) -> bool:
+        """Check if the two are equivalent or if lhs (self) is a sub of rhs.
+
+        NOTE If self (i.e. left-hand side) is a subclass of other than also
+        return true.
+        RULES (Sub Base Object) & (Sub Object)
+        """
+        # Type subsumption
+        # RULE (Sub Base Object)
+        if isinstance(other, ObjectBaseType):
+            return True
+
+        # Type Equivalence or Subsuption
+        # RULE (Sub Object)
+        if isinstance(other, ObjectType):
+            self_m = sorted(deepcopy(self.members), key=lambda ntp: ntp.name)
+            other_m = sorted(deepcopy(other.members), key=lambda ntp: ntp.name)
+
+            for o_m in other_m:
+                has_current_m = False
+
+                # Does self have this member?
+                for s_m in self_m:
+                    if o_m.name == s_m.name \
+                            and isinstance(o_m.type, type(s_m.type)):
+                        has_current_m = True
+
+                # If it doesn't, then self <: other doesn't hold
+                if not has_current_m:
+                    return False
+
+            # For every member of other, self has an equivalent
+            return True
+
+        return False
+
     def __repr__(self) -> str:
         """Return string representation of an ObjectType."""
         m_types = [m.name + ': ' + repr(m.type) for m in self.members]
 
         return super().__repr__() + '{' + ', '.join(m_types) + '}'
-
-
-def compare_types(a: Type, b: Type) -> bool:
-    """Compare the given types A and B.
-
-    Return true if the two given types are sematically equivalent int the
-    typing rules for the Typt language. Return false otherwise.
-
-    Args:
-        a   (Type) : First given type.
-        b   (Type) : Second given type.
-    """
-    pass
 
 
 def is_int(s: str) -> bool:
