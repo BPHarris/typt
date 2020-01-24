@@ -149,6 +149,13 @@ class SetType(Type):
 
         super().__init__()
 
+    def __eq__(self, other) -> bool:
+        """Check if the other is an equivalent set."""
+        if isinstance(other, SetType):
+            if isinstance(self.element_type, type(other.element_type)):
+                return True
+        return False
+
     def __repr__(self) -> str:
         """Return a string representation of a SetType."""
         return super().__repr__() + '(' + repr(self.element_type) + ')'
