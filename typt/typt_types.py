@@ -33,31 +33,51 @@ class Type:
 class NoneType(Type):
     """Class for Typt::None type."""
 
-    pass
+    def __eq__(self, other) -> bool:
+        """Compare a NoneType to another type."""
+        if isinstance(other, NoneType):
+            return True
+        return False
 
 
 class BoolType(Type):
     """Class for Typt::Bool type."""
 
-    pass
+    def __eq__(self, other) -> bool:
+        """Compare a NoneType to another type."""
+        if isinstance(other, BoolType):
+            return True
+        return False
 
 
 class IntType(Type):
     """Class for Typt::Int type."""
 
-    pass
+    def __eq__(self, other) -> bool:
+        """Compare a NoneType to another type."""
+        if isinstance(other, IntType):
+            return True
+        return False
 
 
 class FloatType(Type):
     """Class for Typt::Float type."""
 
-    pass
+    def __eq__(self, other) -> bool:
+        """Compare a NoneType to another type."""
+        if isinstance(other, FloatType):
+            return True
+        return False
 
 
 class StringType(Type):
     """Class for Typt::String type."""
 
-    pass
+    def __eq__(self, other) -> bool:
+        """Compare a NoneType to another type."""
+        if isinstance(other, StringType):
+            return True
+        return False
 
 
 class ObjectBaseType(Type):
