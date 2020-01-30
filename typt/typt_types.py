@@ -9,6 +9,7 @@ from copy import deepcopy
 NameTypePair = namedtuple('NameTypePair', ('name', 'type'))
 NameTypePair.__doc__ = """Store a (name: str, type: Type) pair."""
 
+
 TestSuitePair = namedtuple('TestSuitePair', ('test', 'suite'))
 TestSuitePair.__doc__ = """Store a (test: TestNode, suite: SuiteNode) pair."""
 
