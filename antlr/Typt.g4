@@ -287,7 +287,7 @@ class_def
       DEDENT
     ;
 class_dec
-    : 'class' name ('(' name ')')?
+    : 'class' class_name=name ('(' super_name=name ')')?
     ;
 class_method
     : ('def' name '(' 'self' (',' func_parameter_list)? ')' '->' typt_type ':' suite)

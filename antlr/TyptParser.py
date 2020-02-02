@@ -2338,6 +2338,8 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.class_name = None # NameContext
+            self.super_name = None # NameContext
 
         def name(self, i:int=None):
             if i is None:
@@ -2368,7 +2370,7 @@ class TyptParser ( Parser ):
             self.state = 355
             self.match(TyptParser.T__36)
             self.state = 356
-            self.name()
+            localctx.class_name = self.name()
             self.state = 361
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -2376,7 +2378,7 @@ class TyptParser ( Parser ):
                 self.state = 357
                 self.match(TyptParser.T__31)
                 self.state = 358
-                self.name()
+                localctx.super_name = self.name()
                 self.state = 359
                 self.match(TyptParser.T__32)
 
