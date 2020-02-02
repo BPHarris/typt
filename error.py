@@ -31,14 +31,14 @@ class TyptErrorListener(ErrorListener):
     """
 
     def __init__(self, output: StringIO):
-        self.output = output        
+        self.output = output
         self._symbol = ''
-    
+
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):        
         self.output.write(msg)
         self._symbol = offendingSymbol.text
 
-    @property        
+    @property
     def symbol(self) -> str:
         return self._symbol
 
