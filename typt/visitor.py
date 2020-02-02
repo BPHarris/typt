@@ -60,58 +60,9 @@ from typt.subscript_node import SubscriptNode
 
 from typing import Iterable, List
 
-# 22nd:
-#   TODO: Visit bodies for: classes, exprlist, testlist
-#   TODO: Test brackets and order of operations in lexer
-#   TODO: Begin typing rules
-
-# Done:
-#   program
-#   using
-#   func_def
-#   func_signature
-#       func_parameter_list
-#   stmt
-#       simple_stmt
-#           small_stmt
-#               expr_stmt
-#                   anassign
-#                   augassign
-#               var_dec_stmt
-#               del_stmt        # TODO type annotation for exprlist
-#               pass_stmt
-#               flow_stmt
-#                   break_stmt
-#                   continue_stmt
-#                   return_stmt
-#       compound_stmt
-#           if_stmt
-#           while_stmt
-#           for_stmt            # TODO type annotations for exprlist, testlist
-#   suite
-#   test
-#       or_test
-#       and_test
-#       not_test
-#       comparison
-#           comp_op
-#       expr
-#           or_expr
-#           xor_expr
-#           and_expr
-#           shitf_expr
-#           arith_expr
-#           term
-#           factor
-#           power
-#       atom_expr
-#           atom    # TODO self
-#           trailer
-#               subscriptlist
-#                   subscript
-#                   sliceop
-#   name
-#   typt_type
+# Todo:
+#   TODO: Visit bodies for: classes
+#   TODO: How to handle self?
 
 
 class Typt(TyptVisitor):
