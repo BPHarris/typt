@@ -26,6 +26,17 @@ class Type:
         return 'Typt::' + self.__class__.__name__
 
 
+class InvalidType(Type):
+    """Class representing an ill-formed type."""
+
+    def __eq__(self, other) -> bool:
+        """Return False for all others (cannot equal an invalid type)."""
+        return False
+
+    def __repr__(self) -> str:
+        '\x1b[1;37;41m' + 'Typt::InvalidType' + '\x1b[0m'
+
+
 class NoneType(Type):
     """Class for Typt::None type."""
 
