@@ -6,6 +6,10 @@ from collections import namedtuple
 from copy import deepcopy
 
 
+NameSuperPair = namedtuple('NameNamePair', ('name', 'super'))
+NameSuperPair.__doc__ = """Store a pair of strings (name and super)."""
+
+
 NameTypePair = namedtuple('NameTypePair', ('name', 'type'))
 NameTypePair.__doc__ = """Store a (name: str, type: Type) pair."""
 
