@@ -274,14 +274,14 @@ class_def
             // class var decls
             (name ':' typt_type ('=' test)? NEWLINE)*
         
-            // constructor
+            // initialiser
             ('def' '__init__' '(' 'self' (',' func_parameter_list)? ')' ':' suite)?
 
             // methods/static methods
             // TODO: Are static methods viable with type system?
             (class_method | class_static_method)*
       DEDENT
-    // The empty class
+    // the empty class
     | class_dec ':' NEWLINE INDENT
             pass_stmt NEWLINE
       DEDENT
