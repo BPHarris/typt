@@ -15,10 +15,10 @@ class FuncSignatureNode(Node):
 
     """
 
-    def __init__(self, name: str, return_type: Type, depth: int = 0):
+    def __init__(self, name: str, return_type: Type):
         """Initialise using_list and stmt_list."""
         self.name = name
         self.parameter_list = list()
         self.return_type = return_type
 
-        super().__init__(depth=depth)
+        super().__init__()
