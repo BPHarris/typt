@@ -367,10 +367,9 @@ typt_type
     | object_type='Object' '{' (name ':' typt_type) (',' name ':' typt_type)* '}'
     
     /* Function Type */
-    // Change to Function<A, B, ... -> R>
-    // 1-argument function
-    | typt_type                          function_type='->' return_type=typt_type
-    // n-argument function (n in 0..inf)
+    // 1-argument function =>   A -> B
+    |                               typt_type   function_type='->' return_type=typt_type
+    // n-argument function =>   Function<A, B, C, .. -> Z>
     | 'Function' '<' typt_type (',' typt_type)* function_type='->' return_type=typt_type '>'
 
     /* Other */
