@@ -2126,6 +2126,8 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.initialiser = None # Token
+            self.the_empty_class = None # Class_decContext
 
         def class_dec(self):
             return self.getTypedRuleContext(TyptParser.Class_decContext,0)
@@ -2254,7 +2256,7 @@ class TyptParser ( Parser ):
                     self.state = 323
                     self.match(TyptParser.T__30)
                     self.state = 324
-                    self.match(TyptParser.T__34)
+                    localctx.initialiser = self.match(TyptParser.T__34)
                     self.state = 325
                     self.match(TyptParser.T__31)
                     self.state = 326
@@ -2306,7 +2308,7 @@ class TyptParser ( Parser ):
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 345
-                self.class_dec()
+                localctx.the_empty_class = self.class_dec()
                 self.state = 346
                 self.match(TyptParser.T__1)
                 self.state = 347
