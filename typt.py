@@ -15,7 +15,7 @@ from antlr.TyptParser import TyptParser
 
 from typt.visitor import Typt
 from typt.node import NodePrinter
-from typt.typt_types import InvalidType
+from typt.typt_types import Environment
 
 from error import log_error, log_critical_error
 
@@ -58,7 +58,7 @@ def main(arguments: dict = None) -> None:
         NodePrinter(program).print()
 
     # Type checking
-    program_type = program.check_type()
+    program_type = program.check_type(Environment())
 
     if arguments['--verbose']:
         log_error(msg='final type: ' + str(program_type))
