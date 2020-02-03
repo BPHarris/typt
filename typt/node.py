@@ -11,17 +11,20 @@ class NodeMetadata:
     Args:
         line    (int)   : The line number of the metadata being initialised.
         column  (int)   : The column number of the metadata being initialised.
+        source  (str)   : The source code of node whose metadata this is.
 
     Attributes:
         line    (int)   : The line number of the metadata.
         column  (int)   : The column (char) number of the metadata.
+        source  (str)   : The source code of the given node.
 
     """
 
-    def __init__(self, line: int = None, column: int = None):
+    def __init__(self, line: int = None, column: int = None, source: str = ''):
         """Set position."""
         self.line = line
         self.column = column
+        self.source = source
 
     def __repr__(self) -> str:
         """Return the string representation of the metadata."""

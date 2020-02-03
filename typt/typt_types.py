@@ -20,9 +20,21 @@ TestSuitePair.__doc__ = """Store a (test: TestNode, suite: SuiteNode) pair."""
 
 def log_type_error(msg: str, filename: str, metadata):
     """Log a type error for the given class."""
+    # Format the source code
+    source_lines = metadata.source.splitlines(keepends=True)
+    line_ctr = metadata.line
+    source_with_lines_and_indent = ''
+    for line in source_lines:
+        source_with_lines_and_indent += '\t{} | {}'.format(line_ctr, line)
+        line_ctr += 1
+
+    # Print source code that triggered error
+    print('Error encountered:', source_with_lines_and_indent, sep='\n')
+
+    # Print error message
     print(
-        '\x1b[31mtypt\x1b[0m: {file}:{line}: \x1b[1;37;41m{msg}\x1b[0m'.format(
-            msg=msg, file=filename, line=metadata.line
+        '\x1b[31mtypt\x1b[0m: {}: {}:{}: \x1b[1;37;41m{}\x1b[0m\n'.format(
+            filename, metadata.line, metadata.column, msg
         )
     )
 

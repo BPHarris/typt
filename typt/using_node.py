@@ -18,20 +18,20 @@ class UsingNode(Node):
 
     """
 
-    def __init__(self, library_name: str = '', library_alias: str = ''):
+    def __init__(self, name: str = '', alias: str = '', *args, **kwargs):
         """Initialise using_list and stmt_list."""
         self.function_signature_list = list()
-        self.library_name = library_name
-        self.library_alias = library_alias
+        self.library_name = name
+        self.library_alias = alias
 
-        super().__init__()
+        super().__init__(*args, **kwargs)
 
     def check_type(self, environment: Environment) -> Type:
         """Check type for this using statement (and add to the environment)."""
         # RULE Using statement invalid if library does not exist
         # RULE Using statement invalid if the function does not exist
-        # RULE Using statement invalid if the arguments or return functions
-        #       are not base types
+        # RULE Using statement invalid if the arguments or return types are not
+        #       base types
 
         # Check RULE 1
         if not find_spec(self.library_name):
@@ -52,7 +52,7 @@ class UsingNode(Node):
                         self.library_name
                     ),
                     environment.filename,
-                    self.meta
+                    f.meta
                 )
                 any_invalid = True
 
