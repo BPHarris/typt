@@ -65,8 +65,26 @@ from typt.subscript_node import SubscriptNode
 from typing import Iterable, List
 
 # Todo:
-#   TODO: Visit bodies for: classes
 #   TODO: How to handle self?
+
+
+# HACK ANTLR's Context::getText() returns the repr of each token without
+#   preserving spacing. This method is hack-y, but preserves spaceing.
+class SourceGetter:
+    """Get the source code of a given line number range."""
+
+    source_code = list()    # type: List[str]
+
+    def get(start_line: int, end_line: int = None):
+        """Return the source code of the given lines."""
+        # Change from file line number to index (i.e. start 1 to start 0)
+        start_line -= 1
+
+        # If not end_line, then only get one line
+        if not end_line:
+            end_line = start_line + 1
+
+        return ''.join(SourceGetter.source_code[start_line:end_line])
 
 
 class Typt(TyptVisitor):

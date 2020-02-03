@@ -13,7 +13,7 @@ from antlr4 import FileStream, CommonTokenStream
 from antlr.TyptLexer import TyptLexer
 from antlr.TyptParser import TyptParser
 
-from typt.visitor import Typt
+from typt.visitor import Typt, SourceGetter
 from typt.node import NodePrinter
 from typt.typt_types import Environment
 
@@ -49,6 +49,10 @@ def main(arguments: dict = None) -> None:
     lexer = TyptLexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = TyptParser(stream)
+
+    # Initialise SourceGetter
+    with open(arguments['FILE'], 'r') as source_file:
+        SourceGetter.source_code = source_file.readlines()
 
     # Parse the program
     program = Typt().visit(parser.program())
