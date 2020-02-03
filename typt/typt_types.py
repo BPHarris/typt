@@ -35,8 +35,9 @@ class Environment:
 
     """
 
-    def __init__(self):
+    def __init__(self, filename: str = ''):
         """Create the empty environment."""
+        self.filename = filename
         self.environment = set()    # type: Set[Union[Environment, NameTypePair]]
 
 
