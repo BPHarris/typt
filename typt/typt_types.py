@@ -18,6 +18,15 @@ TestSuitePair = namedtuple('TestSuitePair', ('test', 'suite'))
 TestSuitePair.__doc__ = """Store a (test: TestNode, suite: SuiteNode) pair."""
 
 
+def log_type_error(msg: str, filename: str, metadata):
+    """Log a type error for the given class."""
+    print(
+        '\x1b[31mtypt\x1b[0m: {file}:{line}: \x1b[1;37;41m{msg}\x1b[0m'.format(
+            msg=msg, file=filename, line=metadata.line
+        )
+    )
+
+
 class Environment:
     """A Typt environment, stores the (id, type) pairs in the current scope.
 
