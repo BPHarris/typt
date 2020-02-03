@@ -32,6 +32,10 @@ from docopt import docopt
 
 def main(arguments: dict = None) -> None:
     """Provide entry point."""
+    if not arguments['FILE']:
+        log_critical_error(msg='no file provided')
+        quit()
+
     if not isfile(arguments['FILE']):
         log_critical_error(msg='provided file does not exist')
         quit()
