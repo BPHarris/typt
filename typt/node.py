@@ -1,6 +1,6 @@
 """node.py - holds the AST node base class and related data structures."""
 
-from typt.typt_types import Type, NameTypePair, TestSuitePair
+from typt.typt_types import Environment, Type, NameTypePair, TestSuitePair
 
 from typing import Union
 
@@ -52,7 +52,7 @@ class Node:
         raise NotImplementedError('Can not generate code for base AST node.')
 
     # Return the type of the node, derived from typing rules
-    def check_type(self) -> Type:
+    def check_type(self, environment: Environment = None) -> Type:
         """Peform type checking for given node."""
         raise NotImplementedError(
             'Can not check type for {}.'.format(repr(self))

@@ -2,15 +2,16 @@
 
 from typt.node import Node
 
-from typt.typt_types import Type, InvalidType, is_invalid_type
+from typt.typt_types import Environment, Type, InvalidType, is_invalid_type
 
 
 class ProgramNode(Node):
     """Program AST node.
 
     Attributes:
-        using_list  (list[UsingNode])   : The program's using-declarations
-        stmt_list   (list[StmtNode])    : The program's statements
+        using_list  (List[UsingNode])   : The program's using-declarations
+        stmt_list   (List[StmtNode])    : The program's statements
+        environment (Environment)       : The program's type environment
 
     """
 
@@ -21,15 +22,14 @@ class ProgramNode(Node):
 
         super().__init__()
 
-    def check_type(self) -> Type:
+    def check_type(self, environment: Environment = None) -> Type:
         """Check the program type, return Type if invalid."""
-        # RULE Program valid if all using and all stmt are valid
-        is_valid = True
+        # RULE Program invalid if any using or stmt are invalid,
+        #       otherwise, it is valid
 
-        for u in self.using_list:
-            is_valid = False if is_invalid_type(u.check_type()) else is_valid
+        u_types = map(lambda u: u.check_type(environment), self.using_list)
+        s_types = map(lambda s: s.check_type(environment), self.stmt_list)
 
-        for s in self.stmt_list:
-            is_valid = False if is_invalid_type(s.check_type()) else is_valid
+        is_not_valid = any(map(is_invalid_type, u_types + s_types))
 
-        return Type() if is_valid else InvalidType()
+        return InvalidType() if is_not_valid else Type()
