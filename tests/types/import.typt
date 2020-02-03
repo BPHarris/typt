@@ -1,0 +1,3 @@
+using:
+    afjgd(i: Int) -> Bool
+from math
