@@ -38,6 +38,8 @@ def log_type_error(msg: str, filename: str, metadata):
         )
     )
 
+    return InvalidType()
+
 
 class Type:
     """A base class for Typt types."""
