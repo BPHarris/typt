@@ -22,6 +22,7 @@ The project makes use of several libraries which will be listed below.
 - [ANTLR 4.7.2](https://www.antlr.org)
 - [ANTLR Python Target](https://github.com/antlr/antlr4/blob/master/doc/python-target.md)
 - [unittest](https://docs.python.org/3/library/unittest.html)
+- [docopt](https://github.com/docopt/docopt)
 
 # FAQ
 Insert an FAQ here.
