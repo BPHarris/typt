@@ -68,7 +68,12 @@ def main(arguments: dict = None) -> None:
         log_error(msg='final type: ' + str(program_type))
 
     # Codegen
-    # TODO codegen
+    if arguments['--verbose']:
+        print('\nBegining codegen.\n')
+    output_code = program.codegen()
+
+    if arguments['--verbose']:
+        print(repr(output_code))
 
 
 if __name__ == '__main__':
