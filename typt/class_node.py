@@ -5,7 +5,7 @@ from typt.node import Node
 from typt.class_initialiser_node import ClassInitialiserNode
 from typt.class_method_node import ClassMethodNode
 
-from typt_types import NameSuperPair, NameTypePair
+from typt.typt_types import NameSuperPair, NameTypePair
 from typt.suite_node import SuiteNode
 from typt.var_dec_stmt_node import VarDecStmtNode
 

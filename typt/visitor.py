@@ -429,8 +429,6 @@ class Typt(TyptVisitor):
         """Parse a class definition."""
         # TODO: visitCompound_stmt returns StmtNode but ClassNode is sub of
         #       Node. Change ClassNode or change visitCompund_stmt?
-
-        #
         name_super_pair = self.visitClass_dec(ctx.class_dec())
 
         # Handle the empty class
@@ -441,7 +439,11 @@ class Typt(TyptVisitor):
         initialiser_parameters = None
         initialiser_suite = None
         if ctx.initialiser:
-            initialiser_parameters = self.visitFunc_parameter_list(ctx.func_parameter_list())
+            # Get parameters if there are any
+            if ctx.func_parameter_list():
+                initialiser_parameters = self.visitFunc_parameter_list(
+                    ctx.func_parameter_list()
+                )
             initialiser_suite = self.visitSuite(ctx.suite())
 
         class_node = ClassNode(
@@ -450,9 +452,12 @@ class Typt(TyptVisitor):
             initialiser_suite
         )
 
+        # Add class variables
+        # TODO
+
         # Add methods
         for method in ctx.class_method():
-            class_node += [self.visitClass_method(method)]
+            class_node.class_methods += [self.visitClass_method(method)]
 
         return class_node
 
@@ -475,7 +480,11 @@ class Typt(TyptVisitor):
             self.visitName(ctx.name()),
             self.visitTypt_type(ctx.typt_type())
         )
-        function_signature.parameter_list = self.visitFunc_parameter_list(ctx.func_parameter_list())
+
+        if ctx.func_parameter_list():
+            function_signature.parameter_list = self.visitFunc_parameter_list(
+                ctx.func_parameter_list()
+            )
 
         # Method suite
         method_suite = self.visitSuite(ctx.suite())

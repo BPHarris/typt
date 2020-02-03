@@ -5,7 +5,7 @@ from typt.func_signature_node import FuncSignatureNode
 
 from typt.suite_node import SuiteNode
 
-from typt_types import NoneType, NameTypePair
+from typt.typt_types import NoneType, NameTypePair
 
 from typing import List
 
@@ -16,7 +16,7 @@ class ClassInitialiserNode(FuncDefNode):
     def __init__(self, parameters: List[NameTypePair], suite: SuiteNode):
         """Create as FunDefNode with fixed name."""
         # Create signature with return type and add parameters
-        func_signnature = FuncSignatureNode('self', NoneType)
+        func_signnature = FuncSignatureNode('self', NoneType())
         func_signnature.parameter_list = parameters
 
         super().__init__(func_signnature, suite)
