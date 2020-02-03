@@ -146,7 +146,7 @@ program: (NEWLINE | using)* (NEWLINE | stmt)* EOF;
 using
     : 'using' ':'
         NEWLINE INDENT (func_signature NEWLINE)+ DEDENT
-      'from' library_name=name ('as' library_alias=name)?
+      'from' library_name=name
     ;
 
 

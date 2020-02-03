@@ -15,15 +15,13 @@ class UsingNode(Node):
     Attributes:
         function_signature_list (List[FuncSignatureNode])   : Signatures list
         library_name            (str)                       : The library name
-        library_alias           (str)                       : The library alias
 
     """
 
-    def __init__(self, name: str = '', alias: str = '', *args, **kwargs):
+    def __init__(self, name: str = '', *args, **kwargs):
         """Initialise using_list and stmt_list."""
         self.function_signature_list = list()
         self.library_name = name
-        self.library_alias = alias
 
         super().__init__(*args, **kwargs)
 
@@ -31,7 +29,7 @@ class UsingNode(Node):
         """Check type for this using statement (and add to the environment)."""
         # RULE Using statement invalid if library does not exist
         # RULE Using statement invalid if the function does not exist
-        # RULE Using alias must be free in the environment
+        # RULE Using statement library name must be free in the environment
 
         # Check RULE 1
         if not find_spec(self.library_name):
@@ -58,10 +56,10 @@ class UsingNode(Node):
             return InvalidType()
 
         # Check RULE 3
-        if environment[self.library_alias]:
+        if environment[self.library_name]:
             return log_type_error(
-                'alias {} is not free in {}'.format(
-                    self.library_alias, environment.filename
+                'name {} is not free in {}'.format(
+                    self.library_name, environment.filename
                 )
             )
 

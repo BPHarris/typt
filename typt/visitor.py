@@ -121,11 +121,6 @@ class Typt(TyptVisitor):
         """Visit a UsingNode."""
         library_name = self.visitName(ctx.library_name)
 
-        # If no alias => alias is same as name, otherwise get alias
-        library_alias = library_name
-        if ctx.library_alias:
-            library_alias = self.visitName(ctx.library_alias)
-
         # Get metadata
         metadata = NodeMetadata(
             ctx.start.line,
@@ -133,7 +128,7 @@ class Typt(TyptVisitor):
             SourceGetter.get(ctx.start.line, ctx.stop.line)
         )
 
-        using = UsingNode(library_name, library_alias, meta=metadata)
+        using = UsingNode(library_name, meta=metadata)
 
         # Add function signatures to using-declaration
         for fs_ctx in ctx.func_signature():
