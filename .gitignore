@@ -12,6 +12,9 @@ typt/test/__pycache__/
 # Add vscode settings
 .vscode/
 
+# Ignore notes
+notes.txt
+
 # Linux build file
 build
 
