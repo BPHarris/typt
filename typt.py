@@ -58,7 +58,7 @@ def main(arguments: dict = None) -> None:
         NodePrinter(program).print()
 
     # Type checking
-    program_type = program.check_type(Environment())
+    program_type = program.check_type(Environment(arguments['FILE']))
 
     if arguments['--verbose']:
         log_error(msg='final type: ' + str(program_type))
