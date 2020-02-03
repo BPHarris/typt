@@ -20,6 +20,11 @@ def log_error(filename: str = None, line: int = None, msg: str = None) -> None:
     print(prefix + msg)
 
 
+def log_critical_error(msg: str = '', *args, **kwargs) -> None:
+    """Log a critical error in white text with ared background."""
+    log_error(msg='\x1b[1;37;41m' + msg + '\x1b[0m', *args, **kwargs)
+
+
 class TyptErrorListener(ErrorListener):
     """Custom ErrorListener for Typt.
 
