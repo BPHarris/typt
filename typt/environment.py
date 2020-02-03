@@ -62,3 +62,10 @@ class Environment:
             return None
 
         return self.parent.get(key, default)
+
+    def __repr__(self) -> str:
+        """Return string representation of the dictionary."""
+        contents_str = '\n'.join(
+            ['\t' + repr(k) + ' : ' + repr(v) for k, v in self.environment.items()]
+        )
+        return self.filename + '\n' + contents_str
