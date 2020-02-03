@@ -4,7 +4,7 @@ from antlr.TyptParser import TyptParser
 from antlr.TyptVisitor import TyptVisitor
 
 # Import Typt types
-from typt.typt_types import NameTypePair, TestSuitePair
+from typt.typt_types import NameSuperPair, NameTypePair, TestSuitePair
 from typt.typt_types import Type
 from typt.typt_types import NoneType
 from typt.typt_types import BoolType
@@ -43,6 +43,10 @@ from typt.return_stmt_node import ReturnStmtNode
 from typt.if_stmt_node import IfStmtNode
 from typt.while_stmt_node import WhileStmtNode
 from typt.for_stmt_node import ForStmtNode
+
+from typt.class_node import ClassNode
+from typt.class_initialiser_node import ClassInitialiserNode
+from typt.class_method_node import ClassMethodNode
 
 from typt.suite_node import SuiteNode
 
@@ -421,17 +425,67 @@ class Typt(TyptVisitor):
 
         return [NameTypePair(n, t) for (n, t) in zip(names, types)]
 
-    def visitClass_def(self, ctx: TyptParser.Class_defContext):
-        return self.visitChildren(ctx)
+    def visitClass_def(self, ctx: TyptParser.Class_defContext) -> ClassNode:
+        """Parse a class definition."""
+        # TODO: visitCompound_stmt returns StmtNode but ClassNode is sub of
+        #       Node. Change ClassNode or change visitCompund_stmt?
 
-    def visitClass_dec(self, ctx: TyptParser.Class_decContext):
-        return self.visitChildren(ctx)
+        #
+        name_super_pair = self.visitClass_dec(ctx.class_dec())
 
-    def visitClass_method(self, ctx: TyptParser.Class_methodContext):
-        return self.visitChildren(ctx)
+        # Handle the empty class
+        if ctx.the_empty_class:
+            return ClassNode(name_super_pair)
 
-    def visitClass_static_method(self, ctx: TyptParser.Class_static_methodContext):
-        return self.visitChildren(ctx)
+        # Get initialiser, if has one
+        initialiser_parameters = None
+        initialiser_suite = None
+        if ctx.initialiser:
+            initialiser_parameters = self.visitFunc_parameter_list(ctx.func_parameter_list())
+            initialiser_suite = self.visitSuite(ctx.suite())
+
+        class_node = ClassNode(
+            name_super_pair,
+            initialiser_parameters,
+            initialiser_suite
+        )
+
+        # Add methods
+        for method in ctx.class_method():
+            class_node += [self.visitClass_method(method)]
+
+        return class_node
+
+    def visitClass_dec(self, ctx: TyptParser.Class_decContext) -> NameSuperPair:
+        """Return the NameSuperPair of the class declaration."""
+        # Get class name and set super name to default
+        class_name = self.visitName(ctx.class_name)
+        super_name = 'Object'
+
+        # If super provided, set it
+        if ctx.super_name:
+            super_name = self.visitName(ctx.super_name)
+
+        return NameSuperPair(class_name, super_name)
+
+    def visitClass_method(self, ctx: TyptParser.Class_methodContext) -> ClassMethodNode:
+        """Return a ClassMethodNode for the given context."""
+        # Function (method) signature
+        function_signature = FuncSignatureNode(
+            self.visitName(ctx.name()),
+            self.visitTypt_type(ctx.typt_type())
+        )
+        function_signature.parameter_list = self.visitFunc_parameter_list(ctx.func_parameter_list())
+
+        # Method suite
+        method_suite = self.visitSuite(ctx.suite())
+
+        return ClassMethodNode(function_signature, method_suite)
+
+    def visitClass_static_method(self, ctx: TyptParser.Class_static_methodContext) -> None:
+        """Return a static class method."""
+        # TODO static methods
+        raise NotImplementedError('Static methods not yet implemented.')
 
     def visitTest(self, ctx: TyptParser.TestContext) -> TestNode:
         """Delegate to or_test (test ::= or_test)."""

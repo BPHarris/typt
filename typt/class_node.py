@@ -15,13 +15,22 @@ from typing import List
 class ClassNode(Node):
     """ClassNode AST node."""
 
-    def __init__(self, name_super_pair: NameSuperPair, init_params: List[NameTypePair], init_suite: SuiteNode):
+    def __init__(self, name_super_pair: NameSuperPair, init_params: List[NameTypePair] = None, init_suite: SuiteNode = None):
         """Initialise statement list."""
         self.class_name = name_super_pair.name
         self.class_super_name = name_super_pair.super
 
         self.class_attributes = list()      # type: List[VarDecStmtNode]
-        self.class_initialiser = ClassInitialiserNode(init_params, init_suite)
+
+        # Class initialiser
+        # NOTE if no init_suite then no init (must at least have pass_stmt)
+        self.class_initialiser = None
+        if init_suite:
+            self.class_initialiser = ClassInitialiserNode(
+                init_params,
+                init_suite
+            )
+
         self.class_methods = list()         # type: List[ClassMethodNode]
         self.class_static_methods = None    # TODO Static methods
 
