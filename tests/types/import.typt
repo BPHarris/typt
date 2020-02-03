@@ -1,3 +1,5 @@
 using:
-    afjgd(i: Int) -> Bool
+    gcd(a: Int, b: Int) -> Int
+    isinf(f: Float) -> Bool
+    jfwfa() -> Int
 from math
