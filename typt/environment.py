@@ -31,19 +31,23 @@ class Environment:
         environment_name = compile(':[a-zA-Z]')
 
         if name.match(key):
-            self.environment.get(key, None)
+            return self.environment.get(key, None)
 
         # If dotted name, a.b.c, check for b.c in environment ':a'
         if dotted_name.match(key):
             head, tail = key.split('.')[0], key.split('.')[1:]
-            self.environment.get(':' + head, None)[tail]
+            return self.environment.get(':' + head, None)[tail]
 
         if environment_name.match(key):
-            self.environment.get(key, None)
+            return self.environment.get(key, None)
 
         raise KeyError('Invalid format for key {}.'.format(key))
 
-    def get(self, key: str, default: None):
+    def __setitem__(self, key: str, value):
+        """Set item delegates to self.environment."""
+        self.environment[key] = value
+
+    def get(self, key: str, default=None):
         """Get the value belonging to the given key."""
         result = self[key]
 
