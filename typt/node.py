@@ -50,17 +50,17 @@ class Node:
         """Define all intrinsic member variables."""
         self.meta = meta
 
-    # Return str representing the output Python 3 code for the node
-    def codegen(self) -> str:
-        """Perform codegen for the given node."""
-        raise NotImplementedError('Can not generate code for base AST node.')
-
     # Return the type of the node, derived from typing rules
     def check_type(self, environment: Environment = None) -> Type:
         """Peform type checking for given node."""
         raise NotImplementedError(
             'Can not check type for {}.'.format(repr(self))
         )
+
+    # Return str representing the output Python 3 code for the node
+    def codegen(self, indentation_level: int = 0) -> str:
+        """Perform codegen for the given node."""
+        raise NotImplementedError('Can not generate code for base AST node.')
 
     def __repr__(self) -> str:
         """Return the string representation of node."""
