@@ -73,3 +73,9 @@ class UsingNode(Node):
             )
 
         return Type()
+
+    def codegen(self, indentation_level: int = 0) -> str:
+        """Return the Python3 equivalent to using decl."""
+        imported = ', '.join([f.name for f in self.function_signature_list])
+
+        return 'from {} import {}'.format(self.library_name, imported)
