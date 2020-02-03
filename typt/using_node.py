@@ -59,7 +59,7 @@ class UsingNode(Node):
         if any_invalid:
             return InvalidType()
 
-        # TODO Check RULE 4
+        # TODO Check RULE 3
 
         # All rules passed
         return Type()
