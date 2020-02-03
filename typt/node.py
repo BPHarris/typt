@@ -54,7 +54,9 @@ class Node:
     # Return the type of the node, derived from typing rules
     def check_type(self) -> Type:
         """Peform type checking for given node."""
-        raise NotImplementedError('Can not check type for base AST node.')
+        raise NotImplementedError(
+            'Can not check type for {}.'.format(repr(self))
+        )
 
     def __repr__(self) -> str:
         """Return the string representation of node."""
