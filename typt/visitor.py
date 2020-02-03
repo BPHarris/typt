@@ -74,6 +74,7 @@ class SourceGetter:
 
     source_code = list()    # type: List[str]
 
+    @staticmethod
     def get(start_line: int, end_line: int = None):
         """Return the source code of the given lines."""
         # Change from file line number to index (i.e. start 1 to start 0)
