@@ -24,12 +24,11 @@ class ProgramNode(Node):
 
     def check_type(self, environment: Environment = None) -> Type:
         """Check the program type, return Type if invalid."""
-        # RULE Program invalid if any using or stmt are invalid,
-        #       otherwise, it is valid
+        # RULE Program invalid if any using or stmt is invalid, valid otherwise
 
         u_types = map(lambda u: u.check_type(environment), self.using_list)
         s_types = map(lambda s: s.check_type(environment), self.stmt_list)
 
-        is_not_valid = any(map(is_invalid_type, u_types + s_types))
+        is_not_valid = any(map(is_invalid_type, list(u_types) + list(s_types)))
 
         return InvalidType() if is_not_valid else Type()
