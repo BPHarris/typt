@@ -1,6 +1,6 @@
 """types.py - classes representing typt types."""
 
-from typing import Iterable, Set, Union
+from typing import Iterable
 from collections import namedtuple
 
 from copy import deepcopy
@@ -37,20 +37,6 @@ def log_type_error(msg: str, filename: str, metadata):
             filename, metadata.line, metadata.column, msg
         )
     )
-
-
-class Environment:
-    """A Typt environment, stores the (id, type) pairs in the current scope.
-
-    Each element of the environment is either a sub envionment or a
-    NameTypePair.
-
-    """
-
-    def __init__(self, filename: str = ''):
-        """Create the empty environment."""
-        self.filename = filename
-        self.environment = set()    # type: Set[Union[Environment, NameTypePair]]
 
 
 class Type:

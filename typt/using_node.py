@@ -2,8 +2,8 @@
 
 from typt.node import Node
 
-from typt.typt_types import log_type_error
-from typt.typt_types import Environment, Type, InvalidType
+from typt.environment import Environment
+from typt.typt_types import Type, InvalidType, log_type_error
 
 from importlib.util import find_spec
 

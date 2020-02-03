@@ -1,6 +1,7 @@
 """node.py - holds the AST node base class and related data structures."""
 
-from typt.typt_types import Environment, Type, NameTypePair, TestSuitePair
+from typt.environment import Environment
+from typt.typt_types import Type, NameTypePair, TestSuitePair
 
 from typing import Union
 

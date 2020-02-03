@@ -2,7 +2,8 @@
 
 from typt.node import Node
 
-from typt.typt_types import Environment, Type, InvalidType, is_invalid_type
+from typt.environment import Environment
+from typt.typt_types import Type, InvalidType, is_invalid_type
 
 
 class ProgramNode(Node):
