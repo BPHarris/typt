@@ -1,5 +1,9 @@
 """environment.py -- holds the Environment class for Typt."""
 
+from typing import Dict, Union
+
+from typt.typt_types import Type
+
 
 class Environment:
     """A Typt environment, stores the the current scope.
@@ -7,9 +11,9 @@ class Environment:
     Each named element of the environment is either a sub envionment or a Type.
 
     Format:
-        dict['name']        = Type of name
-        dict['a.b.c']   = Type of c in b in a
-        dict['']
+        dict['name']     = Type of name
+        dict['a.b.c']    = Type of c in b in a
+        dict['env:name'] = The environment local to the identifier 'name'
 
     """
 
