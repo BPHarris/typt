@@ -1,6 +1,6 @@
 """types.py - classes representing typt types."""
 
-from typing import Iterable
+from typing import Iterable, Set, Union
 from collections import namedtuple
 
 from copy import deepcopy
@@ -16,6 +16,19 @@ NameTypePair.__doc__ = """Store a (name: str, type: Type) pair."""
 
 TestSuitePair = namedtuple('TestSuitePair', ('test', 'suite'))
 TestSuitePair.__doc__ = """Store a (test: TestNode, suite: SuiteNode) pair."""
+
+
+class Environment:
+    """A Typt environment, stores the (id, type) pairs in the current scope.
+
+    Each element of the environment is either a sub envionment or a
+    NameTypePair.
+
+    """
+
+    def __init__(self):
+        """Create the empty environment."""
+        self.environment = set()    # type: Set[Union[Environment, NameTypePair]]
 
 
 class Type:
