@@ -321,3 +321,8 @@ def is_float(s: str) -> bool:
         return False
 
     return True
+
+
+def is_invalid_type(t: Type) -> bool:
+    """Return a boolean indicating if t is of the class InvalidType."""
+    return isinstance(t, InvalidType())
