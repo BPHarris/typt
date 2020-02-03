@@ -36,3 +36,15 @@ class ProgramNode(Node):
         is_not_valid = any(map(is_invalid_type, u_types + s_types))
 
         return InvalidType() if is_not_valid else Type()
+
+    def codegen(self, indentation_level: int = 0) -> str:
+        """Return the generated code for the ProgramNode."""
+        output_code = ''
+
+        for using in self.using_list:
+            output_code += using.codegen(indentation_level=0) + '\n'
+
+        for stmt in self.stmt_list:
+            output_code += stmt.codegen(indentation_level=0) + '\n'
+
+        return output_code
