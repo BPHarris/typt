@@ -3,7 +3,7 @@
 from typt.node import Node
 
 from typt.environment import Environment
-from typt.typt_types import Type, InvalidType, log_type_error
+from typt.typt_types import Type, InvalidType, FunctionType, log_type_error
 
 from importlib.util import find_spec
 
@@ -62,6 +62,13 @@ class UsingNode(Node):
                 'alias {} is not free in {}'.format(
                     self.library_alias, environment.filename
                 )
+            )
+
+        # All rules passed, add types to environment and return (Valid)Type
+        for f in self.function_signature_list:
+            environment[f.name] = FunctionType(
+                [p.type for p in f.parameter_list],
+                f.return_type
             )
 
         return Type()
