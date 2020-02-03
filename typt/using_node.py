@@ -30,17 +30,15 @@ class UsingNode(Node):
         """Check type for this using statement (and add to the environment)."""
         # RULE Using statement invalid if library does not exist
         # RULE Using statement invalid if the function does not exist
-        # RULE Using statement invalid if the arguments or return types are not
-        #       base types
+        # RULE Using alias must be free in the environment
 
         # Check RULE 1
         if not find_spec(self.library_name):
-            log_type_error(
+            return log_type_error(
                 'library {} does not exist'.format(self.library_name),
                 environment.filename,
                 self.meta
             )
-            return InvalidType()
 
         # Check RULE 2
         any_invalid = False
@@ -55,11 +53,15 @@ class UsingNode(Node):
                     f.meta
                 )
                 any_invalid = True
-
         if any_invalid:
             return InvalidType()
 
-        # TODO Check RULE 3
+        # Check RULE 3
+        if environment[self.library_alias]:
+            return log_type_error(
+                'alias {} is not free in {}'.format(
+                    self.library_alias, environment.filename
+                )
+            )
 
-        # All rules passed
         return Type()
