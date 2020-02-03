@@ -21,7 +21,7 @@ from typt.typt_types import ObjectType
 from typt.typt_types import is_int, is_float
 
 # Import Type AST nodes
-from typt.node import Node
+from typt.node import NodeMetadata
 from typt.program_node import ProgramNode
 from typt.using_node import UsingNode
 from typt.func_def_node import FuncDefNode
@@ -45,7 +45,6 @@ from typt.while_stmt_node import WhileStmtNode
 from typt.for_stmt_node import ForStmtNode
 
 from typt.class_node import ClassNode
-from typt.class_initialiser_node import ClassInitialiserNode
 from typt.class_method_node import ClassMethodNode
 
 from typt.suite_node import SuiteNode
