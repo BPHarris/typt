@@ -13,3 +13,7 @@ class PassStmtNode(StmtNode):
         """Check the type of the pass statement."""
         # RULE Pass statement is always well-formed
         return Type()
+
+    def codegen(self, indentation_level: int = 0) -> str:
+        """Return Python3 equivalent to 'pass' statement."""
+        return 'pass'
