@@ -5,6 +5,7 @@ from typt.node import Node
 from typt.environment import Environment
 from typt.typt_types import Type, InvalidType, FunctionType, log_type_error
 
+from importlib import import_module
 from importlib.util import find_spec
 
 
@@ -42,16 +43,16 @@ class UsingNode(Node):
 
         # Check RULE 2
         any_invalid = False
+        loaded_module = import_module(self.library_name)
         for f in self.function_signature_list:
-            if not find_spec(f.name, package=self.library_name):
+            if not hasattr(loaded_module, f.name):
+                # Log error if function not in library
                 log_type_error(
-                    'function {} does not exist in library {}'.format(
-                        f.name,
-                        self.library_name
-                    ),
+                    'no member {} in {}'.format(f.name, self.library_name),
                     environment.filename,
                     f.meta
                 )
+
                 any_invalid = True
         if any_invalid:
             return InvalidType()
