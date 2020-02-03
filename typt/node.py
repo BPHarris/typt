@@ -52,7 +52,7 @@ class Node:
         raise NotImplementedError('Can not generate code for base AST node.')
 
     # Return the type of the node, derived from typing rules
-    def check_type() -> Type:
+    def check_type(self) -> Type:
         """Peform type checking for given node."""
         raise NotImplementedError('Can not check type for base AST node.')
 
