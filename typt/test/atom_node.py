@@ -1,4 +1,4 @@
-"""atom_node.py - holds the base atom AST node."""
+"""atom_node.py -- holds the base atom AST node."""
 
 from typt.node import Node
 
