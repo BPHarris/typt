@@ -23,4 +23,3 @@ class ContinueStmtNode(StmtNode):
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the Python3 equivelent to a continue stmt."""
         return '{indent}continue'.format(indent=indent(indentation_level))
-
