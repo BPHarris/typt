@@ -1,4 +1,4 @@
-"""break_stmt_node.py - holds the AST node for break statements."""
+"""break_stmt_node.py -- holds the AST node for break statements."""
 
 from typt.stmt_node import StmtNode
 
@@ -8,7 +8,7 @@ from typt.environment import Environment
 
 
 class BreakStmtNode(StmtNode):
-    """Class 'break' statement AST node."""
+    """Class for 'break' statement AST node."""
 
     def check_type(self, environment: Environment) -> Type:
         """Perform type checking on this break statement."""
