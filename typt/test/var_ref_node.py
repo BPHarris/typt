@@ -18,7 +18,7 @@ class VarRefNode(AtomNode):
 
     def check_type(self, environment: Environment) -> Type:
         """Return the type of the variable being referenced."""
-        return environment[self.var_name]
+        return environment.get(self.var_name)
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return code of the variable refence, in Python3 form."""

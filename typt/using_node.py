@@ -57,7 +57,7 @@ class UsingNode(Node):
             return InvalidType()
 
         # Check RULE 3
-        if environment[self.library_name]:
+        if environment.get(self.library_name):
             return log_type_error(
                 f'name {self.library_name} is not free in {environment.scope}'
             )
