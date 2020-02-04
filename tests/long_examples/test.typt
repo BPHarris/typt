@@ -1,7 +1,7 @@
 using:
     is_even_i(n: Int)       -> Bool
     is_even_f(n: Float,)    -> Bool
-from library_name as short
+from library_name
 
 using:
     different(x: Float, y: Float) -> None
