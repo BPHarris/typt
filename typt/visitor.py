@@ -1,4 +1,4 @@
-"""listener.py - provides the custom listener for Typt."""
+"""listener.py -- provides the custom listener for Typt."""
 
 from antlr.TyptParser import TyptParser
 from antlr.TyptVisitor import TyptVisitor
@@ -937,6 +937,4 @@ class Typt(TyptVisitor):
                 self.visitTypt_type(ctx.value_type)
             )
 
-        raise NotImplementedError(
-            'The type \'{}\' is not implemented yet.'.format(text)
-        )
+        raise NotImplementedError(f'The type \'{text}\' is not implemented.')

@@ -42,7 +42,7 @@ def main(arguments: dict = None) -> None:
 
     # Get file input stream
     if arguments['--verbose']:
-        print('Processing file {}:\n'.format(arguments['FILE']))
+        print(f'Processing file {arguments.get("FILE")}:\n')
     input_stream = FileStream(arguments['FILE'])
 
     # Lex and parse the given program

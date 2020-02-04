@@ -22,4 +22,4 @@ class BreakStmtNode(StmtNode):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the Python3 equivelent to a break stmt."""
-        return '{indent}break'.format(indent=indent(indentation_level))
+        return f'{indent(indentation_level)}break'

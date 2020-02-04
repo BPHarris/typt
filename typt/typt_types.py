@@ -25,7 +25,7 @@ def log_type_error(msg: str, filename: str, metadata):
     line_ctr = metadata.line
     source_with_lines_and_indent = ''
     for line in source_lines:
-        source_with_lines_and_indent += '\t{} | {}'.format(line_ctr, line)
+        source_with_lines_and_indent += f'\t{line_ctr} | {line}'
         line_ctr += 1
 
     # Print source code that triggered error
@@ -33,9 +33,9 @@ def log_type_error(msg: str, filename: str, metadata):
 
     # Print error message
     print(
-        '\x1b[31mtypt\x1b[0m: {}: {}:{}: \x1b[1;37;41m{}\x1b[0m\n'.format(
-            filename, metadata.line, metadata.column, msg
-        )
+        '\x1b[31mtypt\x1b[0m:',
+        f'{filename}: {metadata.line}:{metadata.column}:',
+        f'\x1b[1;37;41m{msg}\x1b[0m\n'
     )
 
     return InvalidType()

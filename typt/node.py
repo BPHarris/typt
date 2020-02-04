@@ -53,14 +53,12 @@ class Node:
     # Return the type of the node, derived from typing rules
     def check_type(self, environment: Environment = None) -> Type:
         """Peform type checking for given node."""
-        raise NotImplementedError(
-            'Can not check type for {}.'.format(repr(self))
-        )
+        raise NotImplementedError(f'Can\'t check type for {repr(self)}')
 
     # Return str representing the output Python 3 code for the node
     def codegen(self, indentation_level: int = 0) -> str:
         """Perform codegen for the given node."""
-        raise NotImplementedError('Can not generate code for base AST node.')
+        raise NotImplementedError(f'Can\'t generate code for {repr(self)}.')
 
     def __repr__(self) -> str:
         """Return the string representation of node."""
@@ -178,7 +176,7 @@ class NodePrinter:
                 '\x1b[1;37;41m' + name + ': ' + 'Empty' + '\x1b[0m'
             )
 
-        raise NotImplementedError('Can\'t print type {}.'.format(type(node)))
+        raise NotImplementedError(f'Can\'t print type {type(node)}.')
 
     def _print_node(self, node: Node) -> None:
         """Print the given node and it's children."""

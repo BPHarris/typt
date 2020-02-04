@@ -43,7 +43,7 @@ class Environment:
         if environment_name.match(key):
             return self.environment.get(key, None)
 
-        raise KeyError('Invalid format for key {}.'.format(key))
+        raise KeyError(f'Invalid format for key {key}')
 
     def __setitem__(self, key: str, value):
         """Set item delegates to self.environment."""

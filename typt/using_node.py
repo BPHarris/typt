@@ -35,7 +35,7 @@ class UsingNode(Node):
         # Check RULE 1
         if not find_spec(self.library_name):
             return log_type_error(
-                'library {} does not exist'.format(self.library_name),
+                f'library {self.library_name} not found',
                 environment.filename,
                 self.meta
             )
@@ -43,13 +43,13 @@ class UsingNode(Node):
         # Check RULE 2
         any_invalid = False
         loaded_module = import_module(self.library_name)
-        for f in self.function_signature_list:
-            if not hasattr(loaded_module, f.name):
+        for func in self.function_signature_list:
+            if not hasattr(loaded_module, func.name):
                 # Log error if function not in library
                 log_type_error(
-                    'no member {} in {}'.format(f.name, self.library_name),
+                    f'no member {func.name} in {self.library_name}',
                     environment.filename,
-                    f.meta
+                    func.meta
                 )
 
                 any_invalid = True
@@ -59,9 +59,7 @@ class UsingNode(Node):
         # Check RULE 3
         if environment[self.library_name]:
             return log_type_error(
-                'name {} is not free in {}'.format(
-                    self.library_name, environment.filename
-                )
+                f'name {self.library_name} is not free in {environment.scope}'
             )
 
         # All rules passed, add types to environment and return (Valid)Type
@@ -76,9 +74,6 @@ class UsingNode(Node):
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the Python3 equivalent to using decl."""
         imported = ', '.join([f.name for f in self.function_signature_list])
+        indentation = indent(indentation_level)
 
-        return '{}from {} import {}'.format(
-            indent(indentation_level),
-            self.library_name,
-            imported
-        )
+        return f'{indentation}from {self.library_name} import {imported}'
