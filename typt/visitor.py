@@ -762,33 +762,33 @@ class Typt(TyptVisitor):
         """Return VarRefNode or LiteralNode, depending on atom."""
         # If the atom is a variable reference, return a new VarRefNode
         if ctx.name():
-            return VarRefNode(self.visitName(ctx.name()))
+            return VarRefNode(self.visitName(ctx.name()), meta=get_metadata(ctx))
 
         text = ctx.getText()
 
         # String
         if ctx.string_literal:
-            return LiteralNode(StringType(), text)
+            return LiteralNode(StringType(), text, meta=get_metadata(ctx))
 
         # Number
         if is_int(text):
-            return LiteralNode(IntType(), text)
+            return LiteralNode(IntType(), text, meta=get_metadata(ctx))
         if is_float(text):
-            return LiteralNode(FloatType(), text)
+            return LiteralNode(FloatType(), text, meta=get_metadata(ctx))
 
         # None
         if text == 'None':
-            return LiteralNode(NoneType(), text)
+            return LiteralNode(NoneType(), text, meta=get_metadata(ctx))
 
         # Boolean
         if text == 'True' or text == 'False':
-            return LiteralNode(BoolType(), text)
+            return LiteralNode(BoolType(), text, meta=get_metadata(ctx))
 
         # Self
         if text == 'self':
             # TODO self references
             print('\x1b[1;37;41m' + 'visitAtom: self not implemented' + '\x1b[0m')
-            return LiteralNode('', text)
+            return LiteralNode('', text, meta=get_metadata(ctx))
 
         raise NotImplementedError('That type of atom is not implemented yet.')
 
