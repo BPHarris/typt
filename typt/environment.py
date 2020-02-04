@@ -82,6 +82,24 @@ class Environment:
 
         return self.parent.in_scope(s)
 
+    def add_child(self, scope: str):
+        """Add and return a child environment with the given name and scope."""
+        # Create child
+        child = Environment(self, self.filename, scope)
+
+        # Get child name
+        ctr = 1
+        name = f':{scope}'
+        while self.get(name):
+            name = f':{scope}{ctr}'
+            ctr += 1
+
+        # Add child
+        self[name] = child
+
+        return self.get(name)
+
+
     def __repr__(self) -> str:
         """Return string representation of the dictionary."""
         contents_str = '\n'.join(
