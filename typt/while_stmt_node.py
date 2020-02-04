@@ -44,5 +44,17 @@ class WhileStmtNode(StmtNode):
         return InvalidType() if any(section_invalid) else Type()
 
     def codegen(self, indentation_level: int = 0) -> str:
-        """Hold place."""
-        return ''
+        """Return Python3 equivalent code."""
+        indentation = indent(indentation_level)
+
+        # Codegen for while-proper
+        while_branch = f'{indentation}while {self.while_branch.test.codegen()}:\n'
+        while_branch += f'{self.while_branch.suite.codegen(indentation_level + 1)}'
+
+        # Codegen for else branch
+        else_branch = ''
+        if self.else_branch:
+            else_branch = f'{indentation}else:\n'
+            else_branch += f'{self.else_branch.codegen(indentation_level + 1)}'
+
+        return f'{while_branch}{else_branch}'
