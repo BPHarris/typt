@@ -279,8 +279,15 @@ class Typt(TyptVisitor):
 
     def visitContinue_stmt(self, ctx: TyptParser.Continue_stmtContext) -> ContinueStmtNode:
         """Visit `continue_stmt' rule."""
+        # Get metadata
+        metadata = NodeMetadata(
+            ctx.start.line,
+            ctx.start.column,
+            SourceGetter.get(ctx.start.line, ctx.stop.line)
+        )
+
         # Return a new continue statement
-        return ContinueStmtNode()
+        return ContinueStmtNode(meta=metadata)
 
     def visitReturn_stmt(self, ctx: TyptParser.Return_stmtContext) -> ReturnStmtNode:
         """Visit `return_stmt' rule."""
