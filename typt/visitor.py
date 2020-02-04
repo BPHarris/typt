@@ -87,6 +87,18 @@ class SourceGetter:
         return ''.join(SourceGetter.source_code[start_line:end_line])
 
 
+def get_metadata(ctx):
+    """Return the NodeMetadata for the given context."""
+    start_line, end_line = ctx.start.line, ctx.stop.line
+    start_column = ctx.start.column
+
+    return NodeMetadata(
+        start_line,
+        start_column,
+        SourceGetter.get(start_line, end_line)
+    )
+
+
 class Typt(TyptVisitor):
     """Provide custom Typt listener."""
 
@@ -121,14 +133,7 @@ class Typt(TyptVisitor):
         """Visit a UsingNode."""
         library_name = self.visitName(ctx.library_name)
 
-        # Get metadata
-        metadata = NodeMetadata(
-            ctx.start.line,
-            ctx.start.column,
-            SourceGetter.get(ctx.start.line, ctx.stop.line)
-        )
-
-        using = UsingNode(library_name, meta=metadata)
+        using = UsingNode(library_name, meta=get_metadata(ctx))
 
         # Add function signatures to using-declaration
         for fs_ctx in ctx.func_signature():
@@ -245,14 +250,7 @@ class Typt(TyptVisitor):
 
     def visitPass_stmt(self, ctx: TyptParser.Pass_stmtContext) -> PassStmtNode:
         """Visit `pass_stmt' rule."""
-        # Get metadata
-        metadata = NodeMetadata(
-            ctx.start.line,
-            ctx.start.column,
-            SourceGetter.get(ctx.start.line, ctx.stop.line)
-        )
-
-        return PassStmtNode(meta=metadata)
+        return PassStmtNode(meta=get_metadata(ctx))
 
     def visitFlow_stmt(self, ctx: TyptParser.Flow_stmtContext) -> StmtNode:
         """Visit `flow_stmt' rule."""
@@ -268,26 +266,12 @@ class Typt(TyptVisitor):
 
     def visitBreak_stmt(self, ctx: TyptParser.Break_stmtContext) -> BreakStmtNode:
         """Visit `break_stmt' rule."""
-        # Get metadata
-        metadata = NodeMetadata(
-            ctx.start.line,
-            ctx.start.column,
-            SourceGetter.get(ctx.start.line, ctx.stop.line)
-        )
-
-        return BreakStmtNode(meta=metadata)
+        return BreakStmtNode(meta=get_metadata(ctx))
 
     def visitContinue_stmt(self, ctx: TyptParser.Continue_stmtContext) -> ContinueStmtNode:
         """Visit `continue_stmt' rule."""
-        # Get metadata
-        metadata = NodeMetadata(
-            ctx.start.line,
-            ctx.start.column,
-            SourceGetter.get(ctx.start.line, ctx.stop.line)
-        )
-
         # Return a new continue statement
-        return ContinueStmtNode(meta=metadata)
+        return ContinueStmtNode(meta=get_metadata(ctx))
 
     def visitReturn_stmt(self, ctx: TyptParser.Return_stmtContext) -> ReturnStmtNode:
         """Visit `return_stmt' rule."""
@@ -341,14 +325,7 @@ class Typt(TyptVisitor):
             self.visitTest(ctx.if_test), self.visitSuite(ctx.if_suite)
         )
 
-        # Get metadata
-        metadata = NodeMetadata(
-            ctx.start.line,
-            ctx.start.column,
-            SourceGetter.get(ctx.start.line, ctx.stop.line)
-        )
-
-        if_stmt_node = IfStmtNode(if_branch, meta=metadata)
+        if_stmt_node = IfStmtNode(if_branch, meta=get_metadata(ctx))
 
         # Get the elif branches
         # HACK if there is an else branch, then len(suites) = len(tests)+1
@@ -420,14 +397,7 @@ class Typt(TyptVisitor):
         suite ::= simple_stmt | NEWLINE INDENT stmt+ DEDENT
 
         """
-        # Get metadata
-        metadata = NodeMetadata(
-            ctx.start.line,
-            ctx.start.column,
-            SourceGetter.get(ctx.start.line, ctx.stop.line)
-        )
-
-        suite_node = SuiteNode(meta=metadata)
+        suite_node = SuiteNode(meta=get_metadata(ctx))
 
         # If the suite is just a simple statement, add it
         if ctx.simple_stmt():
@@ -452,16 +422,10 @@ class Typt(TyptVisitor):
 
     def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> FuncSignatureNode:
         """Visit `func_signature' rule."""
-        metadata = NodeMetadata(
-            ctx.start.line,
-            ctx.start.column,
-            SourceGetter.get(ctx.start.line)
-        )
-
         func_signature = FuncSignatureNode(
             self.visitName(ctx.name()),
             self.visitTypt_type(ctx.typt_type()),
-            meta=metadata
+            meta=get_metadata(ctx)
         )
 
         # If parameters non-empty, get parameter nodes
