@@ -18,10 +18,12 @@ class Environment:
 
     """
 
-    def __init__(self, parent=None, filename: str = ''):
+    def __init__(self, parent=None, filename: str = '', scope: str = '__main__'):
         """Create the empty environment."""
         self.parent = parent        # type: Environment
-        self.filename = filename
+        self.filename = filename    # type: str
+        self.scope = scope          # type: str
+
         self.environment = dict()   # type: Dict[str, Union[Environment, Type]]
 
     def __getitem__(self, key: str):
@@ -62,6 +64,23 @@ class Environment:
             return None
 
         return self.parent.get(key, default)
+
+    def in_scope(self, s: str) -> bool:
+        """Return a Boolean representing if the environment is in the scope s.
+
+        The environment is in scope if it's scope, or any of it's parents
+        scopes are equal to s.
+
+        """
+        # BASE CASE: If is root, check scope and stop recursion
+        if not self.parent:
+            return self.scope == s
+
+        # RECURSIVE CASE: Otherwise, check self; recurse if needed
+        if self.scope is s:
+            return True
+
+        return self.parent.in_scope(s)
 
     def __repr__(self) -> str:
         """Return string representation of the dictionary."""
