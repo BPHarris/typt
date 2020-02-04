@@ -268,8 +268,14 @@ class Typt(TyptVisitor):
 
     def visitBreak_stmt(self, ctx: TyptParser.Break_stmtContext) -> BreakStmtNode:
         """Visit `break_stmt' rule."""
-        # Return a new break statement
-        return BreakStmtNode()
+        # Get metadata
+        metadata = NodeMetadata(
+            ctx.start.line,
+            ctx.start.column,
+            SourceGetter.get(ctx.start.line, ctx.stop.line)
+        )
+
+        return BreakStmtNode(meta=metadata)
 
     def visitContinue_stmt(self, ctx: TyptParser.Continue_stmtContext) -> ContinueStmtNode:
         """Visit `continue_stmt' rule."""
