@@ -28,9 +28,9 @@ class Environment:
 
     def __getitem__(self, key: str):
         """Override __getitem__ to implement the behaviour in the docstring."""
-        name = compile('[a-zA-Z]')
-        dotted_name = compile('[a-zA-Z.][a-zA-Z]')
-        environment_name = compile(':[a-zA-Z]')
+        name = compile('[a-zA-Z0-9-_]')
+        dotted_name = compile('[a-zA-Z0-9-_.][a-zA-Z0-9-_]')
+        environment_name = compile(':[a-zA-Z0-9-_]')
 
         if name.match(key):
             return self.environment.get(key, None)
