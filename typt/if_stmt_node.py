@@ -27,6 +27,8 @@ class IfStmtNode(StmtNode):
         # RULE Each test must be implicitly coercable to a BoolType
         # RULE Each suite must be valid
 
+        # NOTE Each suite occcurs in a sub-environment
+
         test_types = []
         test_types_invalid = []
 
@@ -41,10 +43,11 @@ class IfStmtNode(StmtNode):
             test_types_invalid += is_invalid_type(test_type)
 
         # Check RULE 3
-        self.if_branch.suite.check_type(environment)
+        self.if_branch.suite.check_type(environment.add_child('if_branch'))
         for branch in self.elif_branches:
-            branch.suite.check_type(environment)
-        self.else_branch.check_type(environment)
+            branch.suite.check_type(environment.add_child('elif_branch'))
+        if self.else_branch:
+            self.else_branch.check_type(environment.add_child('else_branch'))
 
         return InvalidType() if any(test_types_invalid) else Type()
 
