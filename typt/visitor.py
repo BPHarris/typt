@@ -764,33 +764,31 @@ class Typt(TyptVisitor):
         if ctx.name():
             return VarRefNode(self.visitName(ctx.name()), meta=get_metadata(ctx))
 
-        text = ctx.getText()
+        atom_type = None
+        atom_text = ctx.getText()
 
-        # String
-        if ctx.string_literal:
-            return LiteralNode(StringType(), text, meta=get_metadata(ctx))
+        if ctx.string_literal:                          # String
+            atom_type = StringType()
+        if is_int(atom_text):                           # Int
+            atom_type = IntType()
+        if is_float(atom_text):                         # Float
+            atom_type = FloatType()
+        if atom_text is repr(None):                     # None
+            atom_type = NoneType()
+        if atom_text in (repr(True), repr(False)):      # Boolean
+            atom_type = BoolType()
 
-        # Number
-        if is_int(text):
-            return LiteralNode(IntType(), text, meta=get_metadata(ctx))
-        if is_float(text):
-            return LiteralNode(FloatType(), text, meta=get_metadata(ctx))
+        # TODO List, tuple, set, dict
 
-        # None
-        if text == 'None':
-            return LiteralNode(NoneType(), text, meta=get_metadata(ctx))
-
-        # Boolean
-        if text == 'True' or text == 'False':
-            return LiteralNode(BoolType(), text, meta=get_metadata(ctx))
-
-        # Self
-        if text == 'self':
+        if atom_text == 'self':                         # Self
             # TODO self references
-            print('\x1b[1;37;41m' + 'visitAtom: self not implemented' + '\x1b[0m')
-            return LiteralNode('', text, meta=get_metadata(ctx))
+            print('\x1b[1;37;41mvisitAtom: self not implemented\x1b[0m')
+            atom_type = 'SelfType'
 
-        raise NotImplementedError('That type of atom is not implemented yet.')
+        if not atom_type:
+            raise NotImplementedError(f'Atom {atom_text} is not implemented.')
+
+        return LiteralNode(atom_type, atom_text, meta=get_metadata(ctx))
 
     def visitTrailer(self, ctx: TyptParser.TrailerContext) -> TrailerType:
         """Delegate da trailer."""
