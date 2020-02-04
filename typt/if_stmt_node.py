@@ -30,26 +30,29 @@ class IfStmtNode(StmtNode):
         # NOTE Each suite occcurs in a sub-environment
 
         test_types = []
-        test_types_invalid = []
+        types_invalid = []
 
         # Check RULE 1
         for branch in [self.if_branch] + self.elif_branches:
-            test_types += branch.test.check_type(environment)
+            test_types += [branch.test.check_type(environment)]
 
         # Check RULE 2
         # All valid types can be coerced to a Boolean
         # NOTE Does not log_type_error as this is handled by RULE 1
         for test_type in test_types:
-            test_types_invalid += is_invalid_type(test_type)
+            types_invalid += [is_invalid_type(test_type)]
 
         # Check RULE 3
-        self.if_branch.suite.check_type(environment.add_child('if_branch'))
-        for branch in self.elif_branches:
-            branch.suite.check_type(environment.add_child('elif_branch'))
+        for branch in [self.if_branch] + self.elif_branches:
+            types_invalid += [
+                is_invalid_type(branch.suite.check_type(environment))
+            ]
         if self.else_branch:
-            self.else_branch.check_type(environment.add_child('else_branch'))
+            types_invalid += [
+                is_invalid_type(self.else_branch.check_type(environment))
+            ]
 
-        return InvalidType() if any(test_types_invalid) else Type()
+        return InvalidType() if any(types_invalid) else Type()
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return equivalent Python3 code."""
