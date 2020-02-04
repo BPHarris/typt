@@ -1,5 +1,5 @@
+# Should pass -- math exists and contains functions gcd, isinf
 using:
     gcd(a: Int, b: Int) -> Int
     isinf(f: Float) -> Bool
-    jfwfa() -> Int
 from math
