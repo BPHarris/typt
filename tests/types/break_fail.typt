@@ -1,0 +1,2 @@
+# Should fail -- break must be inside loop
+break

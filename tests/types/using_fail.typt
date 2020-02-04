@@ -1,0 +1,6 @@
+# Should fail -- this_function_doesnt_exist... well... it doesn't exist
+using:
+    gcd(a: Int, b: Int) -> Int
+    isinf(f: Float) -> Bool
+    this_function_doesnt_exist(s: String) -> None
+from math

@@ -1,0 +1,3 @@
+# Should pass
+while False:
+    break
