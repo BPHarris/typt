@@ -245,8 +245,14 @@ class Typt(TyptVisitor):
 
     def visitPass_stmt(self, ctx: TyptParser.Pass_stmtContext) -> PassStmtNode:
         """Visit `pass_stmt' rule."""
-        # Return new pass statment, not data or anything needed! :D
-        return PassStmtNode()
+        # Get metadata
+        metadata = NodeMetadata(
+            ctx.start.line,
+            ctx.start.column,
+            SourceGetter.get(ctx.start.line, ctx.stop.line)
+        )
+
+        return PassStmtNode(meta=metadata)
 
     def visitFlow_stmt(self, ctx: TyptParser.Flow_stmtContext) -> StmtNode:
         """Visit `flow_stmt' rule."""
