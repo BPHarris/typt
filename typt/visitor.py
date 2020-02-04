@@ -773,7 +773,7 @@ class Typt(TyptVisitor):
             atom_type = IntType()
         if is_float(atom_text):                         # Float
             atom_type = FloatType()
-        if atom_text is repr(None):                     # None
+        if atom_text == 'None':                         # None
             atom_type = NoneType()
         if atom_text in (repr(True), repr(False)):      # Boolean
             atom_type = BoolType()
