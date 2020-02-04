@@ -2,6 +2,7 @@
 
 from typt.node import Node
 
+from typt.codegen import indent
 from typt.environment import Environment
 from typt.typt_types import Type, InvalidType, FunctionType, log_type_error
 
@@ -76,4 +77,8 @@ class UsingNode(Node):
         """Return the Python3 equivalent to using decl."""
         imported = ', '.join([f.name for f in self.function_signature_list])
 
-        return 'from {} import {}'.format(self.library_name, imported)
+        return  '{}from {} import {}'.format(
+            indent(indentation_level)
+            self.library_name,
+            imported
+        )
