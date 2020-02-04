@@ -13,7 +13,7 @@ class BreakStmtNode(StmtNode):
     def check_type(self, environment: Environment) -> Type:
         """Perform type checking on this break statement."""
         # RULE Break stmt can only occur inside a loop (for/while)
-        if environment.in_scope('for') or environment.in_scope('while'):
+        if not any([environment.in_scope(l) for l in ('for', 'while')]):
             return log_type_error(
                 'break outside loop', environment.filename, self.meta
             )
