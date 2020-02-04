@@ -341,7 +341,14 @@ class Typt(TyptVisitor):
             self.visitTest(ctx.if_test), self.visitSuite(ctx.if_suite)
         )
 
-        if_stmt_node = IfStmtNode(if_branch)
+        # Get metadata
+        metadata = NodeMetadata(
+            ctx.start.line,
+            ctx.start.column,
+            SourceGetter.get(ctx.start.line, ctx.stop.line)
+        )
+
+        if_stmt_node = IfStmtNode(if_branch, meta=metadata)
 
         # Get the elif branches
         # HACK if there is an else branch, then len(suites) = len(tests)+1
@@ -413,7 +420,14 @@ class Typt(TyptVisitor):
         suite ::= simple_stmt | NEWLINE INDENT stmt+ DEDENT
 
         """
-        suite_node = SuiteNode()
+        # Get metadata
+        metadata = NodeMetadata(
+            ctx.start.line,
+            ctx.start.column,
+            SourceGetter.get(ctx.start.line, ctx.stop.line)
+        )
+
+        suite_node = SuiteNode(meta=metadata)
 
         # If the suite is just a simple statement, add it
         if ctx.simple_stmt():
