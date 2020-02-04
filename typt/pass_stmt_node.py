@@ -2,12 +2,13 @@
 
 from typt.stmt_node import StmtNode
 
+from typt.codegen import indent
 from typt.typt_types import Type
 from typt.environment import Environment
 
 
 class PassStmtNode(StmtNode):
-    """Nothing to be implemented."""
+    """Class for 'pass' statement AST node."""
 
     def check_type(self, environment: Environment) -> Type:
         """Check the type of the pass statement."""
@@ -16,4 +17,4 @@ class PassStmtNode(StmtNode):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return Python3 equivalent to 'pass' statement."""
-        return 'pass'
+        return '{indent}pass'.format(indent=indent(indentation_level))
