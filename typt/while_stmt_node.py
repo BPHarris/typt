@@ -49,12 +49,12 @@ class WhileStmtNode(StmtNode):
 
         # Codegen for while-proper
         while_branch = f'{indentation}while {self.while_branch.test.codegen()}:\n'
-        while_branch += f'{self.while_branch.suite.codegen(indentation_level + 1)}'
+        while_branch += f'{self.while_branch.suite.codegen(indentation_level)}'
 
         # Codegen for else branch
         else_branch = ''
         if self.else_branch:
             else_branch = f'{indentation}else:\n'
-            else_branch += f'{self.else_branch.codegen(indentation_level + 1)}'
+            else_branch += f'{self.else_branch.codegen(indentation_level)}'
 
         return f'{while_branch}{else_branch}'
