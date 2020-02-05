@@ -272,7 +272,7 @@ func_parameter_list
 class_def
     : class_dec ':' NEWLINE INDENT
             // class var decls
-            (name ':' typt_type ('=' test)? NEWLINE)*
+            (var_dec_stmt NEWLINE)*
         
             // initialiser
             ('def' initialiser='__init__' '(' 'self' (',' func_parameter_list)? ')' ':' suite)?
