@@ -503,7 +503,8 @@ class Typt(TyptVisitor):
         # Function (method) signature
         function_signature = FuncSignatureNode(
             self.visitName(ctx.name()),
-            self.visitTypt_type(ctx.typt_type())
+            self.visitTypt_type(ctx.typt_type()),
+            meta=get_metadata(ctx)
         )
 
         if ctx.func_parameter_list():
@@ -514,7 +515,11 @@ class Typt(TyptVisitor):
         # Method suite
         method_suite = self.visitSuite(ctx.suite())
 
-        return ClassMethodNode(function_signature, method_suite)
+        return ClassMethodNode(
+            function_signature,
+            method_suite,
+            meta=get_metadata(ctx)
+        )
 
     def visitClass_static_method(self, ctx: TyptParser.Class_static_methodContext) -> None:
         """Return a static class method."""
