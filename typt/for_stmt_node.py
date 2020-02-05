@@ -59,9 +59,12 @@ class ForStmtNode(StmtNode):
             else_suite_invalid = self.else_branch.check_type(environment)
 
         # RULE 5
-        if len(self.test_list) > 1:
+        n_tests = len(self.test_list)
+        if n_tests > 1:
             return log_type_error(
-                f'too many values to unpack', environment.filename, self.meta
+                f'too many values to unpack (got {n_tests} expected 1)',
+                environment.filename,
+                self.meta
             )
 
         suites_invalid = [for_suite_invalid, else_suite_invalid]
