@@ -387,8 +387,10 @@ class Typt(TyptVisitor):
             else_branch = self.visitSuite(ctx.else_suite)
 
         return ForStmtNode(
-            expr_list, test_list,
-            for_branch, else_branch,
+            expr_list,
+            test_list,
+            for_branch,
+            else_branch,
             meta=get_metadata(ctx)
         )
 
