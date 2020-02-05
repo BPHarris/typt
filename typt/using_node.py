@@ -59,7 +59,9 @@ class UsingNode(Node):
         # Check RULE 3
         if environment.get(self.library_name):
             return log_type_error(
-                f'name {self.library_name} is not free in {environment.scope}'
+                f'name {self.library_name} is not free in {environment.scope}',
+                environment.filename, 
+                self.meta
             )
 
         # All rules passed, add types to environment and return (Valid)Type
