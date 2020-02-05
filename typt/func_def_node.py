@@ -35,4 +35,4 @@ class FuncDefNode(Node):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return Python3 equivalent."""
-        pass
+        return f'def {self.func_signature.codegen()}:{self.suite.codegen()}'
