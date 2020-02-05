@@ -364,7 +364,7 @@ class Typt(TyptVisitor):
         if ctx.else_suite:
             else_branch = self.visitSuite(ctx.else_suite)
 
-        return WhileStmtNode(while_branch, else_branch)
+        return WhileStmtNode(while_branch, else_branch, meta=get_metadata())
 
     def visitFor_stmt(self, ctx: TyptParser.For_stmtContext) -> ForStmtNode:
         """Visit `for_stmt' rule.
@@ -386,7 +386,9 @@ class Typt(TyptVisitor):
         if ctx.else_suite:
             else_branch = self.visitSuite(ctx.else_suite)
 
-        return ForStmtNode(expr_list, test_list, for_branch, else_branch)
+        return ForStmtNode(
+            expr_list, test_list, for_branch, else_branch, meta=get_metadata()
+        )
 
     def visitSuite(self, ctx: TyptParser.SuiteContext) -> SuiteNode:
         """Visit `suite' rule.
