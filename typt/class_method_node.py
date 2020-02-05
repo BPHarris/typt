@@ -9,6 +9,6 @@ from typt.suite_node import SuiteNode
 class ClassMethodNode(FuncDefNode):
     """ClassMethodNode AST node."""
 
-    def __init__(self, signature: FuncSignatureNode, suite: SuiteNode):
+    def __init__(self, *args, **kwargs):
         """Specialisation of function definition."""
-        super().__init__(signature, suite)
+        super().__init__(*args, **kwargs)
