@@ -71,6 +71,6 @@ class IfStmtNode(StmtNode):
         # Else codegen
         else_branch = ''
         if self.else_branch:
-            else_branch = f'else:\n{self.else_branch.codegen(indentation_level)}'
+            else_branch = f'else:{self.else_branch.codegen(indentation_level)}'
 
         return f'{if_branch}{str().join(elif_branches)}{else_branch}'
