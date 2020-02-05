@@ -478,7 +478,8 @@ class Typt(TyptVisitor):
         )
 
         # Add class variables
-        # TODO
+        for attribute in ctx.var_dec_stmt():
+            class_node.class_attributes = self.visitVar_dec_stmt(attribute)
 
         # Add methods
         for method in ctx.class_method():
