@@ -46,4 +46,9 @@ class FuncSignatureNode(Node):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return Python3 function signature."""
-        pass
+        indentation = indent(indentation_level)
+
+        # Get parameters code
+        params = ', '.join([p.name for p in self.parameter_list])
+
+        return f'{indentation}def {self.name}({params})'
