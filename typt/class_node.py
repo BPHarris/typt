@@ -15,7 +15,7 @@ from typing import List
 class ClassNode(Node):
     """ClassNode AST node."""
 
-    def __init__(self, name_super_pair: NameSuperPair, init_params: List[NameTypePair] = None, init_suite: SuiteNode = None, *args,**kwargs):
+    def __init__(self, name_super_pair: NameSuperPair, init_params: List[NameTypePair] = None, init_suite: SuiteNode = None, *args, **kwargs):
         """Initialise statement list."""
         self.class_name = name_super_pair.name
         self.class_super_name = name_super_pair.super
@@ -34,4 +34,4 @@ class ClassNode(Node):
         self.class_methods = list()         # type: List[ClassMethodNode]
         self.class_static_methods = None    # TODO Static methods
 
-        super().__init__(*args,**kwargs)
+        super().__init__(*args, **kwargs)

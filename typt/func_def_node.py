@@ -9,9 +9,9 @@ from typt.func_signature_node import FuncSignatureNode
 class FuncDefNode(Node):
     """FuncDefNode AST node."""
 
-    def __init__(self, func_signature: FuncSignatureNode, suite: SuiteNode, *args,**kwargs):
+    def __init__(self, func_signature: FuncSignatureNode, suite: SuiteNode, *args, **kwargs):
         """Initialise statement list."""
         self.func_signature = func_signature
         self.suite = suite
 
-        super().__init__(*args,**kwargs)
+        super().__init__(*args, **kwargs)
