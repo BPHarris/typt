@@ -59,13 +59,13 @@ class IfStmtNode(StmtNode):
         indentation = indent(indentation_level)
 
         # If-branch
-        if_branch = f'{indentation}if {self.if_branch.test.codegen()}:\n'
+        if_branch = f'{indentation}if {self.if_branch.test.codegen()}:'
         if_branch += f'{self.if_branch.suite.codegen(indentation_level)}'
 
         # Elif-branches
         elif_branches = list()
         for branch in self.elif_branches:
-            elif_branches = f'{indentation}elif {branch.test.codegen()}:\n'
+            elif_branches = f'{indentation}elif {branch.test.codegen()}:'
             elif_branches += f'{branch.suite.codegen(indentation_level)}'
 
         # Else codegen
