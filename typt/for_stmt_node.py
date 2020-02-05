@@ -72,4 +72,23 @@ class ForStmtNode(StmtNode):
         return InvalidType() if any(types_invalid) else Type()
 
     def codegen(self, indentation_level: int = 0) -> str:
-        pass
+        """Return the Python3 equivalent for a for statement."""
+        indentation = indent(indentation_level)
+
+        # Expr list
+        expr_list = ', '.join([expr.codegen() for expr in self.expr_list])
+
+        # Test list
+        test_list = ', '.join([test.codegen() for test in self.test_list])
+
+        # For branch
+        for_branch = f'{indentation}for {expr_list} in {test_list}:'
+        for_branch += f'{self.for_branch.codegen(indentation_level)}'
+
+        # Else branch
+        else_branch = ''
+        if self.else_branch:
+            else_branch = f'{indentation}else:'
+            else_branch += f'{self.else_branch.codegen(indentation_level)}'
+
+        return f'{for_branch}{else_branch}'
