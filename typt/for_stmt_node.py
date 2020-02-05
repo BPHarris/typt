@@ -67,6 +67,7 @@ class ForStmtNode(StmtNode):
                 self.meta
             )
 
+        # (Valid)Type iff all children are valid
         suites_invalid = [for_suite_invalid, else_suite_invalid]
         types_invalid = exprs_invalid + tests_invalid + suites_invalid
         return InvalidType() if any(types_invalid) else Type()
