@@ -2,7 +2,6 @@
 
 from typt.test.atom_node import AtomNode
 
-from typt.codegen import indent
 from typt.typt_types import Type
 from typt.environment import Environment
 
@@ -23,4 +22,4 @@ class LiteralNode(AtomNode):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the contents of the literal, in Python3 form."""
-        return f'{indent(indentation_level)}{self.data}'
+        return f'{self.data}'

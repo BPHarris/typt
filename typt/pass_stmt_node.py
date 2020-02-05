@@ -17,4 +17,4 @@ class PassStmtNode(StmtNode):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return Python3 equivalent to 'pass' statement."""
-        return f'{indent(indentation_level)}pass'
+        return f'{indent(indentation_level)}pass\n'

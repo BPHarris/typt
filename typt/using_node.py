@@ -76,4 +76,4 @@ class UsingNode(Node):
         imported = ', '.join([f.name for f in self.function_signature_list])
         indentation = indent(indentation_level)
 
-        return f'{indentation}from {self.library_name} import {imported}'
+        return f'{indentation}from {self.library_name} import {imported}\n'
