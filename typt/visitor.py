@@ -424,7 +424,7 @@ class Typt(TyptVisitor):
         suite = self.visitSuite(ctx.suite())
 
         # Return FuncDefNode
-        return FuncDefNode(func_signature, suite)
+        return FuncDefNode(func_signature, suite, meta=get_metadata(ctx))
 
     def visitFunc_signature(self, ctx: TyptParser.Func_signatureContext) -> FuncSignatureNode:
         """Visit `func_signature' rule."""
@@ -457,7 +457,7 @@ class Typt(TyptVisitor):
 
         # Handle the empty class
         if ctx.the_empty_class:
-            return ClassNode(name_super_pair)
+            return ClassNode(name_super_pair, meta=get_metadata(ctx))
 
         # Get initialiser, if has one
         initialiser_parameters = None
@@ -473,7 +473,8 @@ class Typt(TyptVisitor):
         class_node = ClassNode(
             name_super_pair,
             initialiser_parameters,
-            initialiser_suite
+            initialiser_suite,
+            meta=get_metadata(ctx)
         )
 
         # Add class variables
