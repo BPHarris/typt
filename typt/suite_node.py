@@ -2,9 +2,8 @@
 
 from typt.node import Node
 
-from typt.codegen import indent
 from typt.environment import Environment
-from typt.typt_types import Type, InvalidType, is_invalid_type, log_type_error
+from typt.typt_types import Type, InvalidType, is_invalid_type
 
 
 class SuiteNode(Node):
@@ -31,4 +30,8 @@ class SuiteNode(Node):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the Python3 equivalent for a suite."""
-        pass
+        stmts_code = '\n'
+        for stmt in self.stmt_list:
+            stmts_code += f'{stmt.codegen(indentation_level + 1)}'
+
+        return f'{stmts_code}'
