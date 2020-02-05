@@ -35,7 +35,7 @@ class FuncSignatureNode(Node):
         return_invalid = is_invalid_type(self.return_type)
 
         # Add function to environment
-        environment[f.name] = FunctionType(
+        environment[self.name] = FunctionType(
             [p.type for p in self.parameter_list],
             self.return_type
         )
