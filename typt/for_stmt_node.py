@@ -54,7 +54,7 @@ class ForStmtNode(StmtNode):
         )
 
         # RULE 4 -- else branch
-        else_suite_invalid = True
+        else_suite_invalid = False
         if self.else_branch:
             else_suite_invalid = self.else_branch.check_type(environment)
 
