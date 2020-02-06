@@ -124,4 +124,4 @@ class AssignmentExprStmtNode(StmtNode):
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the Python3 code of this expression."""
         operator = self.assignment_type
-        return f'{indent(indentation_level)}{self.lhs}{operator}{self.rhs}\n'
+        return f'{indent(indentation_level)}{self.lhs} {operator} {self.rhs}\n'
