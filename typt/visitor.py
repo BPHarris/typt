@@ -219,22 +219,7 @@ class Typt(TyptVisitor):
         raise NotImplementedError('Should not be reached (augassign).')
 
     def visitVar_dec_stmt(self, ctx: TyptParser.Var_dec_stmtContext) -> VarDecStmtNode:
-        """Visit `var_dec_stmt' rule.
-
-        Args:
-            ctx (Var_dec_stmtContext) : ...
-
-        var_dec_stmt ::= ...
-
-        """
-        # If no initial value given, set to None
-        if not ctx.rhs:
-            return VarDecStmtNode(
-                self.visitName(ctx.lhs),
-                self.visitTypt_type(ctx.typt_type())
-            )
-
-        # Otherwise, parse intial value
+        """Return a new VarDexStmtNode."""
         return VarDecStmtNode(
             self.visitName(ctx.lhs),
             self.visitTypt_type(ctx.typt_type()),

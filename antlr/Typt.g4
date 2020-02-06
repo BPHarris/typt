@@ -200,8 +200,7 @@ augassign
     ;
 
 var_dec_stmt
-    : lhs=name ':' typt_type
-    | lhs=name ':' typt_type '=' rhs=test
+    : lhs=name ':' typt_type '=' rhs=test
     ;
 
 del_stmt    : 'del' exprlist;
