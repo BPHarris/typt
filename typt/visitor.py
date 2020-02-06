@@ -228,10 +228,7 @@ class Typt(TyptVisitor):
 
     def visitDel_stmt(self, ctx: TyptParser.Del_stmtContext) -> DelStmtNode:
         """Visit `del_stmt' rule."""
-        # Get expr_list
-        expr_list = self.visitExprlist(ctx.exprlist())
-
-        return DelStmtNode(expr_list)
+        return DelStmtNode(self.visitName(ctx.name()))
 
     def visitPass_stmt(self, ctx: TyptParser.Pass_stmtContext) -> PassStmtNode:
         """Visit `pass_stmt' rule."""

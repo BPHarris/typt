@@ -203,7 +203,7 @@ var_dec_stmt
     : lhs=name ':' typt_type '=' rhs=test
     ;
 
-del_stmt    : 'del' exprlist;
+del_stmt    : 'del' name;
 pass_stmt   : 'pass';
 
 flow_stmt

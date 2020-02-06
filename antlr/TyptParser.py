@@ -120,7 +120,7 @@ def serializedATN():
         buf.write("\2\2\2\u00b8\u00b9\t\2\2\2\u00b9\25\3\2\2\2\u00ba\u00bb")
         buf.write("\5r:\2\u00bb\u00bc\7\4\2\2\u00bc\u00bd\5t;\2\u00bd\u00be")
         buf.write("\7\7\2\2\u00be\u00bf\5<\37\2\u00bf\27\3\2\2\2\u00c0\u00c1")
-        buf.write("\7\24\2\2\u00c1\u00c2\5n8\2\u00c2\31\3\2\2\2\u00c3\u00c4")
+        buf.write("\7\24\2\2\u00c1\u00c2\5r:\2\u00c2\31\3\2\2\2\u00c3\u00c4")
         buf.write("\7\25\2\2\u00c4\33\3\2\2\2\u00c5\u00c9\5\36\20\2\u00c6")
         buf.write("\u00c9\5 \21\2\u00c7\u00c9\5\"\22\2\u00c8\u00c5\3\2\2")
         buf.write("\2\u00c8\u00c6\3\2\2\2\u00c8\u00c7\3\2\2\2\u00c9\35\3")
@@ -1231,8 +1231,8 @@ class TyptParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def exprlist(self):
-            return self.getTypedRuleContext(TyptParser.ExprlistContext,0)
+        def name(self):
+            return self.getTypedRuleContext(TyptParser.NameContext,0)
 
 
         def getRuleIndex(self):
@@ -1256,7 +1256,7 @@ class TyptParser ( Parser ):
             self.state = 190
             self.match(TyptParser.T__17)
             self.state = 191
-            self.exprlist()
+            self.name()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
