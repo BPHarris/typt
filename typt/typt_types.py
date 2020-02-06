@@ -3,8 +3,8 @@
 from typing import Iterable
 from collections import namedtuple
 
-from math import log10
 from copy import deepcopy
+from math import log10 as _log10
 
 
 NameSuperPair = namedtuple('NameNamePair', ('name', 'super'))
@@ -29,7 +29,7 @@ def log_type_error(msg: str, filename: str, metadata):
 
     # Add source code line number to source line
     printable_source = ''
-    line_number_width = int(log10(start_line + len(source_lines)) + 1)
+    line_number_width = int(_log10(start_line + len(source_lines)) + 1)
     for n, line in enumerate(source_lines):
         line_number = str(start_line + n).rjust(line_number_width, ' ')
         printable_source += f'\t{line_number} | {line}'
