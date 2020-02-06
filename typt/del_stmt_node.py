@@ -3,7 +3,7 @@
 from typt.stmt_node import StmtNode
 
 from typt.codegen import indent
-from typt.typt_types import Type, InvalidType, is_invalid_type, log_type_error
+from typt.typt_types import Type, log_type_error
 from typt.environment import Environment
 
 
