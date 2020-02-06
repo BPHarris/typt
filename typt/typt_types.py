@@ -3,6 +3,7 @@
 from typing import Iterable
 from collections import namedtuple
 
+from math import log10
 from copy import deepcopy
 
 
@@ -20,23 +21,22 @@ TestSuitePair.__doc__ = """Store a (test: TestNode, suite: SuiteNode) pair."""
 
 def log_type_error(msg: str, filename: str, metadata):
     """Log a type error for the given class."""
-    # Format the source code
+    start_line, column = metadata.line, metadata.column
+
+    error_prefix = f'\x1b[31mtypt\x1b[0m: {filename}:{start_line}:{column}: '
+
     source_lines = metadata.source.splitlines(keepends=True)
-    line_ctr = metadata.line
-    source_with_lines_and_indent = ''
-    for line in source_lines:
-        source_with_lines_and_indent += f'\t{line_ctr} | {line}'
-        line_ctr += 1
 
-    # Print source code that triggered error
-    print('Error encountered:', source_with_lines_and_indent, sep='\n')
+    # Add source code line number to source line
+    printable_source = ''
+    line_number_width = int(log10(start_line + len(source_lines)) + 1)
+    for n, line in enumerate(source_lines):
+        line_number = str(start_line + n).rjust(line_number_width, ' ')
+        printable_source += f'\t{line_number} | {line}'
 
-    # Print error message
-    print(
-        '\x1b[31mtypt\x1b[0m:',
-        f'{filename}: {metadata.line}:{metadata.column}:',
-        f'\x1b[1;37;41m{msg}\x1b[0m\n'
-    )
+    error_msg = f'\x1b[1;37;41m{msg}\x1b[0m\n'
+
+    print(f'error encountered:\n{printable_source}{error_prefix}{error_msg}')
 
     return InvalidType()
 

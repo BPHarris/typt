@@ -7,8 +7,9 @@ from io import StringIO
 
 def log_error(filename: str = None, line: int = None, msg: str = None) -> None:
     """Log an error to terminal."""
-    prefix = 'typt: '
+    prefix = '\x1b[31mtypt\x1b[0m: '
 
+    # Add filename and line number to prefix, if present
     if filename:
         prefix += filename
 
@@ -17,7 +18,7 @@ def log_error(filename: str = None, line: int = None, msg: str = None) -> None:
 
         prefix += ': '
 
-    print(prefix + msg)
+    print(prefix, msg, sep='')
 
 
 def log_critical_error(msg: str = '', *args, **kwargs) -> None:

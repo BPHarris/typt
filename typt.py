@@ -16,6 +16,7 @@ from antlr.TyptParser import TyptParser
 from typt.visitor import Typt, SourceGetter
 from typt.node import NodePrinter
 from typt.environment import Environment
+from typt.typt_types import is_invalid_type
 
 from error import log_error, log_critical_error
 
@@ -42,7 +43,7 @@ def main(arguments: dict = None) -> None:
 
     # Get file input stream
     if arguments['--verbose']:
-        print(f'Processing file {arguments.get("FILE")}:\n')
+        print(f'typt: processing file {arguments.get("FILE")}:\n')
     input_stream = FileStream(arguments['FILE'])
 
     # Lex and parse the given program
@@ -56,16 +57,13 @@ def main(arguments: dict = None) -> None:
 
     # Parse the program
     program = Typt().visit(parser.program())
-
-    # Print parse tree
     if arguments['--verbose']:
         NodePrinter(program).print()
 
     # Type checking
     program_type = program.check_type(Environment(filename=arguments['FILE']))
-
-    if arguments['--verbose']:
-        log_error(msg='final type: ' + str(program_type))
+    if is_invalid_type(program_type):
+        log_critical_error('crtitcal type error occurred', arguments['FILE'])
 
     # Codegen
     if arguments['--verbose']:
