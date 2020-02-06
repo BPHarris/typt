@@ -123,6 +123,6 @@ class ClassNode(Node):
         class_code = f'{indentation}class {self.class_name}'
         if self.class_initialiser:
             class_code += f'({self.class_super_name})'
-        class_code += f':\n{attributes}{initialiser}{methods}'
+        class_code += f':\n{attributes}{initialiser}{methods}\n'
 
         return class_code

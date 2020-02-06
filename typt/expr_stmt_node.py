@@ -23,4 +23,4 @@ class ExprStmtNode(StmtNode):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the Python3 code of thi given expression."""
-        return f'{indent(indentation_level)}{self.test_node.codegen()}'
+        return f'{indent(indentation_level)}{self.test_node.codegen()}\n'

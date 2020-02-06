@@ -92,4 +92,4 @@ class ForStmtNode(StmtNode):
             else_branch = f'{indentation}else:'
             else_branch += f'{self.else_branch.codegen(indentation_level)}'
 
-        return f'{for_branch}{else_branch}'
+        return f'{for_branch}{else_branch}\n'
