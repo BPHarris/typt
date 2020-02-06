@@ -1,30 +1,37 @@
 """pass_stmt_node.py - holds the AST node for del(ete) statements."""
 
 from typt.stmt_node import StmtNode
-from typt.test.expr_op_node import ExprOpNode
 
 from typt.codegen import indent
-from typt.typt_types import Type
+from typt.typt_types import Type, InvalidType, is_invalid_type, log_type_error
 from typt.environment import Environment
-
-from typing import List
 
 
 class DelStmtNode(StmtNode):
     """Nothing to be implemented."""
 
-    def __init__(self, expr_list: List[ExprOpNode]):
+    def __init__(self, target: str):
         """Set expression list."""
-        self.expr_list = expr_list  # type: List[ExprOpNode]
+        self.target = target
 
     def check_type(self, environment: Environment) -> Type:
         """Check the validity of the del stmt's type."""
-        pass
+        # RULE Target must exist in environment
+
+        if not environment.get(self.target):
+            return log_type_error(
+                f'{self.target} does not exist in {environment.scope}',
+                environment.filename,
+                self.meta
+            )
+
+        # Remove expr from environment
+        del environment[self.target]
+
+        return Type()
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return Python3 equivalent code."""
         indentation = indent(indentation_level)
 
-        expr_list_code = ', '.join([e.codegen() for e in self.expr_list])
-
-        return f'{indentation}del {expr_list_code}\n'
+        return f'{indentation}del {self.target}\n'
