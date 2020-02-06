@@ -17,10 +17,10 @@ i : Int = 2 << 10
 f : Float = 3 + 2
 f : Float = 3 / 2
 n : Int = -2
-l : List[Int]
-tuple : Tuple[Int, Tuple[String, String], Float]
-s : Set[Bool]
-d : Dict[String, Tuple[Int, Int]]
+# l : List[Int]
+# tuple : Tuple[Int, Tuple[String, String], Float]
+# s : Set[Bool]
+# d : Dict[String, Tuple[Int, Int]]
 
 while False:
     pass
@@ -32,7 +32,7 @@ for x in iter:
 if func('str'):
     x = 5 + 2 * y
     t : Bool = False
-    s : Int
+    # s : Int
     different(2.3, 4.3)
     
     pass
@@ -52,7 +52,7 @@ else:
 def test_func(arg: Bool) -> None:
     return None
 
-function: Function<Int, Int -> Float>
+# function: Function<Int, Int -> Float>
 def higher_order(arg: Int -> Int) -> Int:
     pass
 
