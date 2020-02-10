@@ -19,12 +19,10 @@ class SuiteNode(Node):
         """Perfrom type checking for this suite."""
         # RULE All stmts are valid
 
-        suite_env = environment.add_child('suite')
-
         # RULE 1
         stmts_invalid = list()
         for stmt in self.stmt_list:
-            stmts_invalid += [is_invalid_type(stmt.check_type(suite_env))]
+            stmts_invalid += [is_invalid_type(stmt.check_type(environment))]
 
         return InvalidType() if any(stmts_invalid) else Type()
 

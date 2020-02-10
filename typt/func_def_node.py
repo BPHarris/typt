@@ -29,7 +29,10 @@ class FuncDefNode(Node):
         func = is_invalid_type(self.func_signature.check_type(environment))
 
         # RULE 2
-        suite = is_invalid_type(self.suite.check_type(environment))
+        func_environment = environment.add_child(
+            'function', self.func_signature.name
+        )
+        suite = is_invalid_type(self.suite.check_type(func_environment))
 
         return InvalidType() if any([func, suite]) else Type()
 

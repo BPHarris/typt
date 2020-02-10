@@ -61,7 +61,9 @@ def main(arguments: dict = None) -> None:
         NodePrinter(program).print()
 
     # Type checking
-    program_type = program.check_type(Environment(filename=arguments['FILE']))
+    program_type = program.check_type(
+        Environment(filename=arguments['FILE'], name='__main__')
+    )
     if is_invalid_type(program_type):
         log_critical_error('crtitcal type error occurred', arguments['FILE'])
 

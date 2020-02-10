@@ -30,15 +30,18 @@ class WhileStmtNode(StmtNode):
         )
 
         # Check RULE 3 -- while suite
+        while_environment = environment.add_child('while', 'while_stmt')
         is_while_suite_invalid = is_invalid_type(
-            self.while_branch.suite.check_type(environment)
+            self.while_branch.suite.check_type(while_environment)
         )
 
-        # Check RULE 3 -- else suite
         section_invalid = [is_while_test_invalid, is_while_suite_invalid]
+
+        # Check RULE 3 -- else suite
         if self.else_branch:
+            else_environment = environment.add_child('while', 'else_stmt')
             section_invalid += [
-                is_invalid_type(self.else_branch.check_type(environment))
+                is_invalid_type(self.else_branch.check_type(else_environment))
             ]
 
         return InvalidType() if any(section_invalid) else Type()

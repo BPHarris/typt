@@ -49,14 +49,16 @@ class ForStmtNode(StmtNode):
             ]
 
         # RULE 4 -- for branch
+        for_environment = environment.add_child('for', 'for_stmt')
         for_suite_invalid = is_invalid_type(
-            self.for_branch.check_type(environment)
+            self.for_branch.check_type(for_environment)
         )
 
         # RULE 4 -- else branch
         else_suite_invalid = False
         if self.else_branch:
-            else_suite_invalid = self.else_branch.check_type(environment)
+            else_environment = environment.add_child('for', 'else_stmt')
+            else_suite_invalid = self.else_branch.check_type(else_environment)
 
         # RULE 5
         n_tests = len(self.test_list)

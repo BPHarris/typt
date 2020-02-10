@@ -18,18 +18,19 @@ class Environment:
 
     """
 
-    def __init__(self, parent=None, filename: str = '', scope: str = '__main__'):
+    def __init__(self, parent=None, filename: str = '', scope: str = '__main__', name: str = ''):
         """Create the empty environment."""
         self.parent = parent        # type: Environment
         self.filename = filename    # type: str
         self.scope = scope          # type: str
+        self.name = name            # type: str
 
         self.environment = dict()   # type: Dict[str, Union[Environment, Type]]
 
     def __getitem__(self, key: str):
         """Override __getitem__ to implement the behaviour in the docstring."""
         name = compile('[a-zA-Z0-9-_]')
-        dotted_name = compile('[a-zA-Z0-9-_.][a-zA-Z0-9-_]')
+        dotted_name = compile('[a-zA-Z0-9-_][a-zA-Z0-9-_.]')
         environment_name = compile(':[a-zA-Z0-9-_]')
 
         if name.match(key):
@@ -38,7 +39,14 @@ class Environment:
         # If dotted name, a.b.c, check for b.c in environment ':a'
         if dotted_name.match(key):
             head, tail = key.split('.')[0], key.split('.')[1:]
-            return self.environment.get(':' + head, None)[tail]
+            head_environment = self.environment.get(':' + head, None)
+
+            result = head_environment[tail]
+
+            # If the tail is not directly in the head environment, return none
+            if result:
+                return result
+            return None
 
         if environment_name.match(key):
             return self.environment.get(key, None)
@@ -82,23 +90,24 @@ class Environment:
 
         return self.parent.in_scope(s)
 
-    def add_child(self, scope: str):
+    def add_child(self, scope: str, name: str):
         """Add and return a child environment with the given name and scope."""
         # Create child
-        child = Environment(self, self.filename, scope)
+        child = Environment(self, self.filename, scope, name)
 
-        # Get child name
-        ctr = 1
-        name = f':{scope}'
-        while self.get(name):
-            name = f':{scope}{ctr}'
-            ctr += 1
+        # If name of compound statement, get unique name
+        if name in ('if_stmt', 'for_stmt', 'while_stmt'):
+            while self[f':{name}']:
+                name += '\''
+
+        # Name must be unique
+        if self[f':{name}']:
+            raise ValueError(f'Name {name} not unique in {self.name}.')
 
         # Add child
-        self[name] = child
+        self[f':{name}'] = child
 
-        return self.get(name)
-
+        return child
 
     def __repr__(self) -> str:
         """Return string representation of the dictionary."""
