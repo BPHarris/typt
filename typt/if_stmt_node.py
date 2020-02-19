@@ -59,7 +59,7 @@ class IfStmtNode(StmtNode):
         if self.else_branch:
             else_environment = environment.add_child('if', 'else_stmt')
             types_invalid += [
-                is_invalid_type(self.else_branch.check_type(environment))
+                is_invalid_type(self.else_branch.check_type(else_environment))
             ]
 
         return InvalidType() if any(types_invalid) else Type()
