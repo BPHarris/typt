@@ -7,6 +7,7 @@ from typt.argument_list_node import ArgumentListNode
 from typt.subscript_node import SubscriptNode
 
 from typt.codegen import indent
+from typt.typt_types import Type
 from typt.environment import Environment
 
 from typing import Union, List
@@ -30,7 +31,21 @@ class AtomExprNode(TestNode):
 
     def check_type(self, environment: Environment) -> Type:
         """Check the type of an atom expression."""
-        pass
+        # TODO this
+        # atom.trailer
+        # RULE atom must have an environment
+        # RULE trailer must exist in atom
+        # RULE resultant type is the type of trailer in environment(atom)
+
+        # atom[trailer]
+        # RULE atom must be list/tuple/dict
+        # RULE if atom is list/tuple, trailer must be int
+        # RULE if atim is dict[A -> B], trailer must be of type A
+
+        # atom(trailer)
+        # RULE atom must be function or method of class
+        # RULE trailer must match the function signature
+        # RULE resultant type is the return type of atom in environment
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Codegen for the atom expression."""
