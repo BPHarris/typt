@@ -49,7 +49,7 @@ class ForStmtNode(StmtNode):
             ]
 
         # RULE 4 -- for branch
-        for_environment = environment.add_child('for', 'for_stmt')
+        for_environment = environment.add_local_environment('for')
         for_suite_invalid = is_invalid_type(
             self.for_branch.check_type(for_environment)
         )
@@ -57,7 +57,7 @@ class ForStmtNode(StmtNode):
         # RULE 4 -- else branch
         else_suite_invalid = False
         if self.else_branch:
-            else_environment = environment.add_child('for', 'else_stmt')
+            else_environment = environment.add_local_environment('else')
             else_suite_invalid = self.else_branch.check_type(else_environment)
 
         # RULE 5

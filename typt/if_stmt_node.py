@@ -44,20 +44,20 @@ class IfStmtNode(StmtNode):
 
         # Check RULE 3 -- if branch
         if_branch_type = self.if_branch.suite.check_type(
-            environment.add_child('if', 'if_stmt')
+            environment.add_local_environment('if')
         )
         types_invalid = [is_invalid_type(if_branch_type)]
 
         # Check RULE 3 -- elif branches
         for branch in self.elif_branches:
-            elif_environment = environment.add_child('if', 'elif_stmt')
+            elif_environment = environment.add_local_environment('elif')
             types_invalid += [
                 is_invalid_type(branch.suite.check_type(elif_environment))
             ]
 
         # Check RULE 3 -- else branch
         if self.else_branch:
-            else_environment = environment.add_child('if', 'else_stmt')
+            else_environment = environment.add_local_environment('else')
             types_invalid += [
                 is_invalid_type(self.else_branch.check_type(else_environment))
             ]

@@ -72,7 +72,9 @@ class ClassNode(Node):
             )
 
         # Get class environment
-        class_environment = environment.add_child('class', self.class_name)
+        class_environment = environment.add_child_environment(
+            'class', self.class_name
+        )
 
         # Add class to environment
         environment[self.class_name] = ObjectType()
