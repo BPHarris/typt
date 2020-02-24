@@ -15,7 +15,7 @@ from antlr.TyptParser import TyptParser
 
 from typt.visitor import Typt, SourceGetter
 from typt.node import NodePrinter
-from typt.environment import Environment
+from typt.environment import Environment, get_initial_environment
 from typt.typt_types import is_invalid_type
 
 from error import log_error, log_critical_error
@@ -62,7 +62,7 @@ def main(arguments: dict = None) -> None:
 
     # Type checking
     program_type = program.check_type(
-        Environment(filename=arguments['FILE'], name='__main__')
+        get_initial_environment(arguments['FILE'])
     )
     if is_invalid_type(program_type):
         log_critical_error('critcal type error occurred', arguments['FILE'])

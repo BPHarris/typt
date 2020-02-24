@@ -3,7 +3,17 @@
 from re import compile
 from typing import Dict, Union
 
-from typt.typt_types import Type
+from typt.typt_types import Type, ObjectBaseType
+
+
+def get_initial_environment(filename: str):
+    """Construct and return an initial environment."""
+    environment = Environment(filename=filename, name='__main__')
+
+    # Add ObjectBaseType to initial environment
+    environment['Object'] = ObjectBaseType()
+
+    return environment
 
 
 class Environment:
