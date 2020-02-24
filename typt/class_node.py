@@ -62,13 +62,15 @@ class ClassNode(Node):
         super_class = environment.get(self.class_super_name)
         if not super_class:
             return log_type_error(
-                f'{self.class_name} does not exist in {environment.scope}',
+                f'{self.class_super_name} does not exist in {environment.scope}',
                 environment.filename,
                 self.meta
             )
         if not super_class == ObjectBaseType():
             return log_type_error(
-                f'{self.class_name} is of type {super_class}, not an object'
+                f'{self.class_name} is of type {super_class}, not an object',
+                environment.filename,
+                self.meta
             )
 
         # Get class environment
