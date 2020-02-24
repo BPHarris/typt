@@ -449,7 +449,7 @@ class Typt(TyptVisitor):
             return ClassNode(name_super_pair, meta=get_metadata(ctx))
 
         # Get initialiser, if has one
-        initialiser_parameters = None
+        initialiser_parameters = list()
         initialiser_suite = None
         if ctx.initialiser:
             # Get parameters if there are any
@@ -468,7 +468,7 @@ class Typt(TyptVisitor):
 
         # Add class variables
         for attribute in ctx.var_dec_stmt():
-            class_node.class_attributes = self.visitVar_dec_stmt(attribute)
+            class_node.class_attributes += [self.visitVar_dec_stmt(attribute)]
 
         # Add methods
         for method in ctx.class_method():
