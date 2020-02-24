@@ -65,7 +65,7 @@ def main(arguments: dict = None) -> None:
         Environment(filename=arguments['FILE'], name='__main__')
     )
     if is_invalid_type(program_type):
-        log_critical_error('crtitcal type error occurred', arguments['FILE'])
+        log_critical_error('critcal type error occurred', arguments['FILE'])
 
     # Codegen
     if arguments['--verbose']:
