@@ -1,10 +1,11 @@
 """typt.py - compiler for the Typt language.
 
-Usage: typt.py [[-v] FILE | [-h] | [--version]]
+Usage: typt.py [[-v] FILE | [-h] | [--version]] [--output=<OUTPUT>]
 
--h, --help      show this
--v, --verbose   display verbose output (i.e. print AST, etc.)
---version       print the program version
+-h, --help          show this
+-v, --verbose       display verbose output (i.e. print AST, etc.)
+--version           print the program version
+--output=<OUTPUT>   the file to output the compile code to [default: output.py]
 
 """
 
@@ -41,6 +42,15 @@ def main(arguments: dict = None) -> None:
         log_critical_error(msg='provided file does not exist')
         quit()
 
+    if isfile(arguments['--output']):
+        confirm_overwrite = input(
+            f'{arguments["--output"]} already exists, overwrite (y/N)? '
+        )
+
+        if not confirm_overwrite.lower() in ('y', 'yes'):
+            print('Operation cancelled.')
+            exit()
+
     # Get file input stream
     if arguments['--verbose']:
         print(f'typt: processing file {arguments.get("FILE")}:\n')
@@ -72,8 +82,8 @@ def main(arguments: dict = None) -> None:
         print('\nBegining codegen.\n')
     output_code = program.codegen()
 
-    if arguments['--verbose']:
-        print(repr(output_code))
+    with open(arguments['--output'], 'w') as file:
+        file.write(output_code)
 
 
 if __name__ == '__main__':
