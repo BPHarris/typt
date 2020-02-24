@@ -38,27 +38,72 @@ class Environment:
 
     def __getitem__(self, key: str):
         """Override __getitem__ to implement the behaviour in the docstring."""
-        name = compile('[a-zA-Z0-9-_]')
-        dotted_name = compile('[a-zA-Z0-9-_][a-zA-Z0-9-_.]')
-        environment_name = compile(':[a-zA-Z0-9-_]')
+        name_pattern = '[a-zA-Z0-9_]*'
+        trailer_pattern = fr'(\.{name_pattern})*'
+        prime_pattern = '[\']*'
 
+        name = compile(name_pattern + prime_pattern)
+        dotted_name = compile(name_pattern + trailer_pattern + prime_pattern)
+        environment_name = compile(':' + name_pattern + trailer_pattern + prime_pattern)
+
+        # If it is a simple name, get the name from the wrapped dictionary
         if name.match(key):
             return self.environment.get(key, None)
 
         # If dotted name, a.b.c, check for b.c in environment ':a'
         if dotted_name.match(key):
-            head, tail = key.split('.')[0], key.split('.')[1:]
-            head_environment = self.environment.get(':' + head, None)
+            balkanised = key.split('.')
+            head, body, tail = balkanised[0], balkanised[1:-1], balkanised[-1]
 
-            result = head_environment[tail]
+            # Get the head environment
+            # Use a get asthe head can can be in any legal scope
+            environment = self.get(':' + head)
+            if not environment:
+                return None
 
-            # If the tail is not directly in the head environment, return none
-            if result:
-                return result
-            return None
+            # Get each subsequent child environment
+            # Use index as each body segment MUST be in previous segment/head
+            for segment in body:
+                environment = environment[':' + segment]
+                if not environment:
+                    return None
+
+            # Get the tail inside the final environment
+            # Use index as must be directly inside
+            target = environment[tail]
+
+            if not target:
+                return None
+            return target
 
         if environment_name.match(key):
-            return self.environment.get(key, None)
+            # If it is a simple environment, i.e. ':name' not ':name.name'
+            # then return the environment
+            if name.match(key[1:]):
+                return self.environment.get(key, None)
+
+            # Otherwise, it is a dotted environment name, handle as such
+            balkanised = key.split('.')[1:]  # HACK Remove the preceeding ':'
+            head, body, tail = balkanised[0], balkanised[1:-1], balkanised[-1]
+
+            # Get the head environment, see dotted name handling
+            environment = self.get(':' + head)
+            if not environment:
+                return None
+
+            # Get each subsequent child environment, see dotted name handling
+            for segment in body:
+                environment = environment[':' + segment]
+                if not environment:
+                    return None
+
+            # Get the tail environment
+            # Use index as must be directly inside
+            target_environment = environment[':' + tail]
+
+            if not target_environment:
+                return None
+            return target_environment
 
         raise KeyError(f'Invalid format for key {key}')
 
