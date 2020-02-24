@@ -38,4 +38,9 @@ class FuncDefNode(Node):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return Python3 equivalent."""
-        return f'{self.func_signature.codegen()}:{self.suite.codegen()}'
+        indentation = indent(indentation_level)
+
+        func_signature_code = self.func_signature.codegen()
+        suite_code = self.suite.codegen(indentation_level)
+
+        return f'{indentation}{func_signature_code}:{suite_code}'
