@@ -278,7 +278,7 @@ class ObjectType(Type):
 
     """
 
-    def __init__(self, members: Iterable[NameTypePair]):
+    def __init__(self, members: Iterable[NameTypePair] = []):
         """Set member types."""
         self.members = members
 
