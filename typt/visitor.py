@@ -196,7 +196,10 @@ class Typt(TyptVisitor):
         """
         # If no right-hand side (i.e. not an assignment expression)
         if not ctx.rhs:
-            return ExprStmtNode(self.visitTest(ctx.lhs))
+            return ExprStmtNode(
+                self.visitTest(ctx.lhs),
+                meta=get_metadata(ctx)
+            )
 
         # Otherwise (i.e. is assignment expression), get type of assignment
         if ctx.anassign():
@@ -223,12 +226,13 @@ class Typt(TyptVisitor):
         return VarDecStmtNode(
             self.visitName(ctx.lhs),
             self.visitTypt_type(ctx.typt_type()),
-            self.visitTest(ctx.rhs)
+            self.visitTest(ctx.rhs),
+            meta=get_metadata(ctx)
         )
 
     def visitDel_stmt(self, ctx: TyptParser.Del_stmtContext) -> DelStmtNode:
         """Visit `del_stmt' rule."""
-        return DelStmtNode(self.visitName(ctx.name()))
+        return DelStmtNode(self.visitName(ctx.name()), meta=get_metadata(ctx))
 
     def visitPass_stmt(self, ctx: TyptParser.Pass_stmtContext) -> PassStmtNode:
         """Visit `pass_stmt' rule."""
@@ -259,10 +263,13 @@ class Typt(TyptVisitor):
         """Visit `return_stmt' rule."""
         # Return statement with return value
         if ctx.test():
-            return ReturnStmtNode(self.visitTest(ctx.test()))
+            return ReturnStmtNode(
+                self.visitTest(ctx.test()),
+                meta=get_metadata(ctx)
+            )
 
         # 'Empty' return statement
-        return ReturnStmtNode()
+        return ReturnStmtNode(meta=get_metadata(ctx))
 
     def visitCompound_stmt(self, ctx: TyptParser.Compound_stmtContext) -> StmtNode:
         """Visit `compound_stmt' rule.
@@ -526,7 +533,7 @@ class Typt(TyptVisitor):
         if not ctx.op:
             return lhs
 
-        test_op_node = TestOpNode(ctx.op.text, lhs)
+        test_op_node = TestOpNode(ctx.op.text, lhs, meta=get_metadata(ctx))
 
         # Add remaining operators
         # NOTE [0] == lhs, so skip it with [1:]
@@ -548,7 +555,7 @@ class Typt(TyptVisitor):
         if not ctx.op:
             return lhs
 
-        test_op_node = TestOpNode(ctx.op.text, lhs)
+        test_op_node = TestOpNode(ctx.op.text, lhs, meta=get_metadata(ctx))
 
         # Add remaining operators
         # NOTE [0] == lhs, so skip it with [1:]
@@ -565,7 +572,11 @@ class Typt(TyptVisitor):
         """
         # If rule is: 'not' (not_test), recurse
         if ctx.lhs:
-            return TestOpNode(ctx.op.text, self.visitNot_test(ctx.lhs))
+            return TestOpNode(
+                ctx.op.text,
+                self.visitNot_test(ctx.lhs),
+                meta=get_metadata(ctx)
+            )
 
         # Otherwise, delegate to comparison
         return self.visitComparison(ctx.comparison())
@@ -724,7 +735,8 @@ class Typt(TyptVisitor):
 
         # Otherwise, get factor as unary op
         return UnaryExprOpNode(
-            ctx.op.getText(), self.visitFactor(ctx.factor())
+            ctx.op.getText(),
+            self.visitFactor(ctx.factor())
         )
 
     def visitFactor_op(self, ctx: TyptParser.Factor_opContext) -> None:
@@ -741,7 +753,12 @@ class Typt(TyptVisitor):
             return lhs
 
         # Otherwise, get factor
-        return ExprOpNode(ctx.op.text, lhs, self.visitFactor(ctx.factor()))
+        return ExprOpNode(
+            ctx.op.text,
+            lhs,
+            self.visitFactor(ctx.factor()),
+            meta=get_metadata(ctx)
+        )
 
     def visitAtom_expr(self, ctx: TyptParser.Atom_exprContext) -> TestNode:
         """Return atom expression node -- with trailers."""
@@ -757,7 +774,9 @@ class Typt(TyptVisitor):
         """Return VarRefNode or LiteralNode, depending on atom."""
         # If the atom is a variable reference, return a new VarRefNode
         if ctx.name():
-            return VarRefNode(self.visitName(ctx.name()), meta=get_metadata(ctx))
+            return VarRefNode(
+                self.visitName(ctx.name()), meta=get_metadata(ctx)
+            )
 
         atom_type = None
         atom_text = ctx.getText()
@@ -816,7 +835,7 @@ class Typt(TyptVisitor):
         upto = None if not ctx.upto else self.visitTest(ctx.upto)
         step = None if not ctx.step else self.visitSliceop(ctx.step)
 
-        return SubscriptNode(start, upto, step)
+        return SubscriptNode(start, upto, step, meta=get_metadata(ctx))
 
     def visitSliceop(self, ctx: TyptParser.SliceopContext):
         """DELEGATE HAHAHAHAHA."""
