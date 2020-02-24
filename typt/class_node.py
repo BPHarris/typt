@@ -89,7 +89,7 @@ class ClassNode(Node):
             ]
 
         # RULE 4
-        initialiser_invalid = False
+        initialiser_invalid = True
         if self.class_initialiser:
             initialiser_invalid = is_invalid_type(
                 self.class_initialiser.check_type(class_environment)
