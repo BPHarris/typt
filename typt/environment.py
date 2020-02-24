@@ -11,6 +11,15 @@ class Environment:
 
     Each named element of the environment is either a sub envionment or a Type.
 
+    Attributes:
+        parent      (Environment) : the parent of this environment
+        filename    (str)         : the file the environment belongs to
+        scope       (str)         : the scope of the environment
+            (file/__main__, class, function, for, while, if)
+        name        (str)         : the identifier of the environment
+            (for classes/functions this is the class/function name, otherwise
+            it is generated and unimportant)
+
     Format:
         dict['name']    = Type of name
         dict['a.b.c']   = Type of c in b in a
