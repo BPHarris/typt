@@ -144,24 +144,38 @@ class Environment:
 
         return self.parent.in_scope(s)
 
-    def add_child(self, scope: str, name: str):
-        """Add and return a child environment with the given name and scope."""
-        # Create child
-        child = Environment(self, self.filename, scope, name)
+    def add_child(self, *args):
+        """Depricated. Use add_child_environment or add_local_environment."""
+        raise NotImplementedError(f'add_child: {self.add_child.__doc__}')
 
-        # If name of compound statement, get unique name
-        if name in ('if_stmt', 'for_stmt', 'while_stmt'):
-            while self[f':{name}']:
-                name += '\''
+    def add_child_environment(self, scope: str, name: str):
+        """Add and return a child environment with the given name and scope."""
+        accepted_scopes = ('__main__', 'class', 'method', 'function')
+
+        if scope not in accepted_scopes:
+            raise ValueError(f'\'{scope}\' is invalid as a child environment.')
 
         # Name must be unique
-        if self[f':{name}']:
-            raise ValueError(f'Name {name} not unique in {self.name}.')
+        if self[':' + name]:
+            raise ValueError(f'name {name} not unique in {self.name}.')
 
-        # Add child
-        self[f':{name}'] = child
+        self[':' + name] = Environment(self, self.filename, scope, name)
+        return self[':' + name]
 
-        return child
+    def add_local_environment(self, scope: str):
+        """Add a child environment for the given scope type."""
+        accepted_local_scopes = ('for', 'while', 'if', 'elif', 'else')
+
+        if scope not in accepted_local_scopes:
+            raise ValueError(f'\'{scope}\' is invalid as a local environment.')
+
+        # Get the scopes name (unused later, but needed as unique ID)
+        name = scope
+        while self[':' + name]:
+            name += '\''
+
+        self[':' + name] = Environment(self, self.filename, scope, name)
+        return self[':' + name]
 
     def __repr__(self) -> str:
         """Return string representation of the dictionary."""
