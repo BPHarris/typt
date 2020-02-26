@@ -117,7 +117,9 @@ class ClassNode(Node):
         )
 
         # Get initialiser
-        initialiser = self.class_initialiser.codegen(indentation_level + 1)
+        initialiser = ''
+        if self.class_initialiser:
+            initialiser = self.class_initialiser.codegen(indentation_level + 1)
 
         # Get methods
         methods = '\n'.join(
@@ -125,8 +127,8 @@ class ClassNode(Node):
         )
 
         class_code = f'{indentation}class {self.class_name}'
-        if self.class_initialiser:
+        if self.class_super_name:
             class_code += f'({self.class_super_name})'
-        class_code += f':\n{attributes}{initialiser}{methods}\n'
+        class_code += f':\n{attributes}\n{initialiser}\n{methods}\n'
 
         return class_code
