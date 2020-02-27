@@ -2,7 +2,6 @@
 
 from typt.node import Node
 
-from typt.codegen import indent
 from typt.typt_types import Type
 from typt.environment import Environment
 
@@ -21,7 +20,7 @@ class ArgumentListNode(Node):
 
     def check_type(self, environment: Environment) -> Type:
         """Delegate to super (raise error)."""
-        return super().check_type()
+        return super().check_type(environment)
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Generate code for argument list."""
