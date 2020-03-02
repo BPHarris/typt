@@ -33,4 +33,4 @@ class SubscriptNode(Node):
         upto = '' if not self.upto else self.upto.codegen()
         step = '' if not self.step else self.step.codegen()
 
-        return f'[{start}:{upto}:{step}]'
+        return f'{start}:{upto}:{step}'
