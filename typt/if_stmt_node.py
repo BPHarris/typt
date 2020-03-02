@@ -75,7 +75,7 @@ class IfStmtNode(StmtNode):
         # Elif-branches
         elif_branches = list()
         for branch in self.elif_branches:
-            elif_branches = f'{indentation}elif {branch.test.codegen()}:'
+            elif_branches += f'{indentation}elif {branch.test.codegen()}:'
             elif_branches += f'{branch.suite.codegen(indentation_level)}'
 
         # Else codegen
