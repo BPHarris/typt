@@ -1,4 +1,4 @@
-# Generated from antlr/Typt.g4 by ANTLR 4.8
+# Generated from ./antlr/Typt.g4 by ANTLR 4.8
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -3819,9 +3819,9 @@ class TyptParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
-            self.start = None # TestContext
-            self.upto = None # TestContext
-            self.step = None # SliceopContext
+            self.start_test = None # TestContext
+            self.upto_test = None # TestContext
+            self.step_test = None # SliceopContext
 
         def test(self, i:int=None):
             if i is None:
@@ -3858,7 +3858,7 @@ class TyptParser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 526
-                localctx.start = self.test()
+                localctx.start_test = self.test()
                 pass
 
             elif la_ == 2:
@@ -3868,7 +3868,7 @@ class TyptParser ( Parser ):
                 _la = self._input.LA(1)
                 if ((((_la - 34)) & ~0x3f) == 0 and ((1 << (_la - 34)) & ((1 << (TyptParser.T__33 - 34)) | (1 << (TyptParser.T__39 - 34)) | (1 << (TyptParser.T__52 - 34)) | (1 << (TyptParser.T__53 - 34)) | (1 << (TyptParser.T__58 - 34)) | (1 << (TyptParser.T__60 - 34)) | (1 << (TyptParser.T__61 - 34)) | (1 << (TyptParser.T__62 - 34)) | (1 << (TyptParser.NUMBER - 34)) | (1 << (TyptParser.STRING - 34)) | (1 << (TyptParser.NAME - 34)))) != 0):
                     self.state = 527
-                    localctx.start = self.test()
+                    localctx.start_test = self.test()
 
 
                 self.state = 530
@@ -3878,7 +3878,7 @@ class TyptParser ( Parser ):
                 _la = self._input.LA(1)
                 if ((((_la - 34)) & ~0x3f) == 0 and ((1 << (_la - 34)) & ((1 << (TyptParser.T__33 - 34)) | (1 << (TyptParser.T__39 - 34)) | (1 << (TyptParser.T__52 - 34)) | (1 << (TyptParser.T__53 - 34)) | (1 << (TyptParser.T__58 - 34)) | (1 << (TyptParser.T__60 - 34)) | (1 << (TyptParser.T__61 - 34)) | (1 << (TyptParser.T__62 - 34)) | (1 << (TyptParser.NUMBER - 34)) | (1 << (TyptParser.STRING - 34)) | (1 << (TyptParser.NAME - 34)))) != 0):
                     self.state = 531
-                    localctx.upto = self.test()
+                    localctx.upto_test = self.test()
 
 
                 self.state = 535
@@ -3886,7 +3886,7 @@ class TyptParser ( Parser ):
                 _la = self._input.LA(1)
                 if _la==TyptParser.T__1:
                     self.state = 534
-                    localctx.step = self.sliceop()
+                    localctx.step_test = self.sliceop()
 
 
                 pass
