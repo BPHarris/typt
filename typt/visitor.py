@@ -762,7 +762,7 @@ class Typt(TyptVisitor):
 
     def visitAtom_expr(self, ctx: TyptParser.Atom_exprContext) -> TestNode:
         """Return atom expression node -- with trailers."""
-        atom_expr = AtomExprNode(self.visitAtom(ctx.atom()))
+        atom_expr = AtomExprNode(self.visitAtom(ctx.atom()), get_metadata(ctx))
 
         # Add trailers
         for trailer in ctx.trailer():
