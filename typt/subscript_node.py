@@ -3,7 +3,6 @@
 from typt.node import Node
 from typt.test_node import TestNode
 
-from typt.codegen import indent
 from typt.typt_types import Type
 from typt.environment import Environment
 
