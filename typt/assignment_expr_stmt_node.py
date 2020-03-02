@@ -28,7 +28,10 @@ class AssignmentExprStmtNode(StmtNode):
         # RULE a = b valid for b <: a
         # RULE a O= b, for O in (+, -), valid when both are same base type
         # RULE a O= b, for O in (*, /), valid if both Int or Float
+
+        # TODO Add this rule!!!!!!!
         # RULE a *= b, valid for a=(Str|List|...) and b=Int
+
         # RULE a %= b, valid both Str or both Int
         # RULE a B= b, for B in (&, |, ^), valid for both Bool or both Int
         # RULE <<= and >>= only valid if both Int
@@ -43,12 +46,7 @@ class AssignmentExprStmtNode(StmtNode):
         lhs_bool, rhs_bool = lhs_type == BoolType(), rhs_type == BoolType()
 
         non_none_base_types = (
-            BoolType(), IntType(), FloatType(), StringType(),
-            ListType(), TupleType(), SetType(), DictType()
-        )
-
-        repeatable_types = (
-            StringType(), ListType(), TupleType(), SetType(), DictType()
+            BoolType(), IntType(), FloatType(), StringType()
         )
 
         expr_stmt_type = InvalidType()
@@ -73,10 +71,10 @@ class AssignmentExprStmtNode(StmtNode):
             if lhs_float and rhs_float:
                 expr_stmt_type = lhs_type
 
-        # Check RULE 5
-        if self.assignment_type == '*=':
-            if lhs_type in repeatable_types and rhs_int:
-                expr_stmt_type = lhs_type
+        # # Check RULE 5
+        # if self.assignment_type == '*=':
+        #     if lhs_type in repeatable_types and rhs_int:
+        #         expr_stmt_type = lhs_type
 
         # Check RULE 5
         if self.assignment_type == '%=':
@@ -124,4 +122,8 @@ class AssignmentExprStmtNode(StmtNode):
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the Python3 code of this expression."""
         operator = self.assignment_type
-        return f'{indent(indentation_level)}{self.lhs} {operator} {self.rhs}\n'
+
+        lhs = self.lhs.codegen()
+        rhs = self.rhs.codegen()
+
+        return f'{indent(indentation_level)}{lhs} {operator} {rhs}\n'
