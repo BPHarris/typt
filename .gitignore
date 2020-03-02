@@ -9,6 +9,9 @@ antlr/.antlr
 typt/__pycache__/
 typt/test/__pycache__/
 
+#Default typt output destination
+output.py
+
 # Add vscode settings
 .vscode/
 
