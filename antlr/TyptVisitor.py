@@ -1,4 +1,4 @@
-# Generated from ./antlr/Typt.g4 by ANTLR 4.8
+# Generated from antlr/Typt.g4 by ANTLR 4.8
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .TyptParser import TyptParser
@@ -271,11 +271,6 @@ class TyptVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TyptParser#subscript.
     def visitSubscript(self, ctx:TyptParser.SubscriptContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by TyptParser#sliceop.
-    def visitSliceop(self, ctx:TyptParser.SliceopContext):
         return self.visitChildren(ctx)
 
 

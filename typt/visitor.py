@@ -831,12 +831,7 @@ class Typt(TyptVisitor):
 
     def visitSubscript(self, ctx: TyptParser.SubscriptContext) -> SubscriptNode:
         """Get the subscript."""
-        # Get start:upto:step
-        start = None if not ctx.start_test else self.visitTest(ctx.start_test)
-        upto = None if not ctx.upto_test else self.visitTest(ctx.upto_test)
-        step = None if not ctx.step_test else self.visitSliceop(ctx.step_test)
-
-        return SubscriptNode(start, upto, step, meta=get_metadata(ctx))
+        return SubscriptNode(self.visitTest(ctx.element), meta=get_metadata(ctx))
 
     def visitSliceop(self, ctx: TyptParser.SliceopContext):
         """DELEGATE HAHAHAHAHA."""

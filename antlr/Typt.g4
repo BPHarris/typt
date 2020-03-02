@@ -333,8 +333,9 @@ trailer: '(' (argument_list)? ')' | '[' subscriptlist ']' | '.' name;
 
 // subscriptlist: subscript (',' subscript)* (',')?;    # TODO Subscript list
 subscriptlist   : subscript ;
-subscript       : start_test=test | (start_test=test)? ':' (upto_test=test)? (step_test=sliceop)?;
-sliceop         : ':' (test)?;
+subscript : element=test ;
+// subscript       : start_test=test | (start_test=test)? first_sc=':' (upto_test=test)? (step_test=sliceop)?;
+// sliceop         : ':' (test)?;
 
 exprlist : expr (',' expr)* (',')? ;
 testlist : test (',' test)* (',')? ;
