@@ -243,9 +243,9 @@ def serializedATN():
         buf.write("\3\2\2\2\u01eea\3\2\2\2\u01ef\u01f3\5d\63\2\u01f0\u01f2")
         buf.write("\5f\64\2\u01f1\u01f0\3\2\2\2\u01f2\u01f5\3\2\2\2\u01f3")
         buf.write("\u01f1\3\2\2\2\u01f3\u01f4\3\2\2\2\u01f4c\3\2\2\2\u01f5")
-        buf.write("\u01f3\3\2\2\2\u01f6\u01fe\5p9\2\u01f7\u01fe\7Q\2\2\u01f8")
-        buf.write("\u01fe\7R\2\2\u01f9\u01fe\7?\2\2\u01fa\u01fe\7@\2\2\u01fb")
-        buf.write("\u01fe\7A\2\2\u01fc\u01fe\7$\2\2\u01fd\u01f6\3\2\2\2\u01fd")
+        buf.write("\u01f3\3\2\2\2\u01f6\u01fe\5p9\2\u01f7\u01fe\7$\2\2\u01f8")
+        buf.write("\u01fe\7Q\2\2\u01f9\u01fe\7R\2\2\u01fa\u01fe\7?\2\2\u01fb")
+        buf.write("\u01fe\7@\2\2\u01fc\u01fe\7A\2\2\u01fd\u01f6\3\2\2\2\u01fd")
         buf.write("\u01f7\3\2\2\2\u01fd\u01f8\3\2\2\2\u01fd\u01f9\3\2\2\2")
         buf.write("\u01fd\u01fa\3\2\2\2\u01fd\u01fb\3\2\2\2\u01fd\u01fc\3")
         buf.write("\2\2\2\u01fee\3\2\2\2\u01ff\u0201\7 \2\2\u0200\u0202\5")
@@ -3639,35 +3639,35 @@ class TyptParser ( Parser ):
                 self.state = 500
                 self.name()
                 pass
-            elif token in [TyptParser.NUMBER]:
+            elif token in [TyptParser.T__33]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 501
+                self.match(TyptParser.T__33)
+                pass
+            elif token in [TyptParser.NUMBER]:
+                self.enterOuterAlt(localctx, 3)
+                self.state = 502
                 self.match(TyptParser.NUMBER)
                 pass
             elif token in [TyptParser.STRING]:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 502
+                self.enterOuterAlt(localctx, 4)
+                self.state = 503
                 localctx.string_literal = self.match(TyptParser.STRING)
                 pass
             elif token in [TyptParser.T__60]:
-                self.enterOuterAlt(localctx, 4)
-                self.state = 503
+                self.enterOuterAlt(localctx, 5)
+                self.state = 504
                 self.match(TyptParser.T__60)
                 pass
             elif token in [TyptParser.T__61]:
-                self.enterOuterAlt(localctx, 5)
-                self.state = 504
+                self.enterOuterAlt(localctx, 6)
+                self.state = 505
                 self.match(TyptParser.T__61)
                 pass
             elif token in [TyptParser.T__62]:
-                self.enterOuterAlt(localctx, 6)
-                self.state = 505
-                self.match(TyptParser.T__62)
-                pass
-            elif token in [TyptParser.T__33]:
                 self.enterOuterAlt(localctx, 7)
                 self.state = 506
-                self.match(TyptParser.T__33)
+                self.match(TyptParser.T__62)
                 pass
             else:
                 raise NoViableAltException(self)

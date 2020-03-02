@@ -322,12 +322,12 @@ power       : lhs=atom_expr (op='**' rhs=factor)? ;
 atom_expr   : atom trailer* ;
 atom
     : name
+    | 'self'                    // Special case of name, doesn't match name as self is keyword
     | NUMBER
     | string_literal=STRING
     | 'None'
     | 'True'
     | 'False'
-    | 'self'    // TODO: Find a better way of allowing for self.x in a function call in a method
     ;
 trailer: '(' (argument_list)? ')' | '[' subscriptlist ']' | '.' name;
 

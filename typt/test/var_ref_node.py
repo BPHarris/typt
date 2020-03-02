@@ -2,7 +2,7 @@
 
 from typt.test.atom_node import AtomNode
 
-from typt.typt_types import Type
+from typt.typt_types import Type, log_type_error
 from typt.environment import Environment
 
 
@@ -17,6 +17,19 @@ class VarRefNode(AtomNode):
 
     def check_type(self, environment: Environment) -> Type:
         """Return the type of the variable being referenced."""
+        # Special case for self
+        if self.var_name == 'self':
+            # Get class environemnt
+            while environment.scope != 'class':
+                if not environment.parent:
+                    log_type_error(
+                        'self outside class', environment.filename, self.meta
+                    )
+                environment = environment.parent
+            # Get class type
+            class_name = environment.name[1:]   # HACK remove ':' from name
+            return environment.parent[class_name]
+
         return environment.get(self.var_name)
 
     def codegen(self, indentation_level: int = 0) -> str:

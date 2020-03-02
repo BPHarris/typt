@@ -782,6 +782,9 @@ class Typt(TyptVisitor):
         atom_type = None
         atom_text = ctx.getText()
 
+        if atom_text == 'self':                         # Self special case
+            return VarRefNode('self', meta=get_metadata(ctx))
+
         if ctx.string_literal:                          # String
             atom_type = StringType()
         if is_int(atom_text):                           # Int
@@ -794,11 +797,6 @@ class Typt(TyptVisitor):
             atom_type = BoolType()
 
         # TODO List, tuple, set, dict
-
-        if atom_text == 'self':                         # Self
-            # TODO self references
-            print('\x1b[1;37;41mvisitAtom: self not implemented\x1b[0m')
-            atom_type = 'SelfType'
 
         if not atom_type:
             raise NotImplementedError(f'Atom {atom_text} is not implemented.')
