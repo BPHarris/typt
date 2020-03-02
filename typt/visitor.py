@@ -833,13 +833,6 @@ class Typt(TyptVisitor):
         """Get the subscript."""
         return SubscriptNode(self.visitTest(ctx.element), meta=get_metadata(ctx))
 
-    def visitSliceop(self, ctx: TyptParser.SliceopContext):
-        """DELEGATE HAHAHAHAHA."""
-        if ctx.test():
-            return self.visitTest(ctx.test())
-
-        raise NotImplementedError('Should not reach me.')
-
     def visitExprlist(self, ctx: TyptParser.ExprlistContext) -> List[ExprOpNode]:
         """Return list of expression operation nodes, length >= 1."""
         expr_list = list()

@@ -29,8 +29,4 @@ class SubscriptNode(Node):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return Python3 representation of subscipt."""
-        start = '' if not self.start else self.start.codegen()
-        upto = '' if not self.upto else self.upto.codegen()
-        step = '' if not self.step else self.step.codegen()
-
-        return f'{start}:{upto}:{step}'
+        return f'{self.start.codegen()}'
