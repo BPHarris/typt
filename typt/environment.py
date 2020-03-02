@@ -25,7 +25,7 @@ class Environment:
         parent      (Environment) : the parent of this environment
         filename    (str)         : the file the environment belongs to
         scope       (str)         : the scope of the environment
-            (file/__main__, class, method, function, for, while, if)
+            (file/__main__, class, method, function, for, while, if, subscript)
         name        (str)         : the identifier of the environment
             (for classes/functions this is the class/function name, otherwise
             it is generated and unimportant)
@@ -174,7 +174,9 @@ class Environment:
 
     def add_local_environment(self, scope: str):
         """Add a child environment for the given scope type."""
-        accepted_local_scopes = ('for', 'while', 'if', 'elif', 'else')
+        accepted_local_scopes = (
+            'for', 'while', 'if', 'elif', 'else', 'subscript'
+        )
 
         if scope not in accepted_local_scopes:
             raise ValueError(f'\'{scope}\' is invalid as a local environment.')
