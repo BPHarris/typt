@@ -10,7 +10,8 @@ from typing import List
 
 from typt.codegen import indent
 from typt.environment import Environment
-from typt.typt_types import Type, BoolType, log_type_error
+from typt.typt_types import Type, InvalidType, BoolType
+from typt.typt_types import log_type_error, is_invalid_type
 
 
 class TestOpNode(TestNode):
@@ -32,6 +33,8 @@ class TestOpNode(TestNode):
 
         # Check RULE 1
         operand_types = [o.check_type(environment) for o in self.operands]
+        if any(map(is_invalid_type, operand_types)):
+            return InvalidType()
 
         # Check operands not empty
         if not operand_types:
