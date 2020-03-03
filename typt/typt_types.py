@@ -53,7 +53,11 @@ class InvalidType(Type):
     """Class representing an ill-formed type."""
 
     def __eq__(self, other) -> bool:
-        """Return False for all others (cannot equal an invalid type)."""
+        """Return False for all others (cannot equal an invalid type).
+
+        InvalidType =/= InvalidType.
+
+        """
         return False
 
     def __repr__(self) -> str:
