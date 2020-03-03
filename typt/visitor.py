@@ -760,9 +760,11 @@ class Typt(TyptVisitor):
             return self.visitPower(ctx.power())
 
         # Otherwise, get factor as unary op
+        print(get_metadata(ctx))
         return UnaryExprOpNode(
             ctx.op.getText(),
-            self.visitFactor(ctx.factor())
+            self.visitFactor(ctx.factor()),
+            meta=get_metadata(ctx)
         )
 
     def visitFactor_op(self, ctx: TyptParser.Factor_opContext) -> None:

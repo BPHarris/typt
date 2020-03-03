@@ -6,6 +6,6 @@ from typt.node import Node
 class TestNode(Node):
     """TestNode AST node."""
 
-    def __init__(self, depth: int = 0):
+    def __init__(self, *args, **kwargs):
         """Call super initialiser."""
-        super().__init__(depth=depth)
+        super().__init__(*args, **kwargs)

@@ -10,10 +10,12 @@ from typt.typt_types import Type, IntType, FloatType, log_type_error
 class UnaryExprOpNode(TestNode):
     """UnaryExprOpNode AST node."""
 
-    def __init__(self, operator: str, lhs: TestNode):
+    def __init__(self, operator: str, lhs: TestNode, *args, **kwargs):
         """Set operator and operands."""
         self.operator = operator
         self.lhs = lhs
+
+        super().__init__(*args, **kwargs)
 
     def check_type(self, environment: Environment) -> Type:
         """Check the type of the unary expression."""
