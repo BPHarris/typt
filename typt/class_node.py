@@ -48,7 +48,7 @@ class ClassNode(Node):
         # RULE Attributes are valid
         # RULE Initialiser is valid
         # RULE Methods are valid
-        # RULE TODO Class static methods are valid
+        # RULE Class static methods are valid
 
         # RULE 1
         if environment.get(self.class_name):
