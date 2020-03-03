@@ -11,8 +11,8 @@ from typt.typt_types import NameSuperPair, NameTypePair, Type, InvalidType
 
 from typt.codegen import indent
 from typt.environment import Environment
-from typt.typt_types import ObjectBaseType, ObjectType
 from typt.typt_types import is_invalid_type, log_type_error
+from typt.typt_types import ObjectBaseType, ObjectType, FunctionType
 
 from typing import List
 
@@ -84,9 +84,16 @@ class ClassNode(Node):
         # RULE 3
         attributes_invalid = list()
         for attribute in self.class_attributes:
+            # Check attribute type
+            attribute_type = attribute.check_type(class_environment)
             attributes_invalid += [
-                is_invalid_type(attribute.check_type(class_environment))
+                is_invalid_type(attribute_type)
             ]
+
+            # Add attribute to class type
+            environment[self.class_name].members.append(
+                NameTypePair(attribute.lhs, attribute_type)
+            )
 
         # RULE 4
         initialiser_invalid = True
@@ -98,12 +105,24 @@ class ClassNode(Node):
         # RULE 5
         methods_invalid = list()
         for method in self.class_methods:
+            # Check method type
+            method_return_type = method.check_type(class_environment)
             methods_invalid += [
-                is_invalid_type(method.check_type(class_environment))
+                is_invalid_type(method_return_type)
             ]
+
+            # Add attribute to class type
+            params = [p.type for p in method.func_signature.parameter_list]
+            environment[self.class_name].members.append(
+                NameTypePair(
+                    method.func_signature.name,
+                    FunctionType(params, method.func_signature.return_type)
+                )
+            )
 
         # RULE 6
         # TODO Test this, might need a different environment
+        # TODO What to do with ObjectTypes and static methods
         for method in self.class_static_methods:
             methods_invalid += [
                 is_invalid_type(method.check_type(class_environment.parent))
