@@ -37,7 +37,7 @@ class ClassNode(Node):
             )
 
         self.class_methods = list()         # type: List[ClassMethodNode]
-        self.class_static_methods = None    # TODO Static methods
+        self.class_static_methods = list()  # typt: ...
 
         super().__init__(*args, **kwargs)
 
@@ -48,7 +48,7 @@ class ClassNode(Node):
         # RULE Attributes are valid
         # RULE Initialiser is valid
         # RULE Methods are valid
-        # RULE TODO Class methods are valid
+        # RULE TODO Class static methods are valid
 
         # RULE 1
         if environment.get(self.class_name):
@@ -102,6 +102,13 @@ class ClassNode(Node):
                 is_invalid_type(method.check_type(class_environment))
             ]
 
+        # RULE 6
+        # TODO Test this, might need a different environment
+        for method in self.class_static_methods:
+            methods_invalid += [
+                is_invalid_type(method.check_type(class_environment.parent))
+            ]
+
         # (Valid)Type iff all children are valid
         children_invalid = attributes_invalid + methods_invalid
         children_invalid += [initialiser_invalid]
@@ -126,9 +133,17 @@ class ClassNode(Node):
             [m.codegen(indentation_level + 1) for m in self.class_methods]
         )
 
+        # Get static methods
+        static_methods = '\n'.join(
+            [m.codegen(indentation_level + 1) for m in self.class_static_methods]
+        )
+
         class_code = f'{indentation}class {self.class_name}'
         if self.class_super_name:
             class_code += f'({self.class_super_name})'
-        class_code += f':\n{attributes}\n{initialiser}\n{methods}\n'
+        class_code += f':\n{attributes}'
+        class_code += f'\n{initialiser}'
+        class_code += f'\n{methods}'
+        class_code += f'\n{static_methods}'
 
         return class_code

@@ -46,6 +46,7 @@ from typt.for_stmt_node import ForStmtNode
 
 from typt.class_node import ClassNode
 from typt.class_method_node import ClassMethodNode
+from typt.class_static_method_node import ClassStaticMethodNode
 
 from typt.suite_node import SuiteNode
 
@@ -475,6 +476,12 @@ class Typt(TyptVisitor):
         for method in ctx.class_method():
             class_node.class_methods += [self.visitClass_method(method)]
 
+        # Add static methods
+        for static_method in ctx.class_static_method():
+            class_node.class_static_methods += [
+                self.visitClass_static_method(method)
+            ]
+
         return class_node
 
     def visitClass_dec(self, ctx: TyptParser.Class_decContext) -> NameSuperPair:
@@ -514,8 +521,26 @@ class Typt(TyptVisitor):
 
     def visitClass_static_method(self, ctx: TyptParser.Class_static_methodContext) -> None:
         """Return a static class method."""
-        # TODO static methods
-        raise NotImplementedError('Static methods not yet implemented.')
+        # Function (method) signature
+        function_signature = FuncSignatureNode(
+            self.visitName(ctx.name()),
+            self.visitTypt_type(ctx.typt_type()),
+            meta=get_metadata(ctx)
+        )
+
+        if ctx.func_parameter_list():
+            function_signature.parameter_list = self.visitFunc_parameter_list(
+                ctx.func_parameter_list()
+            )
+
+        # Method suite
+        method_suite = self.visitSuite(ctx.suite())
+
+        return ClassStaticMethodNode(
+            function_signature,
+            method_suite,
+            meta=get_metadata(ctx)
+        )
 
     def visitTest(self, ctx: TyptParser.TestContext) -> TestNode:
         """Delegate to or_test (test ::= or_test)."""
