@@ -18,14 +18,11 @@ from antlr.TyptParser import TyptParser
 
 from typt.visitor import Typt, SourceGetter
 from typt.node import NodePrinter
-from typt.environment import Environment, get_initial_environment
+from typt.environment import get_initial_environment, json_encode_environment
 from typt.typt_types import is_invalid_type
 
-from error import log_error, log_critical_error
-
-from typt.environment import json_encode_environment
+from error import log_critical_error
 from json import dumps as json_dumps
-
 from os.path import isfile
 
 from docopt import docopt
