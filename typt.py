@@ -1,11 +1,12 @@
 """typt.py - compiler for the Typt language.
 
-Usage: typt.py [[-v] FILE | [-h] | [--version]] [--output=<OUTPUT>]
+Usage: typt.py [[-ve] FILE | [-h] | [--version]] [--output=<OUTPUT>]
 
--h, --help          show this
--v, --verbose       display verbose output (i.e. print AST, etc.)
---version           print the program version
---output=<OUTPUT>   the file to output the compile code to [default: output.py]
+-h, --help              show this
+-v, --verbose           display verbose output (i.e. print AST, etc.)
+-e, --show-environment  show the program environment after compilation
+--version               print the program version
+--output=<OUTPUT>       the file to output the compiled code to [default: output.py]
 
 """
 
@@ -20,6 +21,9 @@ from typt.environment import Environment, get_initial_environment
 from typt.typt_types import is_invalid_type
 
 from error import log_error, log_critical_error
+
+from typt.environment import json_encode_environment
+from json import dumps as json_dumps
 
 from os.path import isfile
 
@@ -71,9 +75,8 @@ def main(arguments: dict = None) -> None:
         NodePrinter(program).print()
 
     # Type checking
-    program_type = program.check_type(
-        get_initial_environment(arguments['FILE'])
-    )
+    environment = get_initial_environment(arguments['FILE'])
+    program_type = program.check_type(environment)
     if is_invalid_type(program_type):
         log_critical_error('critcal type error occurred', arguments['FILE'])
 
@@ -81,6 +84,9 @@ def main(arguments: dict = None) -> None:
     if arguments['--verbose']:
         print('\nBegining codegen.\n')
     output_code = program.codegen()
+
+    if arguments['--show-environment']:
+        print(json_dumps(environment, indent=4, default=json_encode_environment))
 
     with open(arguments['--output'], 'w') as file:
         file.write(output_code)
