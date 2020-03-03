@@ -278,9 +278,9 @@ class ObjectType(Type):
 
     """
 
-    def __init__(self, members: Iterable[NameTypePair] = []):
+    def __init__(self):
         """Set member types."""
-        self.members = members
+        self.members = list()
 
         super().__init__()
 
@@ -322,6 +322,7 @@ class ObjectType(Type):
 
     def __repr__(self) -> str:
         """Return string representation of an ObjectType."""
+        print(self.members)
         m_types = [m.name + ': ' + repr(m.type) for m in self.members]
 
         return super().__repr__() + '{' + ', '.join(m_types) + '}'
