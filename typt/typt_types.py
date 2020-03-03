@@ -62,7 +62,7 @@ class InvalidType(Type):
 
     def __repr__(self) -> str:
         """Return the repr of an invalid type."""
-        '\x1b[1;37;41m' + 'Typt::InvalidType' + '\x1b[0m'
+        return '\x1b[31m' + 'Typt::InvalidType' + '\x1b[37m'
 
 
 class NoneType(Type):
