@@ -23,7 +23,7 @@ class UnaryExprOpNode(TestNode):
 
         # Check RULE 1 & 2 -- '+' & '-' operators
         if self.operator == '+' or self.operator == '-':
-            lhs_type = self.lhs.check_type()
+            lhs_type = self.lhs.check_type(environment)
             if not isinstance(lhs_type, (IntType, FloatType)):
                 return log_type_error(
                     f'unsuppported operator \'{self.operator}\' on {lhs_type}',
