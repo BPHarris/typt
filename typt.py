@@ -27,11 +27,9 @@ from os.path import isfile
 
 from docopt import docopt
 
+# TODO Finish error listener
 # See: https://tomassetti.me/antlr-mega-tutorial/
 #   Sections:   19. Testing with Python (unittest stuffs)
-
-# TODO Finish error listener
-# TODO Add ANY rule to grammar? Section 33
 
 
 def main(arguments: dict = None) -> None:
