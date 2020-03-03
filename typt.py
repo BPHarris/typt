@@ -1,9 +1,10 @@
 """typt.py - compiler for the Typt language.
 
-Usage: typt.py [[-ve] FILE | [-h] | [--version]] [--output=<OUTPUT>]
+Usage: typt.py [[-vae] FILE | [-h] | [--version]] [--output=<OUTPUT>]
 
 -h, --help              show this
--v, --verbose           display verbose output (i.e. print AST, etc.)
+-v, --verbose           display verbose output (i.e. show AST, environment, etc.)
+-a, --show-ast          show the program AST
 -e, --show-environment  show the program environment after compilation
 --version               print the program version
 --output=<OUTPUT>       the file to output the compiled code to [default: output.py]
@@ -71,7 +72,7 @@ def main(arguments: dict = None) -> None:
 
     # Parse the program
     program = Typt().visit(parser.program())
-    if arguments['--verbose']:
+    if arguments['--show-ast'] or arguments['--verbose']:
         NodePrinter(program).print()
 
     # Type checking
@@ -81,11 +82,9 @@ def main(arguments: dict = None) -> None:
         log_critical_error('critcal type error occurred', arguments['FILE'])
 
     # Codegen
-    if arguments['--verbose']:
-        print('\nBegining codegen.\n')
     output_code = program.codegen()
 
-    if arguments['--show-environment']:
+    if arguments['--show-environment'] or arguments['--verbose']:
         print(json_dumps(environment, indent=4, default=json_encode_environment))
 
     with open(arguments['--output'], 'w') as file:
