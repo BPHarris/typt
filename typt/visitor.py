@@ -808,18 +808,18 @@ class Typt(TyptVisitor):
         atom_type = None
         atom_text = ctx.getText()
 
-        if atom_text == 'self':                         # Self special case
+        if atom_text == 'self':                             # Self special case
             return VarRefNode('self', meta=get_metadata(ctx))
 
-        if ctx.string_literal:                          # String
+        if ctx.string_literal:                              # String
             atom_type = StringType()
-        if is_int(atom_text):                           # Int
+        if is_int(atom_text):                               # Int
             atom_type = IntType()
-        if is_float(atom_text):                         # Float
+        if is_float(atom_text) and not is_int(atom_text):   # Float
             atom_type = FloatType()
-        if atom_text == 'None':                         # None
+        if atom_text == 'None':                             # None
             atom_type = NoneType()
-        if atom_text in (repr(True), repr(False)):      # Boolean
+        if atom_text in (repr(True), repr(False)):          # Boolean
             atom_type = BoolType()
 
         # TODO List, tuple, set, dict
