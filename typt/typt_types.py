@@ -44,10 +44,6 @@ def log_type_error(msg: str, filename: str, metadata):
 class Type:
     """A base class for Typt types."""
 
-    def __init__(self):
-        """Set base variables."""
-        pass
-
     def __repr__(self) -> str:
         """Return a string representation of the Type."""
         return 'Typt::' + self.__class__.__name__
