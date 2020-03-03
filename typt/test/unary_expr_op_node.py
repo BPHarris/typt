@@ -3,8 +3,8 @@
 from typt.test_node import TestNode
 
 from typt.codegen import indent
-from typt.typt_types import Type
 from typt.environment import Environment
+from typt.typt_types import Type, IntType, FloatType, log_type_error
 
 
 class UnaryExprOpNode(TestNode):
@@ -17,7 +17,26 @@ class UnaryExprOpNode(TestNode):
 
     def check_type(self, environment: Environment) -> Type:
         """Check the type of the unary expression."""
-        pass
+        # RULE +, lhs : T => T. For all T in {Int, Float}
+        # RULE -, lhs : T => T. For all T in {Int, Float}
+        # TODO ~
+
+        # Check RULE 1 & 2 -- '+' & '-' operators
+        if self.operator == '+' or self.operator == '-':
+            lhs_type = self.lhs.check_type()
+            if not isinstance(lhs_type, (IntType, FloatType)):
+                return log_type_error(
+                    f'unsuppported operator \'{self.operator}\' on {lhs_type}',
+                    environment.filename,
+                    self.meta
+                )
+            return lhs_type
+
+        return log_type_error(
+            f'unsupported operator \'{self.operator}\'',
+            environment.filename,
+            self.meta
+        )
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the Python3 code for the expression operation."""
