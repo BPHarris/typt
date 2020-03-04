@@ -85,7 +85,7 @@ def main(arguments: dict = None) -> None:
     environment = get_initial_environment(arguments['FILE'])
     program_type = program.check_type(environment)
     if is_invalid_type(program_type):
-        log_critical_error('critcal type error occurred', arguments['FILE'])
+        quit()
 
     # Codegen
     output_code = program.codegen()
