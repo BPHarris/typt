@@ -39,7 +39,7 @@ class ProgramNode(Node):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the generated code for the ProgramNode."""
-        output_code = ''
+        output_code = 'from typt_stdlib import *\n\n'
 
         for using in self.using_list:
             output_code += using.codegen(indentation_level=0) + '\n'
