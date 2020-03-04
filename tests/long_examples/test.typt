@@ -51,6 +51,9 @@ else:
 
 def test_func(arg: Bool) -> None:
     y : List[Int] = list(Int)
+    for elem in y:
+        elem = 1
+    elem = 2
     y[4] += 1
     return None
 
