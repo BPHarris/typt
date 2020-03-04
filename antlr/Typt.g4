@@ -328,6 +328,10 @@ atom
     | 'None'
     | 'True'
     | 'False'
+    | empty_list='[' element_type=typt_type ']'
+    | empty_tuple='(' (typt_type (',' typt_type)*)? ')'
+    | empty_set='Set(' element_type=typt_type ')'
+    | empty_dict='{' key_type=typt_type ',' value_type=typt_type '}'
     ;
 trailer: '(' (argument_list)? ')' | '[' subscriptlist ']' | '.' name;
 
