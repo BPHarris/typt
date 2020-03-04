@@ -40,7 +40,7 @@ if func('str'):
 # short suite example
 if x:   do_this()
 
-if x:
+if x == y:
     print(x)
 elif y:
     print(y)
