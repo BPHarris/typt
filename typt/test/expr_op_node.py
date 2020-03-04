@@ -50,6 +50,7 @@ class ExprOpNode(TestNode):
         # RULE op='//', lhs=A, rhs=B, where A, B in Numeric => Int
 
         # RULE op='+', lhs=String, rhs=String => String
+        # RULE op='*', lhs=String, rhs=Int => String
 
         bitwise_operators = ('|', '^', '&')
         arithmetic_shift_operators = ('<<', '>>')
@@ -87,6 +88,12 @@ class ExprOpNode(TestNode):
         if self.operator == '+':
             if isinstance(lhs_type, StringType) \
                     and isinstance(rhs_type, StringType):
+                return StringType()
+
+        # Check RULE for string repeating
+        if self.operator == '*':
+            if isinstance(lhs_type, StringType) \
+                    and isinstance(rhs_type, IntType):
                 return StringType()
 
         # Check RULEs for arithmetic operators that are integer safe
