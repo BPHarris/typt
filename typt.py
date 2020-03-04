@@ -1,4 +1,4 @@
-"""typt.py - compiler for the Typt language.
+"""typt.py -- compiler for the Typt language.
 
 Usage: typt.py [[-vaer] FILE | [-h] | [--version]] [--output=<OUTPUT>]
 
