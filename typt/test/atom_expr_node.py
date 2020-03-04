@@ -8,7 +8,7 @@ from typt.subscript_node import SubscriptNode
 
 from typt.codegen import indent
 from typt.environment import Environment
-from typt.typt_types import Type, is_invalid_type, log_type_error
+from typt.typt_types import Type, InvalidType, is_invalid_type, log_type_error
 
 from typing import Union, List
 
@@ -37,11 +37,7 @@ class AtomExprNode(TestNode):
         # RULE Check atom type
         atom_type = self.atom.check_type(environment)
         if is_invalid_type(atom_type):
-            return log_type_error(
-                f'{self.atom.codegen()} is illegal in expression',
-                environment.filename,
-                self.meta
-            )
+            return InvalidType()
 
         # RULE When no trailers, resultant type is the type of atom
         if not self.trailer_list:
