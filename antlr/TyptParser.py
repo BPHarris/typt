@@ -11,7 +11,7 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3`")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3c")
         buf.write("\u0297\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t\23")
@@ -92,24 +92,24 @@ def serializedATN():
         buf.write("\3\2\2\2`\u01ec\3\2\2\2b\u01f1\3\2\2\2d\u0219\3\2\2\2")
         buf.write("f\u0226\3\2\2\2h\u0228\3\2\2\2j\u022a\3\2\2\2l\u022c\3")
         buf.write("\2\2\2n\u0237\3\2\2\2p\u0242\3\2\2\2r\u0244\3\2\2\2t\u028c")
-        buf.write("\3\2\2\2vy\7V\2\2wy\5\4\3\2xv\3\2\2\2xw\3\2\2\2y|\3\2")
+        buf.write("\3\2\2\2vy\7Y\2\2wy\5\4\3\2xv\3\2\2\2xw\3\2\2\2y|\3\2")
         buf.write("\2\2zx\3\2\2\2z{\3\2\2\2{\u0081\3\2\2\2|z\3\2\2\2}\u0080")
-        buf.write("\7V\2\2~\u0080\5\6\4\2\177}\3\2\2\2\177~\3\2\2\2\u0080")
+        buf.write("\7Y\2\2~\u0080\5\6\4\2\177}\3\2\2\2\177~\3\2\2\2\u0080")
         buf.write("\u0083\3\2\2\2\u0081\177\3\2\2\2\u0081\u0082\3\2\2\2\u0082")
         buf.write("\u0084\3\2\2\2\u0083\u0081\3\2\2\2\u0084\u0085\7\2\2\3")
         buf.write("\u0085\3\3\2\2\2\u0086\u0087\7\3\2\2\u0087\u0088\7\4\2")
-        buf.write("\2\u0088\u0089\7V\2\2\u0089\u008d\7_\2\2\u008a\u008b\5")
-        buf.write("\60\31\2\u008b\u008c\7V\2\2\u008c\u008e\3\2\2\2\u008d")
+        buf.write("\2\u0088\u0089\7Y\2\2\u0089\u008d\7b\2\2\u008a\u008b\5")
+        buf.write("\60\31\2\u008b\u008c\7Y\2\2\u008c\u008e\3\2\2\2\u008d")
         buf.write("\u008a\3\2\2\2\u008e\u008f\3\2\2\2\u008f\u008d\3\2\2\2")
         buf.write("\u008f\u0090\3\2\2\2\u0090\u0091\3\2\2\2\u0091\u0092\7")
-        buf.write("`\2\2\u0092\u0093\7\5\2\2\u0093\u0094\5p9\2\u0094\5\3")
+        buf.write("c\2\2\u0092\u0093\7\5\2\2\u0093\u0094\5p9\2\u0094\5\3")
         buf.write("\2\2\2\u0095\u0098\5\f\7\2\u0096\u0098\5$\23\2\u0097\u0095")
         buf.write("\3\2\2\2\u0097\u0096\3\2\2\2\u0098\7\3\2\2\2\u0099\u009e")
         buf.write("\5\n\6\2\u009a\u009b\7\6\2\2\u009b\u009d\5\n\6\2\u009c")
         buf.write("\u009a\3\2\2\2\u009d\u00a0\3\2\2\2\u009e\u009c\3\2\2\2")
         buf.write("\u009e\u009f\3\2\2\2\u009f\t\3\2\2\2\u00a0\u009e\3\2\2")
         buf.write("\2\u00a1\u00a2\5<\37\2\u00a2\13\3\2\2\2\u00a3\u00a4\5")
-        buf.write("\16\b\2\u00a4\u00a5\7V\2\2\u00a5\r\3\2\2\2\u00a6\u00ac")
+        buf.write("\16\b\2\u00a4\u00a5\7Y\2\2\u00a5\r\3\2\2\2\u00a6\u00ac")
         buf.write("\5\20\t\2\u00a7\u00ac\5\26\f\2\u00a8\u00ac\5\30\r\2\u00a9")
         buf.write("\u00ac\5\32\16\2\u00aa\u00ac\5\34\17\2\u00ab\u00a6\3\2")
         buf.write("\2\2\u00ab\u00a7\3\2\2\2\u00ab\u00a8\3\2\2\2\u00ab\u00a9")
@@ -148,10 +148,10 @@ def serializedATN():
         buf.write("\2\u00f8\u00f9\5n8\2\u00f9\u00fa\7\4\2\2\u00fa\u00fe\5")
         buf.write(",\27\2\u00fb\u00fc\7\33\2\2\u00fc\u00fd\7\4\2\2\u00fd")
         buf.write("\u00ff\5,\27\2\u00fe\u00fb\3\2\2\2\u00fe\u00ff\3\2\2\2")
-        buf.write("\u00ff+\3\2\2\2\u0100\u010b\5\f\7\2\u0101\u0102\7V\2\2")
-        buf.write("\u0102\u0104\7_\2\2\u0103\u0105\5\6\4\2\u0104\u0103\3")
+        buf.write("\u00ff+\3\2\2\2\u0100\u010b\5\f\7\2\u0101\u0102\7Y\2\2")
+        buf.write("\u0102\u0104\7b\2\2\u0103\u0105\5\6\4\2\u0104\u0103\3")
         buf.write("\2\2\2\u0105\u0106\3\2\2\2\u0106\u0104\3\2\2\2\u0106\u0107")
-        buf.write("\3\2\2\2\u0107\u0108\3\2\2\2\u0108\u0109\7`\2\2\u0109")
+        buf.write("\3\2\2\2\u0107\u0108\3\2\2\2\u0108\u0109\7c\2\2\u0109")
         buf.write("\u010b\3\2\2\2\u010a\u0100\3\2\2\2\u010a\u0101\3\2\2\2")
         buf.write("\u010b-\3\2\2\2\u010c\u010d\7\37\2\2\u010d\u010e\5\60")
         buf.write("\31\2\u010e\u010f\7\4\2\2\u010f\u0110\5,\27\2\u0110/\3")
@@ -166,8 +166,8 @@ def serializedATN():
         buf.write("\u0128\3\2\2\2\u0126\u0124\3\2\2\2\u0127\u0129\7\6\2\2")
         buf.write("\u0128\u0127\3\2\2\2\u0128\u0129\3\2\2\2\u0129\63\3\2")
         buf.write("\2\2\u012a\u012b\5\66\34\2\u012b\u012c\7\4\2\2\u012c\u012d")
-        buf.write("\7V\2\2\u012d\u0133\7_\2\2\u012e\u012f\5\26\f\2\u012f")
-        buf.write("\u0130\7V\2\2\u0130\u0132\3\2\2\2\u0131\u012e\3\2\2\2")
+        buf.write("\7Y\2\2\u012d\u0133\7b\2\2\u012e\u012f\5\26\f\2\u012f")
+        buf.write("\u0130\7Y\2\2\u0130\u0132\3\2\2\2\u0131\u012e\3\2\2\2")
         buf.write("\u0132\u0135\3\2\2\2\u0133\u0131\3\2\2\2\u0133\u0134\3")
         buf.write("\2\2\2\u0134\u0141\3\2\2\2\u0135\u0133\3\2\2\2\u0136\u0137")
         buf.write("\7\37\2\2\u0137\u0138\7#\2\2\u0138\u0139\7 \2\2\u0139")
@@ -178,10 +178,10 @@ def serializedATN():
         buf.write("\u0142\u0147\3\2\2\2\u0143\u0146\58\35\2\u0144\u0146\5")
         buf.write(":\36\2\u0145\u0143\3\2\2\2\u0145\u0144\3\2\2\2\u0146\u0149")
         buf.write("\3\2\2\2\u0147\u0145\3\2\2\2\u0147\u0148\3\2\2\2\u0148")
-        buf.write("\u014a\3\2\2\2\u0149\u0147\3\2\2\2\u014a\u014b\7`\2\2")
+        buf.write("\u014a\3\2\2\2\u0149\u0147\3\2\2\2\u014a\u014b\7c\2\2")
         buf.write("\u014b\u0155\3\2\2\2\u014c\u014d\5\66\34\2\u014d\u014e")
-        buf.write("\7\4\2\2\u014e\u014f\7V\2\2\u014f\u0150\7_\2\2\u0150\u0151")
-        buf.write("\5\32\16\2\u0151\u0152\7V\2\2\u0152\u0153\7`\2\2\u0153")
+        buf.write("\7\4\2\2\u014e\u014f\7Y\2\2\u014f\u0150\7b\2\2\u0150\u0151")
+        buf.write("\5\32\16\2\u0151\u0152\7Y\2\2\u0152\u0153\7c\2\2\u0153")
         buf.write("\u0155\3\2\2\2\u0154\u012a\3\2\2\2\u0154\u014c\3\2\2\2")
         buf.write("\u0155\65\3\2\2\2\u0156\u0157\7%\2\2\u0157\u015c\5p9\2")
         buf.write("\u0158\u0159\7 \2\2\u0159\u015a\5p9\2\u015a\u015b\7!\2")
@@ -192,7 +192,7 @@ def serializedATN():
         buf.write("\u0165\3\2\2\2\u0165\u0166\3\2\2\2\u0166\u0167\7!\2\2")
         buf.write("\u0167\u0168\7\"\2\2\u0168\u0169\5t;\2\u0169\u016a\7\4")
         buf.write("\2\2\u016a\u016b\5,\27\2\u016b9\3\2\2\2\u016c\u016d\7")
-        buf.write("&\2\2\u016d\u016e\7\'\2\2\u016e\u016f\7V\2\2\u016f\u0170")
+        buf.write("&\2\2\u016d\u016e\7\'\2\2\u016e\u016f\7Y\2\2\u016f\u0170")
         buf.write("\7\37\2\2\u0170\u0171\5p9\2\u0171\u0173\7 \2\2\u0172\u0174")
         buf.write("\5\62\32\2\u0173\u0172\3\2\2\2\u0173\u0174\3\2\2\2\u0174")
         buf.write("\u0175\3\2\2\2\u0175\u0176\7!\2\2\u0176\u0177\7\"\2\2")
@@ -249,26 +249,26 @@ def serializedATN():
         buf.write("\5f\64\2\u01f3\u01f2\3\2\2\2\u01f4\u01f7\3\2\2\2\u01f5")
         buf.write("\u01f3\3\2\2\2\u01f5\u01f6\3\2\2\2\u01f6c\3\2\2\2\u01f7")
         buf.write("\u01f5\3\2\2\2\u01f8\u021a\5p9\2\u01f9\u021a\7$\2\2\u01fa")
-        buf.write("\u021a\7R\2\2\u01fb\u021a\7S\2\2\u01fc\u021a\7?\2\2\u01fd")
+        buf.write("\u021a\7U\2\2\u01fb\u021a\7V\2\2\u01fc\u021a\7?\2\2\u01fd")
         buf.write("\u021a\7@\2\2\u01fe\u021a\7A\2\2\u01ff\u0200\7B\2\2\u0200")
-        buf.write("\u0201\5t;\2\u0201\u0202\7C\2\2\u0202\u021a\3\2\2\2\u0203")
-        buf.write("\u020c\7 \2\2\u0204\u0209\5t;\2\u0205\u0206\7\6\2\2\u0206")
+        buf.write("\u0201\5t;\2\u0201\u0202\7!\2\2\u0202\u021a\3\2\2\2\u0203")
+        buf.write("\u020c\7C\2\2\u0204\u0209\5t;\2\u0205\u0206\7\6\2\2\u0206")
         buf.write("\u0208\5t;\2\u0207\u0205\3\2\2\2\u0208\u020b\3\2\2\2\u0209")
         buf.write("\u0207\3\2\2\2\u0209\u020a\3\2\2\2\u020a\u020d\3\2\2\2")
         buf.write("\u020b\u0209\3\2\2\2\u020c\u0204\3\2\2\2\u020c\u020d\3")
         buf.write("\2\2\2\u020d\u020e\3\2\2\2\u020e\u021a\7!\2\2\u020f\u0210")
         buf.write("\7D\2\2\u0210\u0211\5t;\2\u0211\u0212\7!\2\2\u0212\u021a")
         buf.write("\3\2\2\2\u0213\u0214\7E\2\2\u0214\u0215\5t;\2\u0215\u0216")
-        buf.write("\7\6\2\2\u0216\u0217\5t;\2\u0217\u0218\7F\2\2\u0218\u021a")
+        buf.write("\7\6\2\2\u0216\u0217\5t;\2\u0217\u0218\7!\2\2\u0218\u021a")
         buf.write("\3\2\2\2\u0219\u01f8\3\2\2\2\u0219\u01f9\3\2\2\2\u0219")
         buf.write("\u01fa\3\2\2\2\u0219\u01fb\3\2\2\2\u0219\u01fc\3\2\2\2")
         buf.write("\u0219\u01fd\3\2\2\2\u0219\u01fe\3\2\2\2\u0219\u01ff\3")
         buf.write("\2\2\2\u0219\u0203\3\2\2\2\u0219\u020f\3\2\2\2\u0219\u0213")
         buf.write("\3\2\2\2\u021ae\3\2\2\2\u021b\u021d\7 \2\2\u021c\u021e")
         buf.write("\5\b\5\2\u021d\u021c\3\2\2\2\u021d\u021e\3\2\2\2\u021e")
-        buf.write("\u021f\3\2\2\2\u021f\u0227\7!\2\2\u0220\u0221\7B\2\2\u0221")
-        buf.write("\u0222\5h\65\2\u0222\u0223\7C\2\2\u0223\u0227\3\2\2\2")
-        buf.write("\u0224\u0225\7G\2\2\u0225\u0227\5p9\2\u0226\u021b\3\2")
+        buf.write("\u021f\3\2\2\2\u021f\u0227\7!\2\2\u0220\u0221\7F\2\2\u0221")
+        buf.write("\u0222\5h\65\2\u0222\u0223\7G\2\2\u0223\u0227\3\2\2\2")
+        buf.write("\u0224\u0225\7H\2\2\u0225\u0227\5p9\2\u0226\u021b\3\2")
         buf.write("\2\2\u0226\u0220\3\2\2\2\u0226\u0224\3\2\2\2\u0227g\3")
         buf.write("\2\2\2\u0228\u0229\5j\66\2\u0229i\3\2\2\2\u022a\u022b")
         buf.write("\5<\37\2\u022bk\3\2\2\2\u022c\u0231\5H%\2\u022d\u022e")
@@ -281,33 +281,33 @@ def serializedATN():
         buf.write("\u023a\3\2\2\2\u023c\u023d\3\2\2\2\u023d\u0240\3\2\2\2")
         buf.write("\u023e\u023c\3\2\2\2\u023f\u0241\7\6\2\2\u0240\u023f\3")
         buf.write("\2\2\2\u0240\u0241\3\2\2\2\u0241o\3\2\2\2\u0242\u0243")
-        buf.write("\7W\2\2\u0243q\3\2\2\2\u0244\u0245\7W\2\2\u0245s\3\2\2")
+        buf.write("\7Z\2\2\u0243q\3\2\2\2\u0244\u0245\7Z\2\2\u0245s\3\2\2")
         buf.write("\2\u0246\u0247\b;\1\2\u0247\u028d\7?\2\2\u0248\u028d\7")
-        buf.write("H\2\2\u0249\u028d\7I\2\2\u024a\u028d\7J\2\2\u024b\u028d")
-        buf.write("\7K\2\2\u024c\u028d\7L\2\2\u024d\u024e\7L\2\2\u024e\u024f")
-        buf.write("\7E\2\2\u024f\u0250\5p9\2\u0250\u0251\7\4\2\2\u0251\u0252")
+        buf.write("I\2\2\u0249\u028d\7J\2\2\u024a\u028d\7K\2\2\u024b\u028d")
+        buf.write("\7L\2\2\u024c\u028d\7M\2\2\u024d\u024e\7M\2\2\u024e\u024f")
+        buf.write("\7N\2\2\u024f\u0250\5p9\2\u0250\u0251\7\4\2\2\u0251\u0252")
         buf.write("\5t;\2\u0252\u025a\3\2\2\2\u0253\u0254\7\6\2\2\u0254\u0255")
         buf.write("\5p9\2\u0255\u0256\7\4\2\2\u0256\u0257\5t;\2\u0257\u0259")
         buf.write("\3\2\2\2\u0258\u0253\3\2\2\2\u0259\u025c\3\2\2\2\u025a")
         buf.write("\u0258\3\2\2\2\u025a\u025b\3\2\2\2\u025b\u025d\3\2\2\2")
-        buf.write("\u025c\u025a\3\2\2\2\u025d\u025e\7F\2\2\u025e\u028d\3")
-        buf.write("\2\2\2\u025f\u0260\7M\2\2\u0260\u0261\7+\2\2\u0261\u0266")
+        buf.write("\u025c\u025a\3\2\2\2\u025d\u025e\7O\2\2\u025e\u028d\3")
+        buf.write("\2\2\2\u025f\u0260\7P\2\2\u0260\u0261\7+\2\2\u0261\u0266")
         buf.write("\5t;\2\u0262\u0263\7\6\2\2\u0263\u0265\5t;\2\u0264\u0262")
         buf.write("\3\2\2\2\u0265\u0268\3\2\2\2\u0266\u0264\3\2\2\2\u0266")
         buf.write("\u0267\3\2\2\2\u0267\u0269\3\2\2\2\u0268\u0266\3\2\2\2")
         buf.write("\u0269\u026a\7\"\2\2\u026a\u026b\5t;\2\u026b\u026c\7,")
-        buf.write("\2\2\u026c\u028d\3\2\2\2\u026d\u026e\7N\2\2\u026e\u026f")
-        buf.write("\7B\2\2\u026f\u0270\5t;\2\u0270\u0271\7C\2\2\u0271\u028d")
-        buf.write("\3\2\2\2\u0272\u0273\7O\2\2\u0273\u027c\7B\2\2\u0274\u0279")
+        buf.write("\2\2\u026c\u028d\3\2\2\2\u026d\u026e\7Q\2\2\u026e\u026f")
+        buf.write("\7F\2\2\u026f\u0270\5t;\2\u0270\u0271\7G\2\2\u0271\u028d")
+        buf.write("\3\2\2\2\u0272\u0273\7R\2\2\u0273\u027c\7F\2\2\u0274\u0279")
         buf.write("\5t;\2\u0275\u0276\7\6\2\2\u0276\u0278\5t;\2\u0277\u0275")
         buf.write("\3\2\2\2\u0278\u027b\3\2\2\2\u0279\u0277\3\2\2\2\u0279")
         buf.write("\u027a\3\2\2\2\u027a\u027d\3\2\2\2\u027b\u0279\3\2\2\2")
         buf.write("\u027c\u0274\3\2\2\2\u027c\u027d\3\2\2\2\u027d\u027e\3")
-        buf.write("\2\2\2\u027e\u028d\7C\2\2\u027f\u0280\7P\2\2\u0280\u0281")
-        buf.write("\7B\2\2\u0281\u0282\5t;\2\u0282\u0283\7C\2\2\u0283\u028d")
-        buf.write("\3\2\2\2\u0284\u0285\7Q\2\2\u0285\u0286\7B\2\2\u0286\u0287")
+        buf.write("\2\2\2\u027e\u028d\7G\2\2\u027f\u0280\7S\2\2\u0280\u0281")
+        buf.write("\7F\2\2\u0281\u0282\5t;\2\u0282\u0283\7G\2\2\u0283\u028d")
+        buf.write("\3\2\2\2\u0284\u0285\7T\2\2\u0285\u0286\7F\2\2\u0286\u0287")
         buf.write("\5t;\2\u0287\u0288\7\6\2\2\u0288\u0289\5t;\2\u0289\u028a")
-        buf.write("\7C\2\2\u028a\u028d\3\2\2\2\u028b\u028d\5r:\2\u028c\u0246")
+        buf.write("\7G\2\2\u028a\u028d\3\2\2\2\u028b\u028d\5r:\2\u028c\u0246")
         buf.write("\3\2\2\2\u028c\u0248\3\2\2\2\u028c\u0249\3\2\2\2\u028c")
         buf.write("\u024a\3\2\2\2\u028c\u024b\3\2\2\2\u028c\u024c\3\2\2\2")
         buf.write("\u028c\u024d\3\2\2\2\u028c\u025f\3\2\2\2\u028c\u026d\3")
@@ -346,10 +346,10 @@ class TyptParser ( Parser ):
                      "'<'", "'>'", "'=='", "'>='", "'<='", "'!='", "'is'", 
                      "'|'", "'^'", "'&'", "'<<'", "'>>'", "'+'", "'-'", 
                      "'*'", "'/'", "'%'", "'//'", "'~'", "'**'", "'None'", 
-                     "'True'", "'False'", "'['", "']'", "'Set('", "'{'", 
-                     "'}'", "'.'", "'Bool'", "'Int'", "'Float'", "'String'", 
-                     "'Object'", "'Function'", "'List'", "'Tuple'", "'Set'", 
-                     "'Dict'" ]
+                     "'True'", "'False'", "'list('", "'tuple('", "'set('", 
+                     "'dict('", "'['", "']'", "'.'", "'Bool'", "'Int'", 
+                     "'Float'", "'String'", "'Object'", "'{'", "'}'", "'Function'", 
+                     "'List'", "'Tuple'", "'Set'", "'Dict'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
@@ -371,10 +371,10 @@ class TyptParser ( Parser ):
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "NUMBER", "STRING", "BOOLEAN", "INTEGER", "NEWLINE", 
-                      "NAME", "DECIMAL_INTEGER", "OCT_INTEGER", "HEX_INTEGER", 
-                      "BIN_INTEGER", "FLOAT_NUMBER", "SKIP_", "UNKNOWN_CHAR", 
-                      "INDENT", "DEDENT" ]
+                      "<INVALID>", "<INVALID>", "<INVALID>", "NUMBER", "STRING", 
+                      "BOOLEAN", "INTEGER", "NEWLINE", "NAME", "DECIMAL_INTEGER", 
+                      "OCT_INTEGER", "HEX_INTEGER", "BIN_INTEGER", "FLOAT_NUMBER", 
+                      "SKIP_", "UNKNOWN_CHAR", "INDENT", "DEDENT" ]
 
     RULE_program = 0
     RULE_using = 1
@@ -529,21 +529,24 @@ class TyptParser ( Parser ):
     T__76=77
     T__77=78
     T__78=79
-    NUMBER=80
-    STRING=81
-    BOOLEAN=82
-    INTEGER=83
-    NEWLINE=84
-    NAME=85
-    DECIMAL_INTEGER=86
-    OCT_INTEGER=87
-    HEX_INTEGER=88
-    BIN_INTEGER=89
-    FLOAT_NUMBER=90
-    SKIP_=91
-    UNKNOWN_CHAR=92
-    INDENT=93
-    DEDENT=94
+    T__79=80
+    T__80=81
+    T__81=82
+    NUMBER=83
+    STRING=84
+    BOOLEAN=85
+    INTEGER=86
+    NEWLINE=87
+    NAME=88
+    DECIMAL_INTEGER=89
+    OCT_INTEGER=90
+    HEX_INTEGER=91
+    BIN_INTEGER=92
+    FLOAT_NUMBER=93
+    SKIP_=94
+    UNKNOWN_CHAR=95
+    INDENT=96
+    DEDENT=97
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -628,7 +631,7 @@ class TyptParser ( Parser ):
             self.state = 127
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__17) | (1 << TyptParser.T__18) | (1 << TyptParser.T__19) | (1 << TyptParser.T__20) | (1 << TyptParser.T__21) | (1 << TyptParser.T__22) | (1 << TyptParser.T__25) | (1 << TyptParser.T__26) | (1 << TyptParser.T__28) | (1 << TyptParser.T__29) | (1 << TyptParser.T__33) | (1 << TyptParser.T__34) | (1 << TyptParser.T__39) | (1 << TyptParser.T__52) | (1 << TyptParser.T__53) | (1 << TyptParser.T__58) | (1 << TyptParser.T__60) | (1 << TyptParser.T__61) | (1 << TyptParser.T__62))) != 0) or ((((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & ((1 << (TyptParser.T__63 - 64)) | (1 << (TyptParser.T__65 - 64)) | (1 << (TyptParser.T__66 - 64)) | (1 << (TyptParser.NUMBER - 64)) | (1 << (TyptParser.STRING - 64)) | (1 << (TyptParser.NEWLINE - 64)) | (1 << (TyptParser.NAME - 64)))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__17) | (1 << TyptParser.T__18) | (1 << TyptParser.T__19) | (1 << TyptParser.T__20) | (1 << TyptParser.T__21) | (1 << TyptParser.T__22) | (1 << TyptParser.T__25) | (1 << TyptParser.T__26) | (1 << TyptParser.T__28) | (1 << TyptParser.T__33) | (1 << TyptParser.T__34) | (1 << TyptParser.T__39) | (1 << TyptParser.T__52) | (1 << TyptParser.T__53) | (1 << TyptParser.T__58) | (1 << TyptParser.T__60) | (1 << TyptParser.T__61) | (1 << TyptParser.T__62))) != 0) or ((((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & ((1 << (TyptParser.T__63 - 64)) | (1 << (TyptParser.T__64 - 64)) | (1 << (TyptParser.T__65 - 64)) | (1 << (TyptParser.T__66 - 64)) | (1 << (TyptParser.NUMBER - 64)) | (1 << (TyptParser.STRING - 64)) | (1 << (TyptParser.NEWLINE - 64)) | (1 << (TyptParser.NAME - 64)))) != 0):
                 self.state = 125
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
@@ -636,7 +639,7 @@ class TyptParser ( Parser ):
                     self.state = 123
                     self.match(TyptParser.NEWLINE)
                     pass
-                elif token in [TyptParser.T__17, TyptParser.T__18, TyptParser.T__19, TyptParser.T__20, TyptParser.T__21, TyptParser.T__22, TyptParser.T__25, TyptParser.T__26, TyptParser.T__28, TyptParser.T__29, TyptParser.T__33, TyptParser.T__34, TyptParser.T__39, TyptParser.T__52, TyptParser.T__53, TyptParser.T__58, TyptParser.T__60, TyptParser.T__61, TyptParser.T__62, TyptParser.T__63, TyptParser.T__65, TyptParser.T__66, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
+                elif token in [TyptParser.T__17, TyptParser.T__18, TyptParser.T__19, TyptParser.T__20, TyptParser.T__21, TyptParser.T__22, TyptParser.T__25, TyptParser.T__26, TyptParser.T__28, TyptParser.T__33, TyptParser.T__34, TyptParser.T__39, TyptParser.T__52, TyptParser.T__53, TyptParser.T__58, TyptParser.T__60, TyptParser.T__61, TyptParser.T__62, TyptParser.T__63, TyptParser.T__64, TyptParser.T__65, TyptParser.T__66, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
                     self.state = 124
                     self.stmt()
                     pass
@@ -778,7 +781,7 @@ class TyptParser ( Parser ):
             self.state = 149
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [TyptParser.T__17, TyptParser.T__18, TyptParser.T__19, TyptParser.T__20, TyptParser.T__21, TyptParser.T__29, TyptParser.T__33, TyptParser.T__39, TyptParser.T__52, TyptParser.T__53, TyptParser.T__58, TyptParser.T__60, TyptParser.T__61, TyptParser.T__62, TyptParser.T__63, TyptParser.T__65, TyptParser.T__66, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
+            if token in [TyptParser.T__17, TyptParser.T__18, TyptParser.T__19, TyptParser.T__20, TyptParser.T__21, TyptParser.T__33, TyptParser.T__39, TyptParser.T__52, TyptParser.T__53, TyptParser.T__58, TyptParser.T__60, TyptParser.T__61, TyptParser.T__62, TyptParser.T__63, TyptParser.T__64, TyptParser.T__65, TyptParser.T__66, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 147
                 self.simple_stmt()
@@ -1482,7 +1485,7 @@ class TyptParser ( Parser ):
             self.state = 206
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if ((((_la - 30)) & ~0x3f) == 0 and ((1 << (_la - 30)) & ((1 << (TyptParser.T__29 - 30)) | (1 << (TyptParser.T__33 - 30)) | (1 << (TyptParser.T__39 - 30)) | (1 << (TyptParser.T__52 - 30)) | (1 << (TyptParser.T__53 - 30)) | (1 << (TyptParser.T__58 - 30)) | (1 << (TyptParser.T__60 - 30)) | (1 << (TyptParser.T__61 - 30)) | (1 << (TyptParser.T__62 - 30)) | (1 << (TyptParser.T__63 - 30)) | (1 << (TyptParser.T__65 - 30)) | (1 << (TyptParser.T__66 - 30)) | (1 << (TyptParser.NUMBER - 30)) | (1 << (TyptParser.STRING - 30)) | (1 << (TyptParser.NAME - 30)))) != 0):
+            if ((((_la - 34)) & ~0x3f) == 0 and ((1 << (_la - 34)) & ((1 << (TyptParser.T__33 - 34)) | (1 << (TyptParser.T__39 - 34)) | (1 << (TyptParser.T__52 - 34)) | (1 << (TyptParser.T__53 - 34)) | (1 << (TyptParser.T__58 - 34)) | (1 << (TyptParser.T__60 - 34)) | (1 << (TyptParser.T__61 - 34)) | (1 << (TyptParser.T__62 - 34)) | (1 << (TyptParser.T__63 - 34)) | (1 << (TyptParser.T__64 - 34)) | (1 << (TyptParser.T__65 - 34)) | (1 << (TyptParser.T__66 - 34)) | (1 << (TyptParser.NUMBER - 34)) | (1 << (TyptParser.STRING - 34)) | (1 << (TyptParser.NAME - 34)))) != 0):
                 self.state = 205
                 self.test()
 
@@ -1858,7 +1861,7 @@ class TyptParser ( Parser ):
             self.state = 264
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [TyptParser.T__17, TyptParser.T__18, TyptParser.T__19, TyptParser.T__20, TyptParser.T__21, TyptParser.T__29, TyptParser.T__33, TyptParser.T__39, TyptParser.T__52, TyptParser.T__53, TyptParser.T__58, TyptParser.T__60, TyptParser.T__61, TyptParser.T__62, TyptParser.T__63, TyptParser.T__65, TyptParser.T__66, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
+            if token in [TyptParser.T__17, TyptParser.T__18, TyptParser.T__19, TyptParser.T__20, TyptParser.T__21, TyptParser.T__33, TyptParser.T__39, TyptParser.T__52, TyptParser.T__53, TyptParser.T__58, TyptParser.T__60, TyptParser.T__61, TyptParser.T__62, TyptParser.T__63, TyptParser.T__64, TyptParser.T__65, TyptParser.T__66, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 254
                 self.simple_stmt()
@@ -1878,7 +1881,7 @@ class TyptParser ( Parser ):
                     self.state = 260 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__17) | (1 << TyptParser.T__18) | (1 << TyptParser.T__19) | (1 << TyptParser.T__20) | (1 << TyptParser.T__21) | (1 << TyptParser.T__22) | (1 << TyptParser.T__25) | (1 << TyptParser.T__26) | (1 << TyptParser.T__28) | (1 << TyptParser.T__29) | (1 << TyptParser.T__33) | (1 << TyptParser.T__34) | (1 << TyptParser.T__39) | (1 << TyptParser.T__52) | (1 << TyptParser.T__53) | (1 << TyptParser.T__58) | (1 << TyptParser.T__60) | (1 << TyptParser.T__61) | (1 << TyptParser.T__62))) != 0) or ((((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & ((1 << (TyptParser.T__63 - 64)) | (1 << (TyptParser.T__65 - 64)) | (1 << (TyptParser.T__66 - 64)) | (1 << (TyptParser.NUMBER - 64)) | (1 << (TyptParser.STRING - 64)) | (1 << (TyptParser.NAME - 64)))) != 0)):
+                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << TyptParser.T__17) | (1 << TyptParser.T__18) | (1 << TyptParser.T__19) | (1 << TyptParser.T__20) | (1 << TyptParser.T__21) | (1 << TyptParser.T__22) | (1 << TyptParser.T__25) | (1 << TyptParser.T__26) | (1 << TyptParser.T__28) | (1 << TyptParser.T__33) | (1 << TyptParser.T__34) | (1 << TyptParser.T__39) | (1 << TyptParser.T__52) | (1 << TyptParser.T__53) | (1 << TyptParser.T__58) | (1 << TyptParser.T__60) | (1 << TyptParser.T__61) | (1 << TyptParser.T__62))) != 0) or ((((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & ((1 << (TyptParser.T__63 - 64)) | (1 << (TyptParser.T__64 - 64)) | (1 << (TyptParser.T__65 - 64)) | (1 << (TyptParser.T__66 - 64)) | (1 << (TyptParser.NUMBER - 64)) | (1 << (TyptParser.STRING - 64)) | (1 << (TyptParser.NAME - 64)))) != 0)):
                         break
 
                 self.state = 262
@@ -2689,7 +2692,7 @@ class TyptParser ( Parser ):
                 self.state = 396
                 localctx.lhs = self.not_test()
                 pass
-            elif token in [TyptParser.T__29, TyptParser.T__33, TyptParser.T__52, TyptParser.T__53, TyptParser.T__58, TyptParser.T__60, TyptParser.T__61, TyptParser.T__62, TyptParser.T__63, TyptParser.T__65, TyptParser.T__66, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
+            elif token in [TyptParser.T__33, TyptParser.T__52, TyptParser.T__53, TyptParser.T__58, TyptParser.T__60, TyptParser.T__61, TyptParser.T__62, TyptParser.T__63, TyptParser.T__64, TyptParser.T__65, TyptParser.T__66, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 397
                 self.comparison()
@@ -3445,7 +3448,7 @@ class TyptParser ( Parser ):
                 self.state = 483
                 self.factor()
                 pass
-            elif token in [TyptParser.T__29, TyptParser.T__33, TyptParser.T__60, TyptParser.T__61, TyptParser.T__62, TyptParser.T__63, TyptParser.T__65, TyptParser.T__66, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
+            elif token in [TyptParser.T__33, TyptParser.T__60, TyptParser.T__61, TyptParser.T__62, TyptParser.T__63, TyptParser.T__64, TyptParser.T__65, TyptParser.T__66, TyptParser.NUMBER, TyptParser.STRING, TyptParser.NAME]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 485
                 self.power()
@@ -3602,7 +3605,7 @@ class TyptParser ( Parser ):
             self.state = 499
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while ((((_la - 30)) & ~0x3f) == 0 and ((1 << (_la - 30)) & ((1 << (TyptParser.T__29 - 30)) | (1 << (TyptParser.T__63 - 30)) | (1 << (TyptParser.T__68 - 30)))) != 0):
+            while ((((_la - 30)) & ~0x3f) == 0 and ((1 << (_la - 30)) & ((1 << (TyptParser.T__29 - 30)) | (1 << (TyptParser.T__67 - 30)) | (1 << (TyptParser.T__69 - 30)))) != 0):
                 self.state = 496
                 self.trailer()
                 self.state = 501
@@ -3712,16 +3715,16 @@ class TyptParser ( Parser ):
                 self.state = 510
                 localctx.element_type = self.typt_type(0)
                 self.state = 511
-                self.match(TyptParser.T__64)
+                self.match(TyptParser.T__30)
                 pass
-            elif token in [TyptParser.T__29]:
+            elif token in [TyptParser.T__64]:
                 self.enterOuterAlt(localctx, 9)
                 self.state = 513
-                localctx.empty_tuple = self.match(TyptParser.T__29)
+                localctx.empty_tuple = self.match(TyptParser.T__64)
                 self.state = 522
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if ((((_la - 61)) & ~0x3f) == 0 and ((1 << (_la - 61)) & ((1 << (TyptParser.T__60 - 61)) | (1 << (TyptParser.T__69 - 61)) | (1 << (TyptParser.T__70 - 61)) | (1 << (TyptParser.T__71 - 61)) | (1 << (TyptParser.T__72 - 61)) | (1 << (TyptParser.T__73 - 61)) | (1 << (TyptParser.T__74 - 61)) | (1 << (TyptParser.T__75 - 61)) | (1 << (TyptParser.T__76 - 61)) | (1 << (TyptParser.T__77 - 61)) | (1 << (TyptParser.T__78 - 61)) | (1 << (TyptParser.NAME - 61)))) != 0):
+                if ((((_la - 61)) & ~0x3f) == 0 and ((1 << (_la - 61)) & ((1 << (TyptParser.T__60 - 61)) | (1 << (TyptParser.T__70 - 61)) | (1 << (TyptParser.T__71 - 61)) | (1 << (TyptParser.T__72 - 61)) | (1 << (TyptParser.T__73 - 61)) | (1 << (TyptParser.T__74 - 61)) | (1 << (TyptParser.T__77 - 61)) | (1 << (TyptParser.T__78 - 61)) | (1 << (TyptParser.T__79 - 61)) | (1 << (TyptParser.T__80 - 61)) | (1 << (TyptParser.T__81 - 61)) | (1 << (TyptParser.NAME - 61)))) != 0):
                     self.state = 514
                     self.typt_type(0)
                     self.state = 519
@@ -3761,7 +3764,7 @@ class TyptParser ( Parser ):
                 self.state = 532
                 localctx.value_type = self.typt_type(0)
                 self.state = 533
-                self.match(TyptParser.T__67)
+                self.match(TyptParser.T__30)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -3821,7 +3824,7 @@ class TyptParser ( Parser ):
                 self.state = 539
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if ((((_la - 30)) & ~0x3f) == 0 and ((1 << (_la - 30)) & ((1 << (TyptParser.T__29 - 30)) | (1 << (TyptParser.T__33 - 30)) | (1 << (TyptParser.T__39 - 30)) | (1 << (TyptParser.T__52 - 30)) | (1 << (TyptParser.T__53 - 30)) | (1 << (TyptParser.T__58 - 30)) | (1 << (TyptParser.T__60 - 30)) | (1 << (TyptParser.T__61 - 30)) | (1 << (TyptParser.T__62 - 30)) | (1 << (TyptParser.T__63 - 30)) | (1 << (TyptParser.T__65 - 30)) | (1 << (TyptParser.T__66 - 30)) | (1 << (TyptParser.NUMBER - 30)) | (1 << (TyptParser.STRING - 30)) | (1 << (TyptParser.NAME - 30)))) != 0):
+                if ((((_la - 34)) & ~0x3f) == 0 and ((1 << (_la - 34)) & ((1 << (TyptParser.T__33 - 34)) | (1 << (TyptParser.T__39 - 34)) | (1 << (TyptParser.T__52 - 34)) | (1 << (TyptParser.T__53 - 34)) | (1 << (TyptParser.T__58 - 34)) | (1 << (TyptParser.T__60 - 34)) | (1 << (TyptParser.T__61 - 34)) | (1 << (TyptParser.T__62 - 34)) | (1 << (TyptParser.T__63 - 34)) | (1 << (TyptParser.T__64 - 34)) | (1 << (TyptParser.T__65 - 34)) | (1 << (TyptParser.T__66 - 34)) | (1 << (TyptParser.NUMBER - 34)) | (1 << (TyptParser.STRING - 34)) | (1 << (TyptParser.NAME - 34)))) != 0):
                     self.state = 538
                     self.argument_list()
 
@@ -3829,19 +3832,19 @@ class TyptParser ( Parser ):
                 self.state = 541
                 self.match(TyptParser.T__30)
                 pass
-            elif token in [TyptParser.T__63]:
+            elif token in [TyptParser.T__67]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 542
-                self.match(TyptParser.T__63)
+                self.match(TyptParser.T__67)
                 self.state = 543
                 self.subscriptlist()
                 self.state = 544
-                self.match(TyptParser.T__64)
+                self.match(TyptParser.T__68)
                 pass
-            elif token in [TyptParser.T__68]:
+            elif token in [TyptParser.T__69]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 546
-                self.match(TyptParser.T__68)
+                self.match(TyptParser.T__69)
                 self.state = 547
                 self.name()
                 pass
@@ -4212,34 +4215,34 @@ class TyptParser ( Parser ):
 
             elif la_ == 2:
                 self.state = 582
-                localctx.bool_type = self.match(TyptParser.T__69)
+                localctx.bool_type = self.match(TyptParser.T__70)
                 pass
 
             elif la_ == 3:
                 self.state = 583
-                localctx.int_type = self.match(TyptParser.T__70)
+                localctx.int_type = self.match(TyptParser.T__71)
                 pass
 
             elif la_ == 4:
                 self.state = 584
-                localctx.float_type = self.match(TyptParser.T__71)
+                localctx.float_type = self.match(TyptParser.T__72)
                 pass
 
             elif la_ == 5:
                 self.state = 585
-                localctx.string_type = self.match(TyptParser.T__72)
+                localctx.string_type = self.match(TyptParser.T__73)
                 pass
 
             elif la_ == 6:
                 self.state = 586
-                localctx.object_base_type = self.match(TyptParser.T__73)
+                localctx.object_base_type = self.match(TyptParser.T__74)
                 pass
 
             elif la_ == 7:
                 self.state = 587
-                localctx.object_type = self.match(TyptParser.T__73)
+                localctx.object_type = self.match(TyptParser.T__74)
                 self.state = 588
-                self.match(TyptParser.T__66)
+                self.match(TyptParser.T__75)
 
                 self.state = 589
                 self.name()
@@ -4264,12 +4267,12 @@ class TyptParser ( Parser ):
                     _la = self._input.LA(1)
 
                 self.state = 603
-                self.match(TyptParser.T__67)
+                self.match(TyptParser.T__76)
                 pass
 
             elif la_ == 8:
                 self.state = 605
-                self.match(TyptParser.T__74)
+                self.match(TyptParser.T__77)
                 self.state = 606
                 self.match(TyptParser.T__40)
                 self.state = 607
@@ -4296,24 +4299,24 @@ class TyptParser ( Parser ):
 
             elif la_ == 9:
                 self.state = 619
-                localctx.list_type = self.match(TyptParser.T__75)
+                localctx.list_type = self.match(TyptParser.T__78)
                 self.state = 620
-                self.match(TyptParser.T__63)
+                self.match(TyptParser.T__67)
                 self.state = 621
                 localctx.element_type = self.typt_type(0)
                 self.state = 622
-                self.match(TyptParser.T__64)
+                self.match(TyptParser.T__68)
                 pass
 
             elif la_ == 10:
                 self.state = 624
-                localctx.tuple_type = self.match(TyptParser.T__76)
+                localctx.tuple_type = self.match(TyptParser.T__79)
                 self.state = 625
-                self.match(TyptParser.T__63)
+                self.match(TyptParser.T__67)
                 self.state = 634
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if ((((_la - 61)) & ~0x3f) == 0 and ((1 << (_la - 61)) & ((1 << (TyptParser.T__60 - 61)) | (1 << (TyptParser.T__69 - 61)) | (1 << (TyptParser.T__70 - 61)) | (1 << (TyptParser.T__71 - 61)) | (1 << (TyptParser.T__72 - 61)) | (1 << (TyptParser.T__73 - 61)) | (1 << (TyptParser.T__74 - 61)) | (1 << (TyptParser.T__75 - 61)) | (1 << (TyptParser.T__76 - 61)) | (1 << (TyptParser.T__77 - 61)) | (1 << (TyptParser.T__78 - 61)) | (1 << (TyptParser.NAME - 61)))) != 0):
+                if ((((_la - 61)) & ~0x3f) == 0 and ((1 << (_la - 61)) & ((1 << (TyptParser.T__60 - 61)) | (1 << (TyptParser.T__70 - 61)) | (1 << (TyptParser.T__71 - 61)) | (1 << (TyptParser.T__72 - 61)) | (1 << (TyptParser.T__73 - 61)) | (1 << (TyptParser.T__74 - 61)) | (1 << (TyptParser.T__77 - 61)) | (1 << (TyptParser.T__78 - 61)) | (1 << (TyptParser.T__79 - 61)) | (1 << (TyptParser.T__80 - 61)) | (1 << (TyptParser.T__81 - 61)) | (1 << (TyptParser.NAME - 61)))) != 0):
                     self.state = 626
                     self.typt_type(0)
                     self.state = 631
@@ -4331,25 +4334,25 @@ class TyptParser ( Parser ):
 
 
                 self.state = 636
-                self.match(TyptParser.T__64)
+                self.match(TyptParser.T__68)
                 pass
 
             elif la_ == 11:
                 self.state = 637
-                localctx.set_type = self.match(TyptParser.T__77)
+                localctx.set_type = self.match(TyptParser.T__80)
                 self.state = 638
-                self.match(TyptParser.T__63)
+                self.match(TyptParser.T__67)
                 self.state = 639
                 localctx.element_type = self.typt_type(0)
                 self.state = 640
-                self.match(TyptParser.T__64)
+                self.match(TyptParser.T__68)
                 pass
 
             elif la_ == 12:
                 self.state = 642
-                localctx.dict_type = self.match(TyptParser.T__78)
+                localctx.dict_type = self.match(TyptParser.T__81)
                 self.state = 643
-                self.match(TyptParser.T__63)
+                self.match(TyptParser.T__67)
                 self.state = 644
                 localctx.key_type = self.typt_type(0)
                 self.state = 645
@@ -4357,7 +4360,7 @@ class TyptParser ( Parser ):
                 self.state = 646
                 localctx.value_type = self.typt_type(0)
                 self.state = 647
-                self.match(TyptParser.T__64)
+                self.match(TyptParser.T__68)
                 pass
 
             elif la_ == 13:
