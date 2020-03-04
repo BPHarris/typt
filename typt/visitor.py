@@ -930,7 +930,6 @@ class Typt(TyptVisitor):
             element_types = list()
             for ctx_typt_type in ctx.typt_type():
                 element_types += [self.visitTypt_type(ctx_typt_type)]
-
             return TupleType(element_types)
         if ctx.set_type:
             return SetType(self.visitTypt_type(ctx.element_type))
@@ -938,6 +937,11 @@ class Typt(TyptVisitor):
             return DictType(
                 self.visitTypt_type(ctx.key_type),
                 self.visitTypt_type(ctx.value_type)
+            )
+
+        if ctx.user_defined_type:
+            raise NotImplementedError(
+                f'User-defined types not implemented. Unknown type {text}.'
             )
 
         raise NotImplementedError(f'The type \'{text}\' is not implemented.')

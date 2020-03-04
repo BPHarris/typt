@@ -289,6 +289,11 @@ class TyptVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by TyptParser#user_defined_type.
+    def visitUser_defined_type(self, ctx:TyptParser.User_defined_typeContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by TyptParser#typt_type.
     def visitTypt_type(self, ctx:TyptParser.Typt_typeContext):
         return self.visitChildren(ctx)

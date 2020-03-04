@@ -328,6 +328,34 @@ class ObjectType(Type):
         return super().__repr__() + '{' + ', '.join(m_types) + '}'
 
 
+class UserDefinedType(Type):
+    """Class for Typt:UserDefinedType type.
+
+    Stores a refence (by name) to an Typt::ObjectType that the user has
+    provided.
+
+    Attributes:
+        name    (str)   : the name of the type refered to
+
+    """
+
+    def __init__(self, name: str):
+        """Set name."""
+        self.name = name
+
+        super().__init__()
+
+    def __eq__(self, other) -> bool:
+        """Cannot check equality outside of environment."""
+        raise NotImplementedError(
+            'Cannot evaulate user-defined type outside of an environment.'
+        )
+
+    def __repr__(self) -> str:
+        """Return string representation of a UserDefinedType."""
+        return f'Typt::UserDefinedType({self.name})'
+
+
 def is_int(s: str) -> bool:
     """Given a string representing a literal, return true if it is an int."""
     try:

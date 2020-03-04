@@ -76,5 +76,5 @@ class BClass(AClass):
 def pass_one() -> None:
     pass
 
-def pass_two(arg : Int) -> None:
+def pass_two(arg : Int) -> AClass:
     pass

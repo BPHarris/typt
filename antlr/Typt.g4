@@ -347,6 +347,9 @@ testlist : test (',' test)* (',')? ;
 // NOTE: needed as NAME does not work directly in parser rules, idk why
 name: NAME;
 
+// User-defined type
+user_defined_type: NAME;
+
 /*****************************************************************************/
 
 
@@ -375,6 +378,9 @@ typt_type
     | tuple_type    = 'Tuple'   '[' (typt_type (',' typt_type)*)? ']'
     | set_type      = 'Set'     '[' element_type=typt_type ']'
     | dict_type     = 'Dict'    '[' key_type=typt_type ',' value_type=typt_type ']'
+
+    /* User-defined type -- i.e. user class */
+    | custom_type=user_defined_type
     ;
 
 
