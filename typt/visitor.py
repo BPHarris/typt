@@ -822,7 +822,22 @@ class Typt(TyptVisitor):
         if atom_text in (repr(True), repr(False)):          # Boolean
             atom_type = BoolType()
 
-        # TODO List, tuple, set, dict
+        if ctx.empty_list:                                  # List
+            atom_text = 'list()'
+            atom_type = ListType(self.visitTypt_type(ctx.element_type))
+        if ctx.empty_tuple:                                 # Tuple
+            atom_text = 'tuple()'
+            inner_types = [self.visitTypt_type(t) for t in ctx.typt_type()]
+            atom_type = TupleType(inner_types)
+        if ctx.empty_set:                                   # Set
+            atom_text = 'set()'
+            atom_type = SetType(self.visitTypt_type(ctx.element_type))
+        if ctx.empty_dict:                                  # Dict
+            atom_text = 'dict()'
+            atom_type = DictType(
+                self.visitTypt_type(ctx.key_type),
+                self.visitTypt_type(ctx.value_type)
+            )
 
         if not atom_type:
             raise NotImplementedError(f'Atom {atom_text} is not implemented.')
