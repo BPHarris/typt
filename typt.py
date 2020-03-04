@@ -1,11 +1,12 @@
 """typt.py - compiler for the Typt language.
 
-Usage: typt.py [[-vae] FILE | [-h] | [--version]] [--output=<OUTPUT>]
+Usage: typt.py [[-vaer] FILE | [-h] | [--version]] [--output=<OUTPUT>]
 
 -h, --help              show this
 -v, --verbose           display verbose output (i.e. show AST, environment, etc.)
 -a, --show-ast          show the program AST
 -e, --show-environment  show the program environment after compilation
+-r, --run               run the program after compiling
 --version               print the program version
 --output=<OUTPUT>       the file to output the compiled code to [default: output.py]
 
@@ -25,11 +26,16 @@ from error import log_critical_error
 from json import dumps as json_dumps
 from os.path import isfile
 
+from os import system as execute
+from platform import system
+
 from docopt import docopt
 
 # TODO Finish error listener
 # See: https://tomassetti.me/antlr-mega-tutorial/
 #   Sections:   19. Testing with Python (unittest stuffs)
+
+runnable_systems = ('Linux', 'Darwin', 'Windows')
 
 
 def main(arguments: dict = None) -> None:
@@ -48,8 +54,13 @@ def main(arguments: dict = None) -> None:
         )
 
         if not confirm_overwrite.lower() in ('y', 'yes'):
-            print('Operation cancelled.')
+            log_critical_error(msg='operation cancelled.')
             exit()
+
+    # Check if system supports --run
+    if arguments['--run'] and not system() in runnable_systems:
+        log_critical_error(msg=f'run option not supported on {system()}')
+        quit()
 
     # Get file input stream
     if arguments['--verbose']:
@@ -84,6 +95,10 @@ def main(arguments: dict = None) -> None:
 
     with open(arguments['--output'], 'w') as file:
         file.write(output_code)
+
+    if arguments['--run']:
+        interpreter = 'python' if system() == 'Windows' else 'python3'
+        execute(f'{interpreter} {arguments["--output"]}')
 
 
 if __name__ == '__main__':
