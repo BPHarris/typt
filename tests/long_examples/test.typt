@@ -50,6 +50,7 @@ else:
     print('nufin')
 
 def test_func(arg: Bool) -> None:
+    y : List[Int] = list(Int)
     y[4] += 1
     return None
 
