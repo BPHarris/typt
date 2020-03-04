@@ -40,7 +40,7 @@ class CompOpNode(TestNode):
         # RULE '>=', lhs : (Int|Float), rhs : (Int|Float) => Bool
 
         # TODO 'in', 'not in'   (add with operator polymorphism)
-        # TODO 'is', is not'    (add with operator polymorphism)
+        # TODO 'is', 'is not'    (add with operator polymorphism)
 
         numeric = (IntType, FloatType)
         comparable = (
