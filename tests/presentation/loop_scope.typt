@@ -1,0 +1,15 @@
+# Presentation example showing loop scopes
+
+def example_function() -> None:
+    l : List[Int] = list(Int)
+
+    # Add to list
+    l = range(0, 5)
+
+    for e in l:
+        print_int(e)
+
+    # Uncomment to give scope related type error
+    # e = 5
+
+example_function()
