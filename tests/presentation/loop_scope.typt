@@ -1,15 +1,18 @@
 # Presentation example showing loop scopes
 
-def example_function() -> None:
-    l : List[Int] = list(Int)
+def int_list_to_string(my_list: List[Int]) -> String:
+    return_value : String = '['
 
-    # Add to list
-    l = range(0, 5)
+    for i in my_list:
+        return_value += int_to_string(i) + ', '
 
-    for e in l:
-        print_int(e)
+    # Uncomment to show error
+    # i = 10
 
-    # Uncomment to give scope related type error
-    # e = 5
+    return_value += ']'
 
-example_function()
+    return return_value
+
+
+as_string : String = int_list_to_string(range(0, 5))
+print(as_string)
