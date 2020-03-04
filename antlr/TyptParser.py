@@ -346,10 +346,11 @@ class TyptParser ( Parser ):
                      "'<'", "'>'", "'=='", "'>='", "'<='", "'!='", "'is'", 
                      "'|'", "'^'", "'&'", "'<<'", "'>>'", "'+'", "'-'", 
                      "'*'", "'/'", "'%'", "'//'", "'~'", "'**'", "'None'", 
-                     "'True'", "'False'", "'list('", "'tuple('", "'set('", 
-                     "'dict('", "'['", "']'", "'.'", "'Bool'", "'Int'", 
-                     "'Float'", "'String'", "'Object'", "'{'", "'}'", "'Function'", 
-                     "'List'", "'Tuple'", "'Set'", "'Dict'" ]
+                     "'True'", "'False'", "'new list('", "'new tuple('", 
+                     "'new set('", "'new dict('", "'['", "']'", "'.'", "'Bool'", 
+                     "'Int'", "'Float'", "'String'", "'Object'", "'{'", 
+                     "'}'", "'Function'", "'List'", "'Tuple'", "'Set'", 
+                     "'Dict'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 

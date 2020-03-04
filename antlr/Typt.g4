@@ -328,10 +328,10 @@ atom
     | 'None'
     | 'True'
     | 'False'
-    | empty_list='list(' element_type=typt_type ')'
-    | empty_tuple='tuple(' (typt_type (',' typt_type)*)? ')'
-    | empty_set='set(' element_type=typt_type ')'
-    | empty_dict='dict(' key_type=typt_type ',' value_type=typt_type ')'
+    | empty_list='new list(' element_type=typt_type ')'
+    | empty_tuple='new tuple(' (typt_type (',' typt_type)*)? ')'
+    | empty_set='new set(' element_type=typt_type ')'
+    | empty_dict='new dict(' key_type=typt_type ',' value_type=typt_type ')'
     ;
 trailer: '(' (argument_list)? ')' | '[' subscriptlist ']' | '.' name;
 
