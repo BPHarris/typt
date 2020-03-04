@@ -52,11 +52,18 @@ class AtomExprNode(TestNode):
         # RULE lhs must be list/tuple/dict
         # RULE if lhs is list/tuple, trailer must be int
         # RULE if atim is dict[A -> B], trailer must be of type A
+        # HACK Assume only one trailer, assume always list
+        trailer = self.trailer_list[0]
+        if isinstance(trailer, SubscriptNode):
+            return atom_type.element_type
 
         # C) lhs(trailer)
         # RULE lhs must be function or method of class
         # RULE trailer must match the function signature
         # RULE resultant type is the return type of lhs in environment
+        # HACK Assume only one trailer, assume always function (not class, etc)
+        if isinstance(trailer, ArgumentListNode):
+            return atom_type.return_type
 
         # Check the above rules for each trailer
         lhs = atom_type
