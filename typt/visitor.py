@@ -956,4 +956,4 @@ class Typt(TyptVisitor):
                 f'User-defined types not implemented. Unknown type {text}.'
             )
 
-        raise NotImplementedError(f'The type \'{text}\' is not implemented.')
+        raise NotImplementedError(f'Illegal type \'{text}\'.')
