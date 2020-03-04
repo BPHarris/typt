@@ -9,6 +9,7 @@ from typing import List
 
 from typt.codegen import indent
 from typt.environment import Environment
+from typt.typt_types import ListType, TupleType, SetType, DictType
 from typt.typt_types import Type, InvalidType, is_invalid_type, log_type_error
 
 
@@ -34,22 +35,49 @@ class ForStmtNode(StmtNode):
         # TODO Allow for test list longer than one
         # RULE Test list length must be exactly one -- for now
 
-        # RULE 1
-        exprs_invalid = list()
-        for expr in self.expr_list:
-            exprs_invalid += [
-                is_invalid_type(expr.check_type(environment))
-            ]
+        # HACK Mega hack. Don't check the type of the exprs (assume the exprs
+        #       are just names)
+        # FIXME Fix this at some point, idk how
+        # # RULE 1
+        # exprs_invalid = list()
+        # for expr in self.expr_list:
+        #     exprs_invalid += [
+        #         is_invalid_type(expr.check_type(environment))
+        #     ]
 
         # RULE 2 and 3
         tests_invalid = list()
+        test_types = list()
         for test in self.test_list:
-            tests_invalid += [
-                is_invalid_type(test.check_type(environment))
-            ]
+            test_type = test.check_type(environment)
+            test_types.append(test_type)
+            tests_invalid += [is_invalid_type(test_type)]
+
+        for_environment = environment.add_local_environment('for')
+
+        # Add exprs to environment
+        if len(self.expr_list) != len(self.test_list):
+            return log_type_error(
+                f'received {len(self.test_list)} items per iteration,'
+                f'expected {len(self.expr_list)}',
+                environment.filename,
+                self.meta
+            )
+        # HACK Assumes that exprs are just variable names
+        for e, t in zip(self.expr_list, test_types):
+            if isinstance(t, DictType):
+                t = TupleType([t.key_type, t.value_type])
+            elif isinstance(t, (SetType, ListType)):
+                t = t.element_type
+            else:
+                return log_type_error(
+                    f'type {t} is not iterable',
+                    environment.filename,
+                    self.meta
+                )
+            for_environment[e.codegen()] = t
 
         # RULE 4 -- for branch
-        for_environment = environment.add_local_environment('for')
         for_suite_invalid = is_invalid_type(
             self.for_branch.check_type(for_environment)
         )
@@ -71,7 +99,8 @@ class ForStmtNode(StmtNode):
 
         # (Valid)Type iff all children are valid
         suites_invalid = [for_suite_invalid, else_suite_invalid]
-        types_invalid = exprs_invalid + tests_invalid + suites_invalid
+        # types_invalid = exprs_invalid + tests_invalid + suites_invalid
+        types_invalid = tests_invalid + suites_invalid
         return InvalidType() if any(types_invalid) else Type()
 
     def codegen(self, indentation_level: int = 0) -> str:
