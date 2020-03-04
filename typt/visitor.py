@@ -64,9 +64,6 @@ from typt.subscript_node import SubscriptNode
 
 from typing import Iterable, List
 
-# Todo:
-#   TODO: How to handle self?
-
 
 # HACK ANTLR's Context::getText() returns the repr of each token without
 #   preserving spacing. This method is hack-y, but preserves spaceing.
