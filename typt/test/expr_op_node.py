@@ -7,7 +7,7 @@ from typt.test_node import TestNode
 
 from typt.codegen import indent
 from typt.environment import Environment
-from typt.typt_types import Type, BoolType, IntType, FloatType, log_type_error
+from typt.typt_types import Type, BoolType, IntType, FloatType, StringType, log_type_error
 
 
 class ExprOpNode(TestNode):
@@ -49,6 +49,8 @@ class ExprOpNode(TestNode):
         # RULE op='/',  lhs=A, rhs=B, where A, B in Numeric => Float
         # RULE op='//', lhs=A, rhs=B, where A, B in Numeric => Int
 
+        # RULE op='+', lhs=String, rhs=String => String
+
         bitwise_operators = ('|', '^', '&')
         arithmetic_shift_operators = ('<<', '>>')
         safe_arithmetic_operators = ('+', '-', '*', '%')
@@ -80,6 +82,12 @@ class ExprOpNode(TestNode):
                 environment.filename,
                 self.meta
             )
+
+        # Check RULE for string concatination
+        if self.operator == '+':
+            if isinstance(lhs_type, StringType) \
+                    and isinstance(rhs_type, StringType):
+                return StringType()
 
         # Check RULEs for arithmetic operators that are integer safe
         if self.operator in safe_arithmetic_operators:
