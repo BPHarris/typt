@@ -30,7 +30,17 @@ class VarRefNode(AtomNode):
             class_name = environment.name[1:]   # HACK remove ':' from name
             return environment.parent[class_name]
 
-        return environment.get(self.var_name)
+        # Standard var reference
+        var_type = environment.get(self.var_name)
+
+        if not var_type:
+            return log_type_error(
+                f'name {self.var_name} does not exist in current scope',
+                environment.filename,
+                self.meta
+            )
+
+        return var_type
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return code of the variable refence, in Python3 form."""
