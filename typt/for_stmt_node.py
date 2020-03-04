@@ -9,7 +9,7 @@ from typing import List
 
 from typt.codegen import indent
 from typt.environment import Environment
-from typt.typt_types import ListType, TupleType, SetType, DictType
+from typt.typt_types import ListType, TupleType, SetType, DictType, StringType
 from typt.typt_types import Type, InvalidType, is_invalid_type, log_type_error
 
 
@@ -69,6 +69,8 @@ class ForStmtNode(StmtNode):
                 t = TupleType([t.key_type, t.value_type])
             elif isinstance(t, (SetType, ListType)):
                 t = t.element_type
+            elif isinstance(t, StringType):
+                t = t
             else:
                 return log_type_error(
                     f'type {t} is not iterable',
