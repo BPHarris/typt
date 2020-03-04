@@ -3,7 +3,8 @@
 from re import compile
 from typing import Dict, Union
 
-from typt.typt_types import Type, ObjectBaseType
+from typt.typt_types import Type, ObjectBaseType, FunctionType, ListType
+from typt.typt_types import NoneType, BoolType, IntType, FloatType, StringType
 
 
 def get_initial_environment(filename: str):
@@ -12,6 +13,47 @@ def get_initial_environment(filename: str):
 
     # Add ObjectBaseType to initial environment
     environment['Object'] = ObjectBaseType()
+
+    # Add typt stdlib print functions
+    environment['print_none'] = FunctionType((NoneType(),), NoneType())
+    environment['print_bool'] = FunctionType((BoolType(),), NoneType())
+    environment['print_int'] = FunctionType((IntType(),), NoneType())
+    environment['print_float'] = FunctionType((FloatType(),), NoneType())
+    environment['print_string'] = FunctionType((StringType(),), NoneType())
+    environment['print'] = FunctionType((StringType(),), NoneType())
+
+    # Add stdlib cast functions (*_to_bool)
+    environment['none_to_bool'] = FunctionType((NoneType(),), BoolType())
+    environment['bool_to_bool'] = FunctionType((BoolType(),), BoolType())
+    environment['int_to_bool'] = FunctionType((IntType(),), BoolType())
+    environment['float_to_bool'] = FunctionType((FloatType(),), BoolType())
+    environment['string_to_bool'] = FunctionType((StringType(),), BoolType())
+
+    # Add stdlib cast functions (*_to_int)
+    environment['none_to_int'] = FunctionType((NoneType(),), IntType())
+    environment['bool_to_int'] = FunctionType((BoolType(),), IntType())
+    environment['int_to_int'] = FunctionType((IntType(),), IntType())
+    environment['float_to_int'] = FunctionType((FloatType(),), IntType())
+    environment['string_to_int'] = FunctionType((StringType(),), IntType())
+
+    # Add stdlib cast functions (*_to_float)
+    environment['none_to_float'] = FunctionType((NoneType(),), FloatType())
+    environment['bool_to_float'] = FunctionType((BoolType(),), FloatType())
+    environment['int_to_float'] = FunctionType((IntType(),), FloatType())
+    environment['float_to_float'] = FunctionType((FloatType(),), FloatType())
+    environment['string_to_float'] = FunctionType((StringType(),), FloatType())
+
+    # Add stdlib cast functions (*_to_string)
+    environment['none_to_string'] = FunctionType((NoneType(),), StringType())
+    environment['bool_to_string'] = FunctionType((BoolType(),), StringType())
+    environment['int_to_string'] = FunctionType((IntType(),), StringType())
+    environment['float_to_string'] = FunctionType((FloatType(),), StringType())
+    environment['string_to_string'] = FunctionType((StringType(),), StringType())
+
+    # Add stdlib misc functions
+    environment['range'] = FunctionType(
+        (IntType(), IntType()), ListType(IntType())
+    )
 
     return environment
 
