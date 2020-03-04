@@ -6,13 +6,13 @@ def int_list_to_string(my_list: List[Int]) -> String:
     for i in my_list:
         return_value += int_to_string(i) + ', '
 
+    return_value += ']'
+
     # Uncomment to show error
     # i = 10
-
-    return_value += ']'
 
     return return_value
 
 
-as_string : String = int_list_to_string(range(0, 5))
-print(as_string)
+# Print list to show program execution
+print(int_list_to_string(range(0, 5)))
