@@ -28,10 +28,15 @@ class FuncDefNode(Node):
         # RULE 1
         func = is_invalid_type(self.func_signature.check_type(environment))
 
-        # RULE 2
         func_environment = environment.add_child_environment(
             'function', self.func_signature.name
         )
+
+        # Add parameters to scope
+        for parameter in self.func_signature.parameter_list:
+            func_environment[parameter.name] = parameter.type
+
+        # RULE 2
         suite = is_invalid_type(self.suite.check_type(func_environment))
 
         return InvalidType() if any([func, suite]) else Type()
