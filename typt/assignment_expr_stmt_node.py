@@ -2,6 +2,7 @@
 
 from typt.stmt_node import StmtNode
 from typt.test_node import TestNode
+from typt.test.expr_op_node import ExprOpNode
 
 from typt.codegen import indent
 from typt.environment import Environment
@@ -24,100 +25,28 @@ class AssignmentExprStmtNode(StmtNode):
 
     def check_type(self, environment: Environment) -> Type:
         """Return the type of the contained expression."""
-        # RULE LHS and RHS must be valid
-        # RULE a = b valid for b <: a
-        # RULE a O= b, for O in (+, -), valid when both are same base type
-        # RULE a O= b, for O in (*, /), valid if both Int or Float
+        # RULE op='=', lhs=A, rhs=B, where A == B => A
+        # RULE Apply ExprOpNode rules
+        # RULE Resulting type of ExprOpNode must be sub of lhs
 
-        # TODO Add this rule!!!!!!!
-        # RULE a *= b, valid for a=(Str|List|...) and b=Int
+        if self.assignment_type == '=':
+            lhs_type = self.lhs.check_type(environment)
+            rhs_type = self.rhs.check_type(environment)
+        else:
+            op = self.assignment_type.replace('=', '')
+            as_expr = ExprOpNode(op, self.lhs, self.rhs, meta=self.meta)
+            lhs_type = self.lhs.check_type(environment)
+            rhs_type = as_expr.check_type(environment)
 
-        # RULE a %= b, valid both Str or both Int
-        # RULE a B= b, for B in (&, |, ^), valid for both Bool or both Int
-        # RULE <<= and >>= only valid if both Int
-        # RULE **= valid for both Int OR LHS Float and RHS Number
-        # RULE //= valid for LHS Int and RHS Number
-        lhs_type = self.lhs.check_type(environment)
-        rhs_type = self.rhs.check_type(environment)
-
-        lhs_int, lhs_float = lhs_type == IntType(), lhs_type == FloatType()
-        rhs_int, rhs_float = rhs_type == IntType(), rhs_type == FloatType()
-        lhs_str, rhs_str = lhs_type == StringType(), rhs_type == StringType()
-        lhs_bool, rhs_bool = lhs_type == BoolType(), rhs_type == BoolType()
-
-        non_none_base_types = (
-            BoolType(), IntType(), FloatType(), StringType()
-        )
-
-        expr_stmt_type = InvalidType()
-
-        # Check RULE 1
-        if is_invalid_type(lhs_type) or is_invalid_type(rhs_type):
-            return InvalidType()
-
-        # Check RULE 2
-        if self.assignment_type == '=' and rhs_type == lhs_type:
-            expr_stmt_type = lhs_type
-
-        # Check RULE 3
-        if self.assignment_type in ('+=', '-='):
-            if rhs_type == lhs_type and lhs_type in non_none_base_types:
-                expr_stmt_type = lhs_type
-
-        # Check RULE 4
-        if self.assignment_type in ('*=', '/='):
-            if lhs_int and rhs_int:
-                expr_stmt_type = lhs_type
-            if lhs_float and rhs_float:
-                expr_stmt_type = lhs_type
-
-        # # Check RULE 5
-        # if self.assignment_type == '*=':
-        #     if lhs_type in repeatable_types and rhs_int:
-        #         expr_stmt_type = lhs_type
-
-        # Check RULE 5
-        if self.assignment_type == '%=':
-            if lhs_int and rhs_int:
-                expr_stmt_type = lhs_type
-            if lhs_str and rhs_str:
-                # TODO Extra check needed? For %c in lhs?
-                expr_stmt_type = lhs_type
-
-        # Check RULE 6
-        if self.assignment_type in ('&=', '|=', '^='):
-            if lhs_bool and rhs_bool:
-                expr_stmt_type = lhs_type
-            if lhs_int and rhs_int:
-                expr_stmt_type = lhs_type
-
-        # Check RULE 7
-        if self.assignment_type in ('<<=', '>>='):
-            if lhs_bool and rhs_bool:
-                expr_stmt_type = lhs_type
-
-        # Check RULE 8
-        if self.assignment_type == '**=':
-            if lhs_int and rhs_int:
-                expr_stmt_type = lhs_type
-            if lhs_float and (rhs_int or rhs_float):
-                expr_stmt_type = lhs_type
-
-        # Check RULE 9
-        if self.assignment_type == '//=':
-            if lhs_int and (rhs_int or rhs_float):
-                expr_stmt_type = lhs_type
-
-        # If the final type is invalid, inform the user
-        if is_invalid_type(expr_stmt_type):
-            operator = self.assignment_type
+        # If rhs is not a subtype of lhs, then invalid
+        if not rhs_type == lhs_type:
             return log_type_error(
-                f'unsuported types for {operator}: {lhs_type} and {rhs_type}',
+                f'cannot assign {rhs_type} to variable of type {lhs_type}',
                 environment.filename,
                 self.meta
             )
 
-        return expr_stmt_type
+        return lhs_type
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the Python3 code of this expression."""
