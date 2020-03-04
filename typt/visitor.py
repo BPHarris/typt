@@ -647,7 +647,7 @@ class Typt(TyptVisitor):
         # NOTE [1:] to skip lhs
         for rhs in ctx.xor_expr()[1:]:
             rhs = self.visitXor_expr(rhs)
-            lhs = ExprOpNode(ctx.op.text, lhs, rhs)
+            lhs = ExprOpNode(ctx.op.text, lhs, rhs, meta=get_metadata(ctx))
 
         return lhs
 
@@ -665,7 +665,7 @@ class Typt(TyptVisitor):
         # NOTE [1:] to skip lhs
         for rhs in ctx.and_expr()[1:]:
             rhs = self.visitAnd_expr(rhs)
-            lhs = ExprOpNode(ctx.op.text, lhs, rhs)
+            lhs = ExprOpNode(ctx.op.text, lhs, rhs, meta=get_metadata(ctx))
 
         return lhs
 
@@ -683,7 +683,7 @@ class Typt(TyptVisitor):
         # NOTE [1:] to skip lhs
         for rhs in ctx.shift_expr()[1:]:
             rhs = self.visitShift_expr(rhs)
-            lhs = ExprOpNode(ctx.op.text, lhs, rhs)
+            lhs = ExprOpNode(ctx.op.text, lhs, rhs, meta=get_metadata(ctx))
 
         return lhs
 
@@ -701,7 +701,7 @@ class Typt(TyptVisitor):
         # NOTE [1:] to skip lhs
         for op, rhs in zip(ctx.shift_op(), ctx.arith_expr()[1:]):
             rhs = self.visitArith_expr(rhs)
-            lhs = ExprOpNode(op.getText(), lhs, rhs)
+            lhs = ExprOpNode(op.getText(), lhs, rhs, meta=get_metadata(ctx))
 
         return lhs
 
@@ -723,7 +723,7 @@ class Typt(TyptVisitor):
         # NOTE [1:] to skip lhs
         for op, rhs in zip(ctx.arith_op(), ctx.term()[1:]):
             rhs = self.visitTerm(rhs)
-            lhs = ExprOpNode(op.getText(), lhs, rhs)
+            lhs = ExprOpNode(op.getText(), lhs, rhs, meta=get_metadata(ctx))
 
         return lhs
 
@@ -745,7 +745,7 @@ class Typt(TyptVisitor):
         # NOTE [1:] to skip lhs
         for op, rhs in zip(ctx.term_op(), ctx.factor()[1:]):
             rhs = self.visitFactor(rhs)
-            lhs = ExprOpNode(op.getText(), lhs, rhs)
+            lhs = ExprOpNode(op.getText(), lhs, rhs, meta=get_metadata(ctx))
 
         return lhs
 

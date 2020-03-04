@@ -13,11 +13,13 @@ from typt.environment import Environment
 class ExprOpNode(TestNode):
     """ExprOpNode AST node."""
 
-    def __init__(self, operator: str, lhs: TestNode, rhs: TestNode):
+    def __init__(self, operator: str, lhs: TestNode, rhs: TestNode, *args, **kwargs):
         """Set operator and operands."""
         self.operator = operator
         self.lhs = lhs
         self.rhs = rhs
+
+        super().__init__(*args, **kwargs)
 
     def check_type(self, environment: Environment) -> Type:
         """Check the type of the expression operation."""
