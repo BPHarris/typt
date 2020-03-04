@@ -621,7 +621,7 @@ class Typt(TyptVisitor):
         # NOTE [1:] to skip lhs
         for op, rhs in zip(ctx.comp_op(), ctx.expr()[1:]):
             rhs = self.visitExpr(rhs)
-            lhs = CompOpNode(op.getText(), lhs, rhs)
+            lhs = CompOpNode(op.getText(), lhs, rhs, meta=get_metadata(ctx))
 
         return lhs
 
