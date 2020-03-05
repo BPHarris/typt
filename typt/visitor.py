@@ -439,8 +439,6 @@ class Typt(TyptVisitor):
 
     def visitClass_def(self, ctx: TyptParser.Class_defContext) -> ClassNode:
         """Parse a class definition."""
-        # TODO: visitCompound_stmt returns StmtNode but ClassNode is sub of
-        #       Node. Change ClassNode or change visitCompund_stmt?
         name_super_pair = self.visitClass_dec(ctx.class_dec())
 
         # Handle the empty class
