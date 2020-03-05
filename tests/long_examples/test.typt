@@ -50,12 +50,12 @@ else:
     print('nufin')
 
 def test_func(arg: Bool) -> None:
-    y : List[Int] = list(Int)
+    y : List[Int] = new list(Int)
     for elem in y:
         elem = 1
     elem = 2
     y[4] += 1
-    return None
+    return
 
 # function: Function<Int, Int -> Float>
 def higher_order(arg: Int -> Int) -> Int:
@@ -71,8 +71,9 @@ class BClass(AClass):
     x : Int = 6
 
     def repr(self) -> String:
-        return 'B' + str(self.x)
-    
+        self.x += 1
+        return 'B' + int_to_string(self.x)
+
     @staticmethod
     def static() -> Int:
         return 4 + 2 * math.pi
