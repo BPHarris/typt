@@ -8,6 +8,7 @@ from typt.subscript_node import SubscriptNode
 
 from typt.codegen import indent
 from typt.environment import Environment
+from typt.typt_types import ObjectBaseType, ObjectType, FunctionType
 from typt.typt_types import Type, InvalidType, is_invalid_type, log_type_error
 
 from typing import Union, List
@@ -33,72 +34,119 @@ class AtomExprNode(TestNode):
 
     def check_type(self, environment: Environment) -> Type:
         """Check the type of an atom expression."""
-        # TODO this
-        # RULE Check atom type
         atom_type = self.atom.check_type(environment)
         if is_invalid_type(atom_type):
             return InvalidType()
 
-        # RULE When no trailers, resultant type is the type of atom
         if not self.trailer_list:
             return atom_type
 
-        # A) lhs.trailer
-        # RULE lhs must have an environment
-        # RULE trailer must exist in lhs
-        # RULE resultant type is the type of trailer in environment(lhs)
+        # RULE lhs.trailer, lhs has member trailer s.t. member : T => T
+        # RULE lhs[trailer], delegate to Subscript node
+        # RULE lhs(trailer), lhs : Object => Object.__init__(trailer)
+        # RULE lhs(trailer), lhs : Function => lhs(trailer)
 
-        # B) lhs[trailer]
-        # RULE lhs must be list/tuple/dict
-        # RULE if lhs is list/tuple, trailer must be int
-        # RULE if atim is dict[A -> B], trailer must be of type A
-        # HACK Assume only one trailer, assume always list
-        trailer = self.trailer_list[0]
-        if isinstance(trailer, SubscriptNode):
-            return atom_type.element_type
+        lhs_type = atom_type
+        for trailer in self.trailer_list:
+            # lhs.trailer
+            if isinstance(trailer, str):
+                if not lhs_type == ObjectType():
+                    return log_type_error(
+                        f'{lhs_type} has no member {trailer}',
+                        environment.filename,
+                        self.meta
+                    )
 
-        # C) lhs(trailer)
-        # RULE lhs must be function or method of class
-        # RULE trailer must match the function signature
-        # RULE resultant type is the return type of lhs in environment
-        # HACK Assume only one trailer, assume always function (not class, etc)
-        if isinstance(trailer, ArgumentListNode):
-            return atom_type.return_type
+                # Get member
+                member_type = lhs_type.get(trailer)
+                if not member_type:
+                    return log_type_error(
+                        f'{lhs_type} has no member {trailer}',
+                        environment.filename,
+                        self.meta
+                    )
 
-        # Check the above rules for each trailer
-        lhs = atom_type
-        # TODO How to do this, ONLY know the type of lhs in each iter
-        # for trailer in self.trailer_list:
-        #     # A) lhs.trailer
-        #     if isinstance(trailer, str):
-        #         lhs_source = lhs.codegen()
-        #         lhs_environment = environment.get(':' + lhs_source)
+                # Set new lhs to member
+                lhs_type = member_type
 
-        #         # RULE A.1
-        #         if not lhs_environment:
-        #             return log_type_error(
-        #                 f'lhs is not defined in current scope',
-        #                 environment.filename,
-        #                 self.meta
-        #             )
+            # lhs[trailer]
+            if isinstance(trailer, SubscriptNode):
+                _environment = environment.add_local_environment('subscript')
+                _environment['parent_type'] = lhs_type
 
-        #         # RULE A.2
-        #         if not environment.get(lhs_source + '.' + trailer):
-        #             return log_type_error(
-        #                 f'lhs has no member {trailer}',
-        #                 environment.filename,
-        #                 self.meta
-        #             )
+                # Delegate to SubscriptNode
+                element_type = trailer.check_type(_environment)
 
-        #         # RULE A.3
+                if is_invalid_type(element_type):
+                    return InvalidType()
 
-        #     # B) lhs[trailer]
-        #     if isinstance(trailer, SubscriptNode):
-        #         pass
+                # Set new lhs to the element type
+                lhs_type = element_type
 
-        #     # C) lhs(trailer)
-        #     if isinstance(trailer, ArgumentListNode):
-        #         pass
+            # lhs(trailer)
+            if isinstance(trailer, ArgumentListNode):
+                # lhs is object => type check with init => lhs_type' = lhs_type
+                if lhs_type == ObjectType():
+                    initialiser = lhs_type.get('__init__')
+
+                    if not initialiser:
+                        return log_type_error(
+                            f'object has no initialiser',
+                            environment.filename,
+                            self.meta
+                        )
+
+                    # Check arguments against initialiser
+                    if len(trailer.argument_list) != len(initialiser.parameters):
+                        return log_type_error(
+                            f'incorrect number of arguments for initialiser',
+                            environment.filename,
+                            self.meta
+                        )
+
+                    # Check argument types
+                    arguments = zip(trailer.argument_list, initialiser.parameters)
+                    for i, (received, expected_type) in enumerate(arguments):
+                        received_type = received.check_type(environment)
+
+                        if not received_type == expected_type:
+                            return log_type_error(
+                                f'argument {i} expected value of type '
+                                f'{expected_type}, received {received_type}',
+                                environment.filename,
+                                self.meta
+                            )
+
+                    # lhs remains the same
+                    lhs_type = lhs_type
+
+                # lhs is function => type check => lhs_type' = return_type
+                if isinstance(lhs_type, FunctionType):
+                    if len(trailer.argument_list) != len(lhs_type.parameters):
+                        return log_type_error(
+                            f'incorrect number of arguments for function {lhs_type}',
+                            environment.filename,
+                            self.meta
+                        )
+
+                    # Check argument types
+                    arguments = zip(trailer.argument_list, lhs_type.parameters)
+                    for i, (received, expected_type) in enumerate(arguments):
+                        received_type = received.check_type(environment)
+
+                        if not received_type == expected_type:
+                            return log_type_error(
+                                f'argument {i} expected value of type '
+                                f'{expected_type}, received {received_type}',
+                                environment.filename,
+                                self.meta
+                            )
+
+                    # All argument types are correct, lhs_type' = return_type
+                    lhs_type = lhs_type.return_type
+
+        # Return the final value of of lhs_type
+        return lhs_type
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Codegen for the atom expression."""
