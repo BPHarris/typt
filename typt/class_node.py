@@ -171,6 +171,8 @@ class ClassNode(Node):
 
         class_code = f'{indentation}class {self.class_name}'
         if self.class_super_name:
+            if self.class_super_name == 'Object':
+                self.class_super_name = 'object'
             class_code += f'({self.class_super_name})'
         class_code += f':\n{attributes}'
         class_code += f'\n{initialiser}'
