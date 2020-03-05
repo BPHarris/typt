@@ -1,0 +1,16 @@
+# User defined types example
+
+class Person:
+    name : String = ''
+    occupation : String = ''
+
+    def __init__(self, name : String, occupation : String):
+        self.name = name
+        self.occupation = occupation
+
+    def get_description(self) -> String:
+        return self.name + ', ' + self.occupation
+
+
+carl : Person = Person('Carl von Clausewitz', 'Major-General')
+print(carl.get_description())
