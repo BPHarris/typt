@@ -144,7 +144,6 @@ class AtomExprNode(TestNode):
                             function_parameters = lhs_type.parameters[1:]
 
                     if len(trailer.argument_list) != len(function_parameters):
-                        print(lhs_type)
                         return log_type_error(
                             f'incorrect number of arguments for function {lhs_type}',
                             environment.filename,
