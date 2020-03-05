@@ -131,10 +131,8 @@ def at_start_of_line(self):
 /*****************************************************************************/
 
 /* Global TODO */
-// TODO: Add list, tuple, dict, set, etc. defs as atoms i.e. [1, 2, 3] is an atom
 // TODO: Multi-line comments
 // TODO: Omit return type (i.e. no '-> type') as short-hand for '-> None'
-// TODO: Required/default parameters (i.e. 'arg : type' and 'arg : type = VALUE')
 
 /*****************************************************************************/
 
@@ -276,7 +274,6 @@ class_def
             ('def' initialiser='__init__' '(' 'self' (',' func_parameter_list)? ')' ':' suite)?
 
             // methods/static methods
-            // TODO: Are static methods viable with type system?
             (class_method | class_static_method)*
       DEDENT
     // the empty class
@@ -335,7 +332,6 @@ atom
     ;
 trailer: '(' (argument_list)? ')' | '[' subscriptlist ']' | '.' name;
 
-// subscriptlist: subscript (',' subscript)* (',')?;    # TODO Subscript list
 subscriptlist   : subscript ;
 subscript : element=test ;
 // subscript       : start_test=test | (start_test=test)? first_sc=':' (upto_test=test)? (step_test=sliceop)?;
@@ -365,7 +361,7 @@ typt_type
     | int_type          = 'Int'
     | float_type        = 'Float'
     | string_type       = 'String'
-    | object_base_type  = 'Object'  // TODO: Should this be exposed?
+    | object_base_type  = 'Object'
 
     /* Object Type */
     // Object type => [l_i : B_i] for i in 1..n
