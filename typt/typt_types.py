@@ -284,6 +284,13 @@ class ObjectType(Type):
 
         super().__init__()
 
+    def get(self, name: str, default: Type = None) -> Type:
+        """Return the type of the member with the given name."""
+        for pair in self.members:
+            if pair.name == name:
+                return pair.type
+        return default
+
     def __eq__(self, other) -> bool:
         """Check if the two are equivalent or if lhs (self) is a sub of rhs.
 
@@ -322,7 +329,6 @@ class ObjectType(Type):
 
     def __repr__(self) -> str:
         """Return string representation of an ObjectType."""
-        print(self.members)
         m_types = [m.name + ': ' + repr(m.type) for m in self.members]
 
         return super().__repr__() + '{' + ', '.join(m_types) + '}'
