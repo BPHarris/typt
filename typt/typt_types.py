@@ -351,6 +351,10 @@ class UserDefinedType(Type):
 
         super().__init__()
 
+    def get_object_type(self, environment) -> ObjectType:
+        """Return the ObjectType of the given this UDT."""
+        return environment.get(self.name)
+
     def __eq__(self, other) -> bool:
         """Cannot check equality outside of environment."""
         raise NotImplementedError(
