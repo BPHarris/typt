@@ -23,11 +23,13 @@ class VarRefNode(AtomNode):
             while environment.scope != 'class':
                 if not environment.parent:
                     log_type_error(
-                        'self outside class', environment.filename, self.meta
+                        'self not inside class',
+                        environment.filename,
+                        self.meta
                     )
                 environment = environment.parent
             # Get class type
-            class_name = environment.name[1:]   # HACK remove ':' from name
+            class_name = environment.name
             return environment.parent[class_name]
 
         # Standard var reference
