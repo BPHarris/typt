@@ -154,6 +154,16 @@ class TyptVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by TyptParser#class_operator.
+    def visitClass_operator(self, ctx:TyptParser.Class_operatorContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TyptParser#overridable_operator.
+    def visitOverridable_operator(self, ctx:TyptParser.Overridable_operatorContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by TyptParser#test.
     def visitTest(self, ctx:TyptParser.TestContext):
         return self.visitChildren(ctx)

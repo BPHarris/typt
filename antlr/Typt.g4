@@ -291,6 +291,14 @@ class_static_method
     : '@' 'staticmethod' NEWLINE
       ('def' name '(' func_parameter_list? ')' '->' typt_type ':' suite)
     ;
+class_operator
+    : '@' 'operator' NEWLINE
+      ('def' 'self' '(' operator=overridable_operator ')' other_type=typt_type '->' resultant_type=typt_type ':' suite)
+    ;
+// TODO Add more operators to overridable
+overridable_operator
+    : '==' | '!=' | '<' | '>' | '<=' | '>=' | '+' | '-' | '*' | '/' | '%' | '//'
+    ;
 
 
 /*****************************************************************************/
