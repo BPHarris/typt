@@ -10,29 +10,29 @@ from typt.typt_types import Type, IntType, FloatType, log_type_error
 class UnaryExprOpNode(TestNode):
     """UnaryExprOpNode AST node."""
 
-    def __init__(self, operator: str, lhs: TestNode, *args, **kwargs):
+    def __init__(self, operator: str, rhs: TestNode, *args, **kwargs):
         """Set operator and operands."""
         self.operator = operator
-        self.lhs = lhs
+        self.rhs = rhs
 
         super().__init__(*args, **kwargs)
 
     def check_type(self, environment: Environment) -> Type:
         """Check the type of the unary expression."""
-        # RULE +, lhs : T => T. For all T in {Int, Float}
-        # RULE -, lhs : T => T. For all T in {Int, Float}
-        # TODO ~
+        # RULE op='+', rhs : T => T. For all T in {Int, Float}
+        # RULE op='-', rhs : T => T. For all T in {Int, Float}
+        # RULE op='~', rhs
 
         # Check RULE 1 & 2 -- '+' & '-' operators
         if self.operator == '+' or self.operator == '-':
-            lhs_type = self.lhs.check_type(environment)
-            if not isinstance(lhs_type, (IntType, FloatType)):
+            rhs_type = self.rhs.check_type(environment)
+            if not isinstance(rhs_type, (IntType, FloatType)):
                 return log_type_error(
-                    f'unsuppported operator \'{self.operator}\' on {lhs_type}',
+                    f'unsuppported operator \'{self.operator}\' on {rhs_type}',
                     environment.filename,
                     self.meta
                 )
-            return lhs_type
+            return rhs_type
 
         return log_type_error(
             f'unsupported operator \'{self.operator}\'',
@@ -44,4 +44,4 @@ class UnaryExprOpNode(TestNode):
         """Return the Python3 code for the expression operation."""
         indentation = indent(indentation_level)
 
-        return f'{indentation}{self.operator}{self.lhs.codegen()}'
+        return f'{indentation}{self.operator}{self.rhs.codegen()}'
