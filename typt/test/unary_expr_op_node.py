@@ -21,14 +21,25 @@ class UnaryExprOpNode(TestNode):
         """Check the type of the unary expression."""
         # RULE op='+', rhs : T => T. For all T in {Int, Float}
         # RULE op='-', rhs : T => T. For all T in {Int, Float}
-        # RULE op='~', rhs
+        # RULE op='~', rhs : Int => Int
+
+        rhs_type = self.rhs.check_type(environment)
 
         # Check RULE 1 & 2 -- '+' & '-' operators
         if self.operator == '+' or self.operator == '-':
-            rhs_type = self.rhs.check_type(environment)
             if not isinstance(rhs_type, (IntType, FloatType)):
                 return log_type_error(
                     f'unsuppported operator \'{self.operator}\' on {rhs_type}',
+                    environment.filename,
+                    self.meta
+                )
+            return rhs_type
+
+        # Check RULE 3 -- '~'
+        if self.operator == '~':
+            if not isinstance(rhs_type, IntType):
+                return log_type_error(
+                    f'unsupported operator \'~\' on {rhs_type}',
                     environment.filename,
                     self.meta
                 )
