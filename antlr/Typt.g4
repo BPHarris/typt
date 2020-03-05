@@ -274,7 +274,7 @@ class_def
             ('def' initialiser='__init__' '(' 'self' (',' func_parameter_list)? ')' ':' suite)?
 
             // methods/static methods
-            (class_method | class_static_method)*
+            (class_method | class_static_method | class_operator)*
       DEDENT
     // the empty class
     | the_empty_class=class_dec ':' NEWLINE INDENT
