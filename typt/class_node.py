@@ -102,6 +102,18 @@ class ClassNode(Node):
                 self.class_initialiser.check_type(class_environment)
             )
 
+            # Add initialiser to class
+            params = [p.type for p in self.class_initialiser.func_signature.parameter_list]
+            environment[self.class_name].members.append(
+                NameTypePair(
+                    self.class_initialiser.func_signature.name,
+                    FunctionType(
+                        params,
+                        self.class_initialiser.func_signature.return_type
+                    )
+                )
+            )
+
         # RULE 5
         methods_invalid = list()
         for method in self.class_methods:
