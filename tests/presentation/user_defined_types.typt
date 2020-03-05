@@ -12,5 +12,13 @@ class Person:
         return self.name + ', ' + self.occupation
 
 
+def print_person(p : Person) -> None:
+    print(p.get_description())
+
+    # Uncomment to show type error
+    # print(p.non_existent_member)
+
+
+# Can also show type errors from wrong argument quantity/types
 carl : Person = Person('Carl von Clausewitz', 'Major-General')
-print(carl.get_description())
+print_person(carl)
