@@ -4,6 +4,7 @@ from typt.stmt_node import StmtNode
 from typt.test_node import TestNode
 
 from typt.codegen import indent
+from typt.typt_types import UserDefinedType
 from typt.typt_types import Type, is_invalid_type, log_type_error
 from typt.environment import Environment
 
@@ -42,23 +43,36 @@ class VarDecStmtNode(StmtNode):
                 self.meta
             )
 
+        # Get ObjectType if UDT
+        var_type = self.var_type
+        if isinstance(self.var_type, UserDefinedType):
+            var_type = self.var_type.get_object_type(environment)
+
+        # If UDT invalid, log error
+        if not var_type:
+            return log_type_error(
+                f'the user-defined type {var_type} is not in scope',
+                environment.filename,
+                self.meta
+            )
+
         # Check RULE 3
-        if is_invalid_type(self.var_type):
+        if is_invalid_type(var_type):
             return log_type_error(
                 'given variable type invalid', environment.filename, self.meta
             )
 
         # Check RULE 4
-        if not rhs_type == self.var_type:
+        if not rhs_type == var_type:
             return log_type_error(
-                f'mismatch between declared type ({self.var_type}) '
+                f'mismatch between declared type ({var_type}) '
                 f'and assigned type ({rhs_type})',
                 environment.filename,
                 self.meta
             )
 
         # Add variable to environment
-        environment[self.lhs] = self.var_type
+        environment[self.lhs] = var_type
 
         return environment[self.lhs]
 

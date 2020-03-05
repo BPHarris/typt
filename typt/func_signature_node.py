@@ -4,7 +4,8 @@ from typt.node import Node
 
 from typt.codegen import indent
 from typt.environment import Environment
-from typt.typt_types import is_invalid_type
+from typt.typt_types import UserDefinedType
+from typt.typt_types import is_invalid_type, log_type_error
 from typt.typt_types import NameTypePair, Type, InvalidType, FunctionType
 
 from typing import List
@@ -28,16 +29,44 @@ class FuncSignatureNode(Node):
 
         # RULE 1
         params_invalid = list()
+        parameter_list = list()
         for param in self.parameter_list:
-            params_invalid += [is_invalid_type(param.type)]
+            # Get ObjectType if UDT
+            param_type = param.type
+            if isinstance(param.type, UserDefinedType):
+                param_type = param.type.get_object_type(environment)
+
+            # If UDT invalid, log error
+            if not param_type:
+                return log_type_error(
+                    f'the user-defined type {param_type} is not in scope',
+                    environment.filename,
+                    self.meta
+                )
+
+            params_invalid += [is_invalid_type(param_type)]
+            parameter_list.append(NameTypePair(param.name, param_type))
 
         # RULE 2
         return_invalid = is_invalid_type(self.return_type)
 
+        # Get ObjectType if UDT
+        return_type = self.return_type
+        if isinstance(self.return_type, UserDefinedType):
+            return_type = self.return_type.get_object_type(environment)
+
+        # If UDT invalid, log error
+        if not return_type:
+            return log_type_error(
+                f'the user-defined type {return_type} is not in scope',
+                environment.filename,
+                self.meta
+            )
+
         # Add function to environment
         environment[self.name] = FunctionType(
-            [p.type for p in self.parameter_list],
-            self.return_type
+            [p.type for p in parameter_list],
+            return_type
         )
 
         # (Valid)Type iff all children are valid

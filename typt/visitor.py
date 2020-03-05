@@ -18,6 +18,7 @@ from typt.typt_types import SetType
 from typt.typt_types import DictType
 from typt.typt_types import FunctionType
 from typt.typt_types import ObjectType
+from typt.typt_types import UserDefinedType
 from typt.typt_types import is_int, is_float
 
 # Import Type AST nodes
@@ -445,13 +446,18 @@ class Typt(TyptVisitor):
         if ctx.the_empty_class:
             return ClassNode(name_super_pair, meta=get_metadata(ctx))
 
+        # Set self argument to add to initialiser/methods
+        self_argument = NameTypePair(
+            'self', UserDefinedType(name_super_pair.name)
+        )
+
         # Get initialiser, if has one
-        initialiser_parameters = list()
+        initialiser_parameters = [self_argument]
         initialiser_suite = None
         if ctx.initialiser:
             # Get parameters if there are any
             if ctx.func_parameter_list():
-                initialiser_parameters = self.visitFunc_parameter_list(
+                initialiser_parameters += self.visitFunc_parameter_list(
                     ctx.func_parameter_list()
                 )
             initialiser_suite = self.visitSuite(ctx.suite())
@@ -469,7 +475,13 @@ class Typt(TyptVisitor):
 
         # Add methods
         for method in ctx.class_method():
-            class_node.class_methods += [self.visitClass_method(method)]
+            method = self.visitClass_method(method)
+
+            # Add self argument for each method
+            method.func_signature.parameter_list = \
+                [self_argument] + method.func_signature.parameter_list
+
+            class_node.class_methods += [method]
 
         # Add static methods
         for static_method in ctx.class_static_method():
@@ -950,8 +962,6 @@ class Typt(TyptVisitor):
             )
 
         if ctx.user_defined_type:
-            raise NotImplementedError(
-                f'User-defined types not implemented. Unknown type {text}.'
-            )
+            return UserDefinedType(text)
 
         raise NotImplementedError(f'Illegal type \'{text}\'.')

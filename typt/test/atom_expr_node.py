@@ -8,6 +8,7 @@ from typt.subscript_node import SubscriptNode
 
 from typt.codegen import indent
 from typt.environment import Environment
+from typt.typt_types import UserDefinedType
 from typt.typt_types import ObjectBaseType, ObjectType, FunctionType
 from typt.typt_types import Type, InvalidType, is_invalid_type, log_type_error
 
@@ -50,6 +51,17 @@ class AtomExprNode(TestNode):
         for trailer in self.trailer_list:
             # lhs.trailer
             if isinstance(trailer, str):
+                # Get ObjectType of UDT if needed
+                if isinstance(lhs_type, UserDefinedType):
+                    old = lhs_type
+                    lhs_type = lhs_type.get_object_type(environment)
+                    if not lhs_type:
+                        return log_type_error(
+                            f'the user-defined type {old} is not in scope',
+                            environment.filename,
+                            self.meta
+                        )
+
                 if not lhs_type == ObjectType():
                     return log_type_error(
                         f'{lhs_type} has no member {trailer}',
@@ -96,8 +108,11 @@ class AtomExprNode(TestNode):
                             self.meta
                         )
 
+                    # HACK initialiser.parameters[1:] skips expected self
+                    initialiser_parameters = initialiser.parameters[1:]
+
                     # Check arguments against initialiser
-                    if len(trailer.argument_list) != len(initialiser.parameters):
+                    if len(trailer.argument_list) != len(initialiser_parameters):
                         return log_type_error(
                             f'incorrect number of arguments for initialiser',
                             environment.filename,
@@ -105,7 +120,7 @@ class AtomExprNode(TestNode):
                         )
 
                     # Check argument types
-                    arguments = zip(trailer.argument_list, initialiser.parameters)
+                    arguments = zip(trailer.argument_list, initialiser_parameters)
                     for i, (received, expected_type) in enumerate(arguments):
                         received_type = received.check_type(environment)
 
@@ -122,7 +137,14 @@ class AtomExprNode(TestNode):
 
                 # lhs is function => type check => lhs_type' = return_type
                 if isinstance(lhs_type, FunctionType):
-                    if len(trailer.argument_list) != len(lhs_type.parameters):
+                    # If first expected argument is self, skip is
+                    function_parameters = lhs_type.parameters
+                    if lhs_type.parameters:
+                        if isinstance(lhs_type.parameters[0], UserDefinedType):
+                            function_parameters = lhs_type.parameters[1:]
+
+                    if len(trailer.argument_list) != len(function_parameters):
+                        print(lhs_type)
                         return log_type_error(
                             f'incorrect number of arguments for function {lhs_type}',
                             environment.filename,
@@ -130,7 +152,7 @@ class AtomExprNode(TestNode):
                         )
 
                     # Check argument types
-                    arguments = zip(trailer.argument_list, lhs_type.parameters)
+                    arguments = zip(trailer.argument_list, function_parameters)
                     for i, (received, expected_type) in enumerate(arguments):
                         received_type = received.check_type(environment)
 
