@@ -1,2 +1,29 @@
 # Example of operator overriding
 # Money class based, loosely, on https://github.com/carlospalol/money
+
+class Decimal:
+    value : Float = 0.0
+
+    def __init__(self, value : Float):
+        self.value = value
+
+    # def self (+) Int -> Decimal:
+    #     pass
+
+
+class Money:
+    amount : Decimal = Decimal(0.0)
+    currency : String = ''
+
+    def __init__(self, amount : Float, currency : String):
+        self.amount = Decimal(amount)
+        self.currency = currency
+
+
+def print_money(m : Money) -> None:
+    print(m.currency + ' ' + float_to_string(m.amount.value))
+
+
+# Showcase operator overriding
+example : Money = Money(44.0, 'GBP')
+print_money(example)
