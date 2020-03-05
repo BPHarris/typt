@@ -62,7 +62,7 @@ from typt.test.var_ref_node import VarRefNode
 from typt.test.literal_node import LiteralNode
 from typt.subscript_node import SubscriptNode
 
-from typing import Iterable, List
+from typing import Iterable, List, Union
 
 
 # HACK ANTLR's Context::getText() returns the repr of each token without
@@ -270,7 +270,7 @@ class Typt(TyptVisitor):
         # 'Empty' return statement
         return ReturnStmtNode(meta=get_metadata(ctx))
 
-    def visitCompound_stmt(self, ctx: TyptParser.Compound_stmtContext) -> StmtNode:
+    def visitCompound_stmt(self, ctx: TyptParser.Compound_stmtContext) -> Union[StmtNode, ClassNode]:
         """Visit `compound_stmt' rule.
 
         Args:
