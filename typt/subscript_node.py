@@ -3,8 +3,8 @@
 from typt.node import Node
 from typt.test_node import TestNode
 
-from typt.typt_types import Type, ListType, TupleType, DictType, IntType
-from typt.typt_types import log_type_error, is_invalid_type, is_int
+from typt.typt_types import Type, ListType, TupleType, DictType, StringType
+from typt.typt_types import log_type_error, is_invalid_type, is_int, IntType
 from typt.environment import Environment
 
 from typing import Union
@@ -34,14 +34,15 @@ class SubscriptNode(Node):
         """
         # RULE Index must be valid
         # RULE Subscript must occur in the scope that it is expected
-        # RULE Parent type must be List, Tuple, Dict
+        # RULE Parent type must be List, Tuple, Dict, String
         # RULE For parent ListType<T>, Index : IntType, result is T
         # RULE For parent TupleType<T_i for 0..n>, Index: IntType,
         #       0 <= Index <= n, result is T_m where m = Index
         # RULE For parent DictType<K, V>, Index : K, result is V
+        # RULE For parent String, Index : Int, result is String
 
         # Check RULE 1
-        index_type = self.index.check_type()
+        index_type = self.index.check_type(environment)
         if is_invalid_type(index_type):
             return log_type_error(
                 'index of invalid type', environment.filename, self.meta
@@ -99,6 +100,14 @@ class SubscriptNode(Node):
                     self.meta
                 )
             return parent_type.value_type
+
+        # Checl RULE 7 -- String, Index : Int => String
+        if isinstance(parent_type, StringType):
+            if not isinstance(index_type, IntType):
+                return log_type_error(
+                    'string index must be int', environment.filename, self.meta
+                )
+            return StringType()
 
         # Check RULE 3
         return log_type_error(
