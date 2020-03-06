@@ -2,6 +2,7 @@
 
 from typt.node import Node
 
+from typt.class_operator_method_node import ClassOperatorMethodNode
 from typt.class_initialiser_node import ClassInitialiserNode
 from typt.class_method_node import ClassMethodNode
 
@@ -36,8 +37,9 @@ class ClassNode(Node):
                 init_suite
             )
 
-        self.class_methods = list()         # type: List[ClassMethodNode]
-        self.class_static_methods = list()  # typt: ...
+        self.class_methods = list()             # type: List[ClassMethodNode]
+        self.class_static_methods = list()      # type: List[ClassStaticMethodNode]
+        self.class_operators_methods = list()   # type: List[ClassOperatorMethodNode]
 
         super().__init__(*args, **kwargs)
 
@@ -49,6 +51,7 @@ class ClassNode(Node):
         # RULE Initialiser is valid
         # RULE Methods are valid
         # RULE Class static methods are valid
+        # RULE Class operator methods are valid
 
         # RULE 1
         if environment.get(self.class_name):
@@ -140,6 +143,16 @@ class ClassNode(Node):
                 is_invalid_type(method.check_type(class_environment.parent))
             ]
 
+        # RULE 7
+        for operator_method in self.class_operators_methods:
+            operator_type = operator_method.check_type(class_environment)
+            methods_invalid += [is_invalid_type(operator_type)]
+
+            # Add operator to class type
+            environment[self.class_name].members.append(
+                NameTypePair(operator_method.method_name, operator_type)
+            )
+
         # (Valid)Type iff all children are valid
         children_invalid = attributes_invalid + methods_invalid
         children_invalid += [initialiser_invalid]
@@ -169,6 +182,11 @@ class ClassNode(Node):
             [m.codegen(indentation_level + 1) for m in self.class_static_methods]
         )
 
+        # Get class operators
+        operator_methods = '\n'.join(
+            [o.codegen(indentation_level + 1) for o in self.class_operators_methods]
+        )
+
         class_code = f'{indentation}class {self.class_name}'
         if self.class_super_name:
             if self.class_super_name == 'Object':
@@ -178,5 +196,6 @@ class ClassNode(Node):
         class_code += f'\n{initialiser}'
         class_code += f'\n{methods}'
         class_code += f'\n{static_methods}'
+        class_code += f'\n{operator_methods}'
 
         return class_code

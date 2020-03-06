@@ -48,6 +48,7 @@ from typt.for_stmt_node import ForStmtNode
 from typt.class_node import ClassNode
 from typt.class_method_node import ClassMethodNode
 from typt.class_static_method_node import ClassStaticMethodNode
+from typt.class_operator_method_node import ClassOperatorMethodNode
 
 from typt.suite_node import SuiteNode
 
@@ -447,9 +448,8 @@ class Typt(TyptVisitor):
             return ClassNode(name_super_pair, meta=get_metadata(ctx))
 
         # Set self argument to add to initialiser/methods
-        self_argument = NameTypePair(
-            'self', UserDefinedType(name_super_pair.name)
-        )
+        self_type = UserDefinedType(name_super_pair.name)
+        self_argument = NameTypePair('self', self_type)
 
         # Get initialiser, if has one
         initialiser_parameters = [self_argument]
@@ -486,8 +486,16 @@ class Typt(TyptVisitor):
         # Add static methods
         for static_method in ctx.class_static_method():
             class_node.class_static_methods += [
-                self.visitClass_static_method(method)
+                self.visitClass_static_method(static_method)
             ]
+
+        # Add operator methods
+        for operator_method in ctx.class_operator():
+            operator_method = self.visitClass_operator(
+                operator_method, self_type
+            )
+            operator_method.self_type = self_type
+            class_node.class_operators_methods += [operator_method]
 
         return class_node
 
@@ -526,7 +534,7 @@ class Typt(TyptVisitor):
             meta=get_metadata(ctx)
         )
 
-    def visitClass_static_method(self, ctx: TyptParser.Class_static_methodContext) -> None:
+    def visitClass_static_method(self, ctx: TyptParser.Class_static_methodContext) -> ClassStaticMethodNode:
         """Return a static class method."""
         # Function (method) signature
         function_signature = FuncSignatureNode(
@@ -546,6 +554,20 @@ class Typt(TyptVisitor):
         return ClassStaticMethodNode(
             function_signature,
             method_suite,
+            meta=get_metadata(ctx)
+        )
+
+    def visitClass_operator(self, ctx: TyptParser.Class_operatorContext, self_type: UserDefinedType) -> ClassOperatorMethodNode:
+        """Return a class operator method."""
+        operator = ctx.operator.getText()
+        lhs_type = self_type
+        rhs_type = self.visitTypt_type(ctx.other_type)
+        resultant_type = self.visitTypt_type(ctx.resultant_type)
+
+        suite = self.visitSuite(ctx.suite())
+
+        return ClassOperatorMethodNode(
+            lhs_type, operator, rhs_type, resultant_type, suite,
             meta=get_metadata(ctx)
         )
 

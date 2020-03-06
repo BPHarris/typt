@@ -10,6 +10,7 @@ from typt.environment import Environment
 from typt.typt_types import InvalidType, Type, is_invalid_type, log_type_error
 from typt.typt_types import NoneType, BoolType, IntType, FloatType, StringType
 from typt.typt_types import ListType, TupleType, SetType, DictType
+from typt.typt_types import UserDefinedType
 
 
 class AssignmentExprStmtNode(StmtNode):
@@ -20,6 +21,8 @@ class AssignmentExprStmtNode(StmtNode):
         self.lhs = lhs
         self.assignment_type = assignment_type
         self.rhs = rhs
+
+        self.operator_method = ''
 
         super().__init__(*args, **kwargs)
 
@@ -34,9 +37,23 @@ class AssignmentExprStmtNode(StmtNode):
             rhs_type = self.rhs.check_type(environment)
         else:
             op = self.assignment_type.replace('=', '')
+
             as_expr = ExprOpNode(op, self.lhs, self.rhs, meta=self.meta)
+            as_expr.check_type(environment)
+            self.operator_method = as_expr.operator_method
+
             lhs_type = self.lhs.check_type(environment)
             rhs_type = as_expr.check_type(environment)
+
+        # User Defined Type support
+        if isinstance(rhs_type, UserDefinedType):
+            rhs_type = rhs_type.get_object_type(environment)
+            if not rhs_type:
+                log_type_error(
+                    f'the user-defined type {rhs_type} is not in scope',
+                    environment.filename,
+                    self.meta
+                )
 
         # If rhs is not a subtype of lhs, then invalid
         if not rhs_type == lhs_type:
@@ -50,9 +67,12 @@ class AssignmentExprStmtNode(StmtNode):
 
     def codegen(self, indentation_level: int = 0) -> str:
         """Return the Python3 code of this expression."""
-        operator = self.assignment_type
+        indentation = indent(indentation_level)
 
+        operator = self.assignment_type
         lhs = self.lhs.codegen()
         rhs = self.rhs.codegen()
 
-        return f'{indent(indentation_level)}{lhs} {operator} {rhs}\n'
+        if not self.operator_method:
+            return f'{indentation}{lhs} {operator} {rhs}\n'
+        return f'{indentation}{lhs} = {lhs}.{self.operator_method}({rhs})'

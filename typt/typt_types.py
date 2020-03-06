@@ -357,9 +357,9 @@ class UserDefinedType(Type):
 
     def __eq__(self, other) -> bool:
         """Cannot check equality outside of environment."""
-        raise NotImplementedError(
-            'Cannot evaulate user-defined type outside of an environment.'
-        )
+        if isinstance(other, UserDefinedType):
+            return self.name == other.name
+        return False
 
     def __repr__(self) -> str:
         """Return string representation of a UserDefinedType."""

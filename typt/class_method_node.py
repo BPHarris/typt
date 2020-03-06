@@ -1,4 +1,4 @@
-"""class_method_node.py - holds the AST node for a class method."""
+"""class_method_node.py -- holds the AST node for a class method."""
 
 from typt.func_def_node import FuncDefNode
 

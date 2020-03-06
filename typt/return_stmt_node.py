@@ -7,7 +7,7 @@ from typt.test.literal_node import LiteralNode
 
 from typt.codegen import indent
 from typt.environment import Environment
-from typt.typt_types import Type, NoneType, log_type_error
+from typt.typt_types import Type, NoneType, UserDefinedType, log_type_error
 
 
 class ReturnStmtNode(StmtNode):
@@ -55,11 +55,35 @@ class ReturnStmtNode(StmtNode):
         if not self.return_value:
             self.return_value = LiteralNode(NoneType(), 'None', meta=self.meta)
 
-        # Check RULE -- return value type must match expected return type
         return_type = self.return_value.check_type(environment)
-        if not return_type == function_type.return_type:
+
+        # Check for UDT -- Expected type
+        function_return_type = function_type.return_type
+        if isinstance(function_return_type, UserDefinedType):
+            old = function_return_type
+            function_return_type = function_return_type.get_object_type(environment)
+            if not function_return_type:
+                log_type_error(
+                    f'expected return type not defined in the current scope',
+                    environment.filename,
+                    self.meta
+                )
+
+        # Check for UDT -- Received type
+        if isinstance(return_type, UserDefinedType):
+            old = return_type
+            return_type = return_type.get_object_type(environment)
+            if not return_type:
+                log_type_error(
+                    f'received return type not defined in the current scope',
+                    environment.filename,
+                    self.meta
+                )
+
+        # Check RULE -- return value type must match expected return type
+        if not return_type == function_return_type:
             return log_type_error(
-                f'return statement expected {function_type.return_type}, '
+                f'return statement expected {function_return_type}, '
                 f'received {return_type}',
                 environment.filename,
                 self.meta

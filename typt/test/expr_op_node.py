@@ -5,9 +5,13 @@ Expressions are binary operations (grammar: or_expr to term, inclusive).
 
 from typt.test_node import TestNode
 
+from typt.class_operator_method_node import get_operator_method
+
 from typt.codegen import indent
 from typt.environment import Environment
-from typt.typt_types import Type, BoolType, IntType, FloatType, StringType, log_type_error
+from typt.typt_types import log_type_error, is_invalid_type
+from typt.typt_types import Type, ObjectType, UserDefinedType
+from typt.typt_types import BoolType, IntType, FloatType, StringType
 
 
 class ExprOpNode(TestNode):
@@ -18,6 +22,8 @@ class ExprOpNode(TestNode):
         self.operator = operator
         self.lhs = lhs
         self.rhs = rhs
+
+        self.operator_method = ''
 
         super().__init__(*args, **kwargs)
 
@@ -67,22 +73,11 @@ class ExprOpNode(TestNode):
             # lhs=Int, rhs=Int => Int
             if isinstance(lhs_type, IntType) and isinstance(rhs_type, IntType):
                 return IntType()
-            # Otherwise, error
-            return log_type_error(
-                f'no operator {self.operator} for {lhs_type} and {rhs_type}',
-                environment.filename,
-                self.meta
-            )
 
         # Check RULEs for arithmetic shift operators
         if self.operator in arithmetic_shift_operators:
             if isinstance(lhs_type, IntType) and isinstance(rhs_type, IntType):
                 return IntType()
-            return log_type_error(
-                f'no operator {self.operator} for {lhs_type} and {rhs_type}',
-                environment.filename,
-                self.meta
-            )
 
         # Check RULE for string concatination
         if self.operator == '+':
@@ -105,36 +100,41 @@ class ExprOpNode(TestNode):
                 # lhs=A, rhs=B, where A, B in Numeric and A =/= B => Float
                 if lhs_type != rhs_type:
                     return FloatType()
-            return log_type_error(
-                f'no operator {self.operator} for {lhs_type} and {rhs_type}',
-                environment.filename,
-                self.meta
-            )
 
         # Check RULEs for '/' operator
         # lhs=A, rhs=B, where A, B in Numeric => Float
         if self.operator == '/':
             if isinstance(lhs_type, numeric) and isinstance(rhs_type, numeric):
                 return FloatType()
-            return log_type_error(
-                f'no operator {self.operator} for {lhs_type} and {rhs_type}',
-                environment.filename,
-                self.meta
-            )
 
         # Check RULES for '//' operator
         # op='//', lhs=A, rhs=A, where A in Numeric => Int
         if self.operator == '//':
             if isinstance(lhs_type, numeric) and isinstance(rhs_type, numeric):
                 return IntType()
-            return log_type_error(
-                f'no operator {self.operator} for {lhs_type} and {rhs_type}',
-                environment.filename,
-                self.meta
-            )
+
+        # Check for user implemented operator
+        if isinstance(lhs_type, ObjectType):
+            operator_method, return_type = get_operator_method(
+                self.operator, lhs_type, rhs_type, environment)
+            if not is_invalid_type(return_type):
+                self.operator_method = operator_method
+
+                # Get ObjectType from UDT
+                if isinstance(return_type, UserDefinedType):
+                    old = return_type
+                    return_type = return_type.get_object_type(environment)
+                    if not return_type:
+                        return log_type_error(
+                            f'the type {old.name} does not exist in current scope',
+                            environment.filename,
+                            self.meta
+                        )
+
+                return return_type
 
         return log_type_error(
-            f'unsupported operator {self.operator}',
+            f'no operator {self.operator} for {lhs_type} and {rhs_type}',
             environment.filename,
             self.meta
         )
@@ -146,4 +146,6 @@ class ExprOpNode(TestNode):
         lhs = self.lhs.codegen()
         rhs = self.rhs.codegen()
 
-        return f'{indentation}{lhs} {self.operator} {rhs}'
+        if not self.operator_method:
+            return f'{indentation}{lhs} {self.operator} {rhs}'
+        return f'{indentation}{lhs}.{self.operator_method}({rhs})'
