@@ -13,7 +13,7 @@ class Person:
 
 
 def print_person(p : Person) -> None:
-    print(p.get_description())
+    print('Person: ' + p.get_description())
 
     # Uncomment to show type error
     # print(p.non_existent_member)
