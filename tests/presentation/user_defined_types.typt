@@ -1,5 +1,9 @@
 # User defined types example
 
+using:
+    random() -> Float
+from random
+
 class Person:
     name : String = ''
     occupation : String = ''
@@ -14,6 +18,10 @@ class Person:
 
 def print_person(p : Person) -> None:
     print('Person: ' + p.get_description())
+
+    # Swap commented lines to show type error
+    print('Personal Lottery Number: ' + float_to_string(random()))
+    # print('Personal Lottery Number: ' + random())
 
     # Uncomment to show type error
     # print(p.non_existent_member)
