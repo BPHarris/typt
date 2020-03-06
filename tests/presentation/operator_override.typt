@@ -7,8 +7,12 @@ class Decimal:
     def __init__(self, value : Float):
         self.value = value
 
-    # def self (+) Int -> Decimal:
-    #     pass
+    def test(self, s : String) -> String:
+        return ''
+
+    @operator
+    def self (+) Int -> Decimal:
+        return Decimal(self.value + int_to_float(other))
 
 
 class Money:
@@ -24,6 +28,17 @@ def print_money(m : Money) -> None:
     print(m.currency + ' ' + float_to_string(m.amount.value))
 
 
+def print_decimal(d: Decimal) -> None:
+    print('Decimal(\'' + float_to_string(d.value) + '\')')
+
+
 # Showcase operator overriding
 example : Money = Money(44.0, 'GBP')
 print_money(example)
+
+print_decimal(example.amount)
+
+print_decimal(example.amount + 4)
+
+# Uncomment to show expected type error
+# print_decimal(example.amount + 4.3)
