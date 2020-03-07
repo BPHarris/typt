@@ -7,5 +7,5 @@ my_string : String = 'string' + 34.2
 
 # Scope error
 for i in range(0, 10):
-    print(int_to_str(i))
+    print(int_to_string(i))
 final_i : Int = i
