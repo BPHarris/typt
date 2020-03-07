@@ -5,13 +5,11 @@ from decimal import Decimal
 def main():
     user_balance = Money(0.0, 'GBP')
 
-    # Give the user £10 and display balance
-    user_balance.amount = user_balance.amount + 10
-    print('Your balance:', user_balance.amount)
+    # Example 1: Adding integer
+    print('Your balance + £10:', user_balance.amount + 10)
 
-    # The user cashes a cheque and display new balance
-    user_balance.amount = user_balance.amount + 3.75
-    print('Cheque cashed, new balance:', user_balance.amount)
+    # Example 2: Adding float
+    print('Your balance + £3.75:', user_balance.amount + 3.75)
 
 
 if __name__ == '__main__':
