@@ -1,0 +1,19 @@
+# Presentation example higher-order functions
+
+
+# Switch comment functions to show type error
+def higher_order(i : Int) -> Int:
+    return 5 * i
+
+
+# def higher_order(i : Int) -> Float:
+#     return int_to_float(5 * i)
+
+
+def repeat(f : Function<Int -> Int>) -> None:
+    for i in range(0, 5):
+        print_int(f(i))
+
+
+# Print list to show program execution
+repeat(higher_order)
